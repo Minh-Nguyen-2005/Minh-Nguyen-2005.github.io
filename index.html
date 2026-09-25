@@ -1,31 +1,440 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Hello World</title>
-</head>
-
-<body>
-  <h1>Hello World!</h1>
-
-  <p>This is my first cs52 website.</p>
-
-  <img
-    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
-    alt="Nature"
-    width="300"
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyFashionSpace | Beauty &amp; Fashion Financial Intelligence</title>
+  <meta
+    name="description"
+    content="Meet MyFashionSpace: financial intelligence for beauty, fashion, and modeling. Follow news, markets, company financials, and deals. Join the early-access list."
   />
 
-  <p>
-    Visit
-    <a href="https://www.google.com">Google</a>
-  </p>
+  <!-- Social preview copy -->
+  <meta property="og:title" content="Where finance becomes fierce." />
+  <meta
+    property="og:description"
+    content="Your next research space for the business of beauty, fashion, and modeling."
+  />
+  <meta property="og:type" content="website" />
 
-  <h2>Things I like:</h2>
+  <!-- Required feature: Google Fonts. Display type is IvyOra Display Light,
+       an Ivy Foundry licence that cannot be linked from here, so Cormorant
+       Light is loaded behind it for anyone without it. Cormorant is the display
+       cut of that family, drawn for large sizes — Cormorant Garamond is its
+       text cut — and it shares the fine hairlines and old-style axis of IvyOra,
+       a Dutch Old Face revival.
+       Libre Franklin ExtraLight sets the body copy, and Pinyon Script stands in
+       for Classic Script MN on the accent phrases — Classic Script MN is an
+       Adobe Fonts licence, so it cannot be linked from here. See the README. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Libre+Franklin:wght@200;300;400&family=Pinyon+Script&display=swap"
+    rel="stylesheet"
+  />
 
-  <ul>
-    <li>Web development</li>
-    <li>Finance</li>
-    <li>Fashion</li>
-  </ul>
+  <!-- Required feature: Font Awesome icons, CSS build so the page stays JS-free. -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Required feature: expanding background image. This top-level element
+       carries it at background-size: cover, so it grows with the viewport, and
+       it is fixed so the backdrop holds still while the page scrolls — on
+       phones too, where background-attachment: fixed fails. -->
+  <div class="cover" aria-hidden="true"></div>
+
+  <header id="site-header">
+    <p id="announcement-bar">
+      <i class="fa-solid fa-star" aria-hidden="true"></i>
+      <span>A new era of chic finance is getting dressed.</span>
+      <i class="fa-solid fa-star" aria-hidden="true"></i>
+    </p>
+
+    <!-- Required feature: responsive nav — a flex row here, swapped out for
+         nav.mobile below 640px. -->
+    <nav class="site-nav desktop" id="main-nav">
+      <div class="nav-brand">
+        <a href="#" class="brand-link">MyFashionSpace</a>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#">The Platform</a></li>
+        <li><a href="#">Our Coverage</a></li>
+        <li><a href="#">The Daily Edit</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#" class="nav-icon" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="nav-icon" aria-label="Your account">
+          <i class="fa-regular fa-user" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="nav-cta">Get Early Access</a>
+      </div>
+    </nav>
+
+    <!-- Required feature: hamburger menu via the pure-CSS checkbox hack, no JS.
+         The checkbox comes first so `:checked ~ .mobile-menu` can reach the panel. -->
+    <nav class="site-nav mobile" id="mobile-nav">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+      <div class="mobile-bar">
+        <a href="#" class="brand-link">MyFashionSpace</a>
+        <label for="nav-toggle" class="hamburger" aria-label="Open the menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </label>
+      </div>
+
+      <div class="mobile-menu">
+        <ul class="mobile-links">
+          <li><a href="#">The Platform</a></li>
+          <li><a href="#">Our Coverage</a></li>
+          <li><a href="#">The Daily Edit</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <a href="#" class="nav-cta">Get Early Access</a>
+        <p class="mobile-tagline">Fashion-first financial intelligence.</p>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section id="hero" aria-labelledby="hero-heading">
+      <!-- Camera-flash glints sprinkled round the edges of the frame. Each is a
+           CSS-drawn four-point star with its own bloom; none carry text. -->
+      <div class="glints" aria-hidden="true">
+        <span class="glint g1"></span><span class="glint g2"></span>
+        <span class="glint g3"></span><span class="glint g4"></span>
+        <span class="glint g5"></span><span class="glint g6"></span>
+        <span class="glint g7"></span><span class="glint g8"></span>
+        <span class="glint g9"></span><span class="glint g10"></span>
+        <span class="glint g11"></span><span class="glint g12"></span>
+      </div>
+
+      <div class="hero-shell">
+        <div class="hero-content">
+          <p class="eyebrow">
+            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+            High gloss. Deep research.
+          </p>
+          <h1 id="hero-heading">Where finance becomes <em>fierce.</em></h1>
+          <p class="hero-body">
+            We&rsquo;re building a financial intelligence platform for the people behind
+            beauty, fashion, and modeling deals. Connect the headlines, company financials,
+            market moves, and valuations that shape your next investment view&mdash;all in
+            one space.
+          </p>
+
+          <!-- Required feature: non-functional sign-up input + CTA button, a flex
+               row that stacks into a column on mobile. -->
+          <form id="hero-signup" class="signup-form" action="#">
+            <label for="hero-email">Email address</label>
+            <div class="signup-row">
+              <input
+                type="email"
+                id="hero-email"
+                name="email"
+                placeholder="you@company.com"
+                required
+              />
+              <button type="submit" class="btn-primary">
+                Get on the List
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+            <p class="form-helper">Be first to hear when early access opens. Unsubscribe anytime.</p>
+          </form>
+
+          <a href="#" class="secondary-link">
+            Take a First Look
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coverage strip: the five beats the platform follows.
+         Required feature: highlights in the body (see .feature-grid/.edit-grid too). -->
+    <section id="coverage" class="coverage-strip" aria-labelledby="coverage-heading">
+      <h2 id="coverage-heading" class="section-title">Your world. <em>In focus.</em></h2>
+      <ul class="coverage-list">
+        <li>
+          <i class="fa-solid fa-spray-can-sparkles" aria-hidden="true"></i>
+          <span>Beauty &amp; Fragrance</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-shirt" aria-hidden="true"></i>
+          <span>Fashion &amp; Apparel</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-gem" aria-hidden="true"></i>
+          <span>Luxury &amp; Accessories</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+          <span>Retail &amp; Resale</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-camera-retro" aria-hidden="true"></i>
+          <span>Modeling &amp; Talent</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Platform introduction: four feature-group previews. -->
+    <section id="platform" class="platform-intro section-light" aria-labelledby="platform-heading">
+      <div class="section-head">
+        <h2 id="platform-heading" class="section-title">A little sparkle. <em>A lot of substance.</em></h2>
+        <p class="section-lede">
+          A campaign gets attention. Earnings reveal the economics. A deal changes the
+          landscape. <span class="brandmark">MyFashionSpace</span> connects the stories and numbers behind the brands you
+          follow.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card" id="front-row">
+          <span class="feature-icon"><i class="fa-solid fa-newspaper" aria-hidden="true"></i></span>
+          <h3>The Front Row</h3>
+          <p class="feature-subheading">The headlines. The context. The next catalyst.</p>
+          <p>
+            Follow earnings, product launches, leadership changes, and fashion&rsquo;s
+            biggest moments. Connect each story to the companies and business questions
+            that matter to your coverage.
+          </p>
+          <ul class="feature-links">
+            <li><a href="#">News &amp; Analysis</a></li>
+            <li><a href="#">Earnings Calendar</a></li>
+            <li><a href="#">Fashion Week &amp; Industry Events</a></li>
+            <li><a href="#">Consumer Trends</a></li>
+            <li><a href="#">Brand &amp; Leadership Moves</a></li>
+          </ul>
+        </article>
+
+        <article class="feature-card" id="market-mirror">
+          <span class="feature-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span>
+          <h3>The Market Mirror</h3>
+          <p class="feature-subheading">See what&rsquo;s moving beneath the sparkle.</p>
+          <p>
+            Explore price and volume charts, reported trading activity, and peer
+            valuations. Compare sales growth and margins, then examine credit yields,
+            leverage, and upcoming debt maturities where data is available.
+          </p>
+          <ul class="feature-links">
+            <li><a href="#">Stocks, Charts &amp; Trading Activity</a></li>
+            <li><a href="#">Valuation Comparables</a></li>
+            <li><a href="#">Credit &amp; Bond Monitor</a></li>
+            <li><a href="#">Sales &amp; Margin Trends</a></li>
+            <li><a href="#">Watchlists &amp; Alerts</a></li>
+          </ul>
+        </article>
+
+        <article class="feature-card" id="under-the-label">
+          <span class="feature-icon"><i class="fa-solid fa-building-columns" aria-hidden="true"></i></span>
+          <h3>Under the Label</h3>
+          <p class="feature-subheading">Every brand has a business story.</p>
+          <p>
+            Go from the name on the label to the company behind it. Explore ownership,
+            financial statements, filings, business segments, and the drivers of revenue,
+            profitability, and cash flow.
+          </p>
+          <ul class="feature-links">
+            <li><a href="#">Company &amp; Brand Profiles</a></li>
+            <li><a href="#">Financial Statements &amp; Filings</a></li>
+            <li><a href="#">Ownership &amp; Brand Portfolios</a></li>
+            <li><a href="#">Business &amp; Segment Analysis</a></li>
+            <li><a href="#">Talent &amp; Agency Profiles</a></li>
+          </ul>
+        </article>
+
+        <article class="feature-card" id="deal-room">
+          <span class="feature-icon"><i class="fa-solid fa-handshake" aria-hidden="true"></i></span>
+          <h3>The Deal Room</h3>
+          <p class="feature-subheading">Follow the money behind the moment.</p>
+          <p>
+            Track acquisitions, funding rounds, IPOs, brand sales, and agency
+            transactions. Compare disclosed deal terms and valuation multiples, and
+            distinguish what&rsquo;s announced from what&rsquo;s completed.
+          </p>
+          <ul class="feature-links">
+            <li><a href="#">M&amp;A &amp; Brand Acquisitions</a></li>
+            <li><a href="#">Funding &amp; IPOs</a></li>
+            <li><a href="#">Transaction Comparables</a></li>
+            <li><a href="#">Agency Deals &amp; Partnerships</a></li>
+            <li><a href="#">Debt Issuance &amp; Refinancing</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Modeling and talent spotlight. -->
+    <section
+      id="modeling-spotlight"
+      class="modeling-spotlight"
+      aria-labelledby="modeling-heading"
+    >
+      <div class="spotlight-content">
+        <p class="eyebrow">
+          <i class="fa-regular fa-gem" aria-hidden="true"></i> Behind the faces
+        </p>
+        <h2 id="modeling-heading" class="section-title">The business behind the <em>booking.</em></h2>
+        <p>
+          The runway is only part of the story. Explore the agencies, ownership groups,
+          licensing relationships, and brand partnerships behind the talent. Follow
+          disclosed transactions and business results, with gaps in private-company
+          information made clear.
+        </p>
+        <a href="#" class="text-link">
+          Explore Modeling &amp; Talent
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Editorial preview: The Daily Edit. -->
+    <section id="daily-edit" class="daily-edit section-light" aria-labelledby="daily-edit-heading">
+      <div class="section-head">
+        <p class="preview-label">Sample editorial topics</p>
+        <h2 id="daily-edit-heading" class="section-title">Fashion makes headlines. <em>You connect the dots.</em></h2>
+        <p class="section-lede">A first look at the questions we&rsquo;ll cover.</p>
+      </div>
+
+      <div class="edit-grid">
+        <article class="edit-card">
+          <p class="edit-kicker">Beauty &middot; Brand economics</p>
+          <h3>A viral launch. A lasting business?</h3>
+          <p>
+            The questions to ask about repeat purchases, distribution, and margins when a
+            beauty brand breaks through.
+          </p>
+          <span class="edit-mark"><i class="fa-regular fa-bookmark" aria-hidden="true"></i></span>
+        </article>
+
+        <article class="edit-card">
+          <p class="edit-kicker">Fashion &middot; Valuation</p>
+          <h3>The price of prestige.</h3>
+          <p>
+            A closer look at pricing power, brand investment, and the assumptions behind
+            a luxury valuation.
+          </p>
+          <span class="edit-mark"><i class="fa-regular fa-bookmark" aria-hidden="true"></i></span>
+        </article>
+
+        <article class="edit-card">
+          <p class="edit-kicker">Modeling &middot; Ownership</p>
+          <h3>Who owns the spotlight?</h3>
+          <p>Mapping the agency groups and commercial relationships behind the runway.</p>
+          <span class="edit-mark"><i class="fa-regular fa-bookmark" aria-hidden="true"></i></span>
+        </article>
+      </div>
+    </section>
+
+    <!-- Personalization teaser. -->
+    <section id="personalize" class="personalize-teaser" aria-labelledby="personalize-heading">
+      <div class="personalize-panel">
+        <span class="personalize-icon"><i class="fa-solid fa-bookmark" aria-hidden="true"></i></span>
+        <h2 id="personalize-heading" class="section-title">Make it <em>your space.</em></h2>
+        <p>
+          Build a watchlist around your coverage. Save the companies, stories, and upcoming
+          events that matter to your work. Keep your research ready for the next morning
+          meeting&mdash;or the next big pitch.
+        </p>
+      </div>
+    </section>
+
+    <!-- Closing conversion: second email sign-up. -->
+    <section id="signup" class="closing-conversion" aria-labelledby="signup-heading">
+      <h2 id="signup-heading" class="section-title">Your next research era <em>starts here.</em></h2>
+      <p class="section-lede">
+        Bring your curiosity. Bring your coverage list. We&rsquo;ll let you know when
+        <span class="brandmark">MyFashionSpace</span> is ready for its debut.
+      </p>
+
+      <form id="closing-signup" class="signup-form" action="#">
+        <label for="closing-email">Email address</label>
+        <div class="signup-row">
+          <input
+            type="email"
+            id="closing-email"
+            name="email"
+            placeholder="you@company.com"
+            required
+          />
+          <button type="submit" class="btn-primary">
+            Get on the List
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p class="form-helper">Early-access and launch updates. Unsubscribe anytime.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer id="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-logo">MyFashionSpace</p>
+        <p class="footer-tagline">Serious about the business of style.</p>
+        <ul class="footer-socials">
+          <li><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+          <li><a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest" aria-hidden="true"></i></a></li>
+          <li><a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a></li>
+          <li><a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a></li>
+        </ul>
+      </div>
+
+      <!-- Required feature: responsive footer links — side-by-side columns that
+           collapse into tappable accordions on mobile (extra credit: same
+           checkbox hack as the nav). -->
+      <div class="footer-links">
+        <div class="footer-col">
+          <input type="checkbox" id="fc-discover" class="footer-toggle" />
+          <h3 class="footer-heading">
+            <label for="fc-discover">Discover <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label>
+          </h3>
+          <ul class="footer-list">
+            <li><a href="#">The Platform</a></li>
+            <li><a href="#">Our Coverage</a></li>
+            <li><a href="#">The Daily Edit</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <input type="checkbox" id="fc-connect" class="footer-toggle" />
+          <h3 class="footer-heading">
+            <label for="fc-connect">Connect <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label>
+          </h3>
+          <ul class="footer-list">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <input type="checkbox" id="fc-info" class="footer-toggle" />
+          <h3 class="footer-heading">
+            <label for="fc-info">Your Information <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label>
+          </h3>
+          <ul class="footer-list">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-copyright">&copy; 2026 <span class="brandmark">MyFashionSpace</span>.</p>
+  </footer>
 </body>
 </html>

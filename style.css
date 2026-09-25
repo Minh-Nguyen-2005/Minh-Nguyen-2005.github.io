@@ -1,0 +1,1822 @@
+/* ==========================================================================
+   MyFashionSpace — Part 2 styles
+
+   Styled after the Victoria's Secret storefront: a white page with black type,
+   blush (#FFE3ED) colour blocks, crimson (#C8102E) actions, square corners and
+   small uppercase letterspaced labels. Display type is IvyOra Display Light,
+   with Cormorant Light behind it for anyone without the licence.
+
+   Layout is flexbox throughout. One media query, at 640px, handles mobile.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-soft: #3d3d3d;
+  --ink-mute: #666666;
+
+  --blush: #ffe3ed;
+  --blush-pale: #fff0f5;
+  --rose: #e25b8c;
+  --mauve: #a45672;
+  --crimson: #c8102e;
+  --crimson-dark: #9d0c23;
+
+  --grey-05: #f7f7f7;
+  --grey-10: #f0f0f0;
+  --line: #e5e5e5;
+
+  /* VS keeps corners square, so the radius tokens are deliberately 0. */
+  --radius: 0px;
+  --pill: 0px;
+
+  /* Two glares, one per accent. Anything that already reads crimson lights up
+     crimson; anything that reads white or light lights up white. */
+  --glare-crimson: 0 0 0 1px rgba(200, 16, 46, 0.4), 0 6px 20px rgba(200, 16, 46, 0.45),
+    0 0 44px rgba(200, 16, 46, 0.35);
+  --glare-light: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 6px 20px rgba(255, 255, 255, 0.38),
+    0 0 44px rgba(255, 255, 255, 0.3);
+  --glare-ink: 0 0 0 1px rgba(0, 0, 0, 0.35), 0 6px 20px rgba(0, 0, 0, 0.28);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lift: 0 14px 34px rgba(0, 0, 0, 0.1);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* IvyOra Display Light leads the stack under three names: the family name a
+     desktop install uses, the Light-specific variant some installers create,
+     and `ivyora-display`, which is what an Adobe Fonts web project calls it.
+     Adding a kit link to the <head> is therefore the only step needed — no CSS
+     change. It is an Ivy Foundry licence and cannot be linked from here, so
+     Cormorant Light stands behind it: the display cut of that family, drawn
+     for large sizes, with fine hairlines, an old-style axis and a real 300. */
+  --font-display: "IvyOra Display", "IvyOra Display Light", ivyora-display,
+    Cormorant, "Cormorant Garamond", Garamond, "Times New Roman", Georgia, serif;
+  /* "Classic Script MN" first, so the real face is picked up automatically on
+     any machine that has it; Pinyon Script is the free stand-in otherwise. */
+  --font-script: "Classic Script MN", "Pinyon Script", "Snell Roundhand",
+    "Apple Chancery", cursive;
+  /* Running copy only. Headings, nav, buttons and the small caps stay Didone. */
+  --font-copy: "Libre Franklin", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  /* The UI text — nav, buttons, labels, small caps — uses the same face as the
+     headings. It asks for the same IvyOra stack but keeps its own heavier
+     weights, since Light at 10-12px uppercase would all but disappear.
+     This previously named Bodoni Moda, which is no longer loaded, so these
+     elements were falling through to whatever the machine had: Didot on a
+     Mac, Times New Roman on most others. */
+  --font-body: "IvyOra Display", "IvyOra Display Light", ivyora-display,
+    Cormorant, "Cormorant Garamond", Garamond, "Times New Roman", Georgia, serif;
+
+  --shell: 1240px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset and base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* The canvas colour lives on <html> so the fixed .cover backdrop, which sits at
+   z-index -1, still paints above it. */
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font: 400 1rem/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  background: var(--crimson);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   3. The backdrop
+   -------------------------------------------------------------------------- */
+
+/* Pinned to the viewport instead of using background-attachment: fixed, which
+   phones refuse to honour. Everything below the hero scrolls over the top of it.
+   The artwork animates from inside the SVG; this slow drift adds to it. */
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  /* Scrim first, photograph underneath: the hero copy is black, so the left of
+     the frame is washed almost to paper while the right keeps the image. */
+  /* The scrim is concentrated over the text column and falls away fast, so the
+     left stays paper-white for the black copy while the right half shows the
+     photograph at close to full strength. */
+  background-image: url(img/editorial0.png);
+  background-size: cover;
+  /* Anchored to the top: this photograph's cream floor sits low in the frame,
+     and at 40% it fell directly behind the form helper and the secondary link. */
+  background-position: center top;
+  background-repeat: no-repeat;
+  animation: kenburns 46s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   4. Shared type and controls
+   -------------------------------------------------------------------------- */
+
+/* Body copy across every section runs in Libre Franklin ExtraLight. */
+.hero-body,
+.section-lede,
+.form-helper,
+.feature-card > p:not(.feature-subheading),
+.feature-links a,
+.edit-card p:not(.edit-kicker),
+.spotlight-content p:not(.eyebrow),
+.personalize-panel p,
+.footer-list a {
+  font-family: var(--font-copy);
+  font-weight: 200;
+  letter-spacing: 0.005em;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  /* Sized up ~10%: this old-style face sets smaller than the Didone it
+     replaced, so the headings needed the height back. */
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.12;
+}
+
+/* The accent phrase in each headline is set in the script, the way the VS
+   campaign lockups pair a Didone with a calligraphic word. Scripts run small on
+   the body, so it is sized up and nudged onto the same visual baseline. */
+.section-title em,
+#hero-heading em {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.32em;
+  line-height: 0.8;
+  padding-left: 0.1em;
+  color: var(--crimson);
+}
+
+.section-lede {
+  max-width: 60ch;
+  color: var(--ink-mute);
+}
+
+/* Square, uppercase, letterspaced — and it inverts on hover, the way the VS
+   buttons do. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.05rem 2.2rem;
+  border: 1px solid var(--crimson);
+  border-radius: var(--pill);
+  background: var(--crimson);
+  color: #fff;
+  font: 600 0.72rem/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+.btn-primary:hover {
+  background: var(--paper);
+  color: var(--crimson);
+}
+
+.btn-primary i {
+  transition: transform 0.3s var(--ease);
+}
+
+.btn-primary:hover i {
+  transform: translateX(4px);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), gap 0.3s var(--ease);
+}
+
+.text-link:hover {
+  gap: 0.95rem;
+  color: var(--crimson);
+  border-color: var(--crimson);
+}
+
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.2rem;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.secondary-link i {
+  transition: transform 0.35s var(--ease);
+}
+
+.secondary-link:hover {
+  color: var(--crimson);
+  border-color: var(--crimson);
+}
+
+.secondary-link:hover i {
+  transform: translateY(3px);
+}
+
+/* Sign-up forms (hero + closing) share one treatment. */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 520px;
+}
+
+.signup-form label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.signup-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.signup-row input {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 0.92rem/1.2 var(--font-body);
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.signup-row input::placeholder {
+  color: var(--ink-mute);
+}
+
+.signup-row input:hover {
+  border-color: var(--crimson);
+}
+
+.signup-row input:focus {
+  outline: none;
+  border-color: var(--crimson);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.14);
+}
+
+.form-helper {
+  font-size: 0.75rem;
+  color: var(--ink-mute);
+}
+
+/* --------------------------------------------------------------------------
+   5. Header — promo strip, desktop nav, mobile nav
+   -------------------------------------------------------------------------- */
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+#announcement-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  overflow: hidden;
+  padding: 0.65rem 1rem;
+  background: var(--crimson);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+#announcement-bar i {
+  font-size: 0.55rem;
+}
+
+/* Light passing over the promo strip. */
+#announcement-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.3) 50%, transparent 62%);
+  transform: translateX(-100%);
+  animation: sheen 8s var(--ease) infinite;
+  pointer-events: none;
+}
+
+.site-nav {
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: 1.15rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.site-nav.desktop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 0.9rem;
+}
+
+.site-nav.mobile {
+  display: none;
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+/* The wordmark is set in the script everywhere it appears — the banner, the
+   mobile panel, the footer and the mentions inside the copy. */
+.brand-link,
+.footer-logo,
+.brandmark {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.brand-link {
+  font-size: 2.1rem;
+  line-height: 1;
+  transition: color 0.3s var(--ease);
+}
+
+/* Inside running copy it only needs to sit on the same line as the text. */
+.brandmark {
+  font-size: 1.24em;
+  line-height: 0.9;
+}
+
+.brand-link:hover {
+  color: var(--crimson);
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+.nav-links a {
+  position: relative;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.3s var(--ease);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1.5px;
+  background: var(--crimson);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--crimson);
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 0.9rem;
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.nav-icon:hover {
+  color: var(--crimson);
+  transform: translateY(-2px);
+}
+
+.nav-cta {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--ink);
+  border-radius: var(--pill);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+.nav-cta:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* --- Mobile nav: hamburger + overlay, driven by the checkbox hack --------- */
+.mobile-bar {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* The checkbox stays in the DOM (it holds the open/closed state) but out of
+   sight. It is the sibling that the :checked selectors below hang off of. */
+.nav-toggle,
+.footer-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.hamburger-bar {
+  width: 26px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.4s var(--ease), opacity 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.nav-toggle:checked ~ .mobile-bar .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle:checked ~ .mobile-bar .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.3);
+}
+
+.nav-toggle:checked ~ .mobile-bar .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Hidden with opacity + visibility rather than display:none, so it can fade. */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background: var(--paper);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.4s;
+}
+
+.nav-toggle:checked ~ .mobile-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.mobile-links a {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  transition: color 0.3s var(--ease);
+}
+
+.mobile-links a:hover {
+  color: var(--crimson);
+}
+
+.mobile-tagline {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero
+   -------------------------------------------------------------------------- */
+main > section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3rem);
+  padding: clamp(3.5rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
+}
+
+/* Left transparent so the fixed blush backdrop shows through. */
+#hero {
+  position: relative;
+  /* Clips the hero-content scrim, whose negative insets would otherwise spill
+     past the viewport and cause a horizontal scrollbar. */
+  overflow: hidden;
+  justify-content: center;
+  min-height: 78vh;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.hero-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  width: 100%;
+  max-width: var(--shell);
+}
+
+.hero-content {
+  position: relative;
+  flex: 1 1 auto;
+  max-width: 660px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.35rem;
+}
+
+/* A soft pool of shade behind the copy, feathered out to nothing so it reads as
+   light falling off rather than a panel. The photograph is untouched outside it.
+   Without this the body copy crosses the pale satin at 2.44 against white. */
+.hero-content::before {
+  content: "";
+  position: absolute;
+  /* Generous box so the tail has room to reach zero before the edge — any
+     remaining alpha at the boundary is what reads as a hard edge. */
+  inset: -7rem -11rem;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 58% 70% at 44% 52%,
+    rgba(28, 6, 14, 0.56) 0%,
+    rgba(28, 6, 14, 0.53) 30%,
+    rgba(28, 6, 14, 0.46) 46%,
+    rgba(28, 6, 14, 0.36) 58%,
+    rgba(28, 6, 14, 0.25) 68%,
+    rgba(28, 6, 14, 0.15) 78%,
+    rgba(28, 6, 14, 0.07) 86%,
+    rgba(28, 6, 14, 0.03) 93%,
+    rgba(28, 6, 14, 0.01) 97%,
+    rgba(28, 6, 14, 0) 100%
+  );
+  /* Blurring the gradient itself dissolves any remaining contour. */
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* The copy sits straight on the photograph with nothing behind it, so it is set
+   in white over the dark part of the frame, with a shadow to hold it together
+   where the image lightens. */
+.hero-content,
+#hero-heading,
+#hero .hero-body,
+#hero .secondary-link {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 18px rgba(0, 0, 0, 0.3);
+}
+
+#hero-heading em {
+  color: var(--blush);
+}
+
+#hero .eyebrow {
+  color: var(--blush);
+}
+
+#hero .signup-form label,
+#hero .form-helper {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero-content > * {
+  animation: fadeUp 0.85s var(--ease) both;
+}
+
+.hero-content > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-content > *:nth-child(2) { animation-delay: 0.14s; }
+.hero-content > *:nth-child(3) { animation-delay: 0.23s; }
+.hero-content > *:nth-child(4) { animation-delay: 0.32s; }
+.hero-content > *:nth-child(5) { animation-delay: 0.41s; }
+
+#hero-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.85rem, 6.6vw, 5.25rem);
+  font-weight: 300;
+  line-height: 1.04;
+}
+
+.hero-body {
+  max-width: 52ch;
+  color: var(--ink-soft);
+}
+
+/* Camera flashes round the edge of the hero: a four-point star with a soft
+   bloom behind it, each one firing on its own clock so they read as a press
+   wall rather than a loop. */
+.glints {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.glint {
+  position: absolute;
+  width: var(--sz);
+  height: var(--sz);
+  opacity: 0;
+  animation: flash var(--dur) ease-in-out var(--del) infinite;
+}
+
+/* the star itself */
+.glint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--tint, #fff);
+  clip-path: polygon(50% 0%, 54% 46%, 100% 50%, 54% 54%, 50% 100%, 46% 54%, 0% 50%, 46% 46%);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 18px rgba(255, 214, 229, 0.65));
+}
+
+/* the halo it throws */
+.glint::after {
+  content: "";
+  position: absolute;
+  inset: -170%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.72), rgba(255, 228, 238, 0.28) 45%,
+    rgba(255, 255, 255, 0) 75%);
+}
+
+.g1  { top: 7%;  left: 5%;   --sz: 38px; --dur: 6.5s;  --del: 0s;    --tint: #fff; }
+.g2  { top: 4%;  left: 26%;  --sz: 20px; --dur: 8s;    --del: 1.7s;  --tint: #ffe3ed; }
+.g3  { top: 13%; right: 21%; --sz: 26px; --dur: 7.2s;  --del: 3.1s;  --tint: #fff; }
+.g4  { top: 6%;  right: 6%;  --sz: 44px; --dur: 9s;    --del: 0.8s;  --tint: #fff; }
+.g5  { top: 44%; right: 4%;  --sz: 24px; --dur: 6.8s;  --del: 4.2s;  --tint: #ffd6e5; }
+.g6  { top: 63%; right: 13%; --sz: 32px; --dur: 8.6s;  --del: 2.4s;  --tint: #fff; }
+.g7  { bottom: 9%; left: 8%; --sz: 28px; --dur: 7.6s;  --del: 5.1s;  --tint: #fff; }
+.g8  { bottom: 14%; right: 26%; --sz: 18px; --dur: 6.2s; --del: 3.8s; --tint: #ffe3ed; }
+.g9  { bottom: 5%; right: 7%; --sz: 40px; --dur: 9.4s; --del: 1.2s;  --tint: #fff; }
+.g10 { top: 29%; left: 2.5%; --sz: 22px; --dur: 7.9s;  --del: 6s;    --tint: #ffd6e5; }
+.g11 { top: 78%; left: 3%;   --sz: 17px; --dur: 6.6s;  --del: 2.9s;  --tint: #fff; }
+.g12 { top: 20%; right: 34%; --sz: 15px;  --dur: 8.2s;  --del: 5.6s;  --tint: #ffe3ed; }
+
+
+/* --------------------------------------------------------------------------
+   7. Coverage strip
+   -------------------------------------------------------------------------- */
+/* The cherry still runs behind this strip. It is a dark frame, so the lead-in
+   and the pills are restated in light tones over it. */
+.coverage-strip {
+  background-image: linear-gradient(rgba(10, 2, 6, 0.32), rgba(10, 2, 6, 0.42)),
+    url(img/editorial14.png);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.coverage-strip .section-title {
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(6, 1, 4, 0.7);
+}
+
+.coverage-strip .section-title em {
+  color: var(--blush);
+}
+
+.coverage-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.coverage-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(10, 2, 6, 0.34);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(6, 1, 4, 0.7);
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease),
+    transform 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.coverage-list i {
+  color: var(--blush);
+}
+
+.coverage-list li:hover {
+  transform: translateY(-3px);
+  border-color: var(--blush);
+  background: var(--crimson);
+}
+
+/* --------------------------------------------------------------------------
+   8. Blush and grey section blocks
+   -------------------------------------------------------------------------- */
+.section-light {
+  background: var(--blush);
+}
+
+/* The runway shot sits behind this section, pinned to the viewport rather than
+   to the section. Scrolling therefore moves the section over a stationary
+   image — it only travels once the section itself leaves. A blush wash keeps
+   the heading and lede readable on top of it. */
+/* The runway shot holds still while the section scrolls over it. Rather than
+   background-attachment: fixed — which iPhones ignore outright — the photograph
+   sits on its own position: fixed layer, and clip-path: inset(0) on the section
+   trims that layer to the section's box. A fixed element escapes overflow, but
+   not an ancestor's clip-path, so only the part behind this section shows. */
+.platform-intro {
+  position: relative;
+  clip-path: inset(0);
+}
+
+.platform-intro::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url(img/editorial8.jpg) center / cover no-repeat;
+  pointer-events: none;
+}
+
+/* With the wash gone the photograph runs raw, and because it is pinned a
+   different part of it passes behind this text at every scroll position. The
+   heading therefore takes the same feathered pool of shade as the hero, and is
+   set in white over it. The cards below are opaque, so they need nothing. */
+.platform-intro {
+  overflow: hidden;
+}
+
+.platform-intro .section-head {
+  position: relative;
+  z-index: 0;
+}
+
+.platform-intro .section-head::before {
+  content: "";
+  position: absolute;
+  inset: -5rem -7rem;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 58% 54% at 50% 50%,
+    rgba(24, 4, 12, 0.8) 0%,
+    rgba(24, 4, 12, 0.76) 30%,
+    rgba(24, 4, 12, 0.62) 48%,
+    rgba(24, 4, 12, 0.42) 63%,
+    rgba(24, 4, 12, 0.24) 75%,
+    rgba(24, 4, 12, 0.1) 86%,
+    rgba(24, 4, 12, 0.03) 94%,
+    rgba(24, 4, 12, 0) 100%
+  );
+  filter: blur(55px);
+  pointer-events: none;
+}
+
+.platform-intro .section-title {
+  color: #fff;
+}
+
+.platform-intro .section-title em {
+  color: var(--blush);
+}
+
+.platform-intro .section-lede {
+  color: rgba(255, 255, 255, 0.93);
+}
+
+/* These two sections share one backdrop, pinned to the viewport so it reads as
+   a single frame behind both rather than two separate crops. */
+.daily-edit.section-light,
+.closing-conversion {
+  background-image: url(img/editorial2.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 780px;
+  text-align: center;
+}
+
+.preview-label {
+  padding: 0.45rem 1rem;
+  background: var(--crimson);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* --- Feature cards ------------------------------------------------------- */
+.feature-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* Each card carries its own campaign photograph, darkened enough from the top
+   down that the white copy holds all the way to the link list at the base. */
+.feature-card {
+  flex: 1 1 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-image: linear-gradient(
+      to bottom,
+      rgba(18, 3, 10, 0.26) 0%,
+      rgba(18, 3, 10, 0.46) 34%,
+      rgba(18, 3, 10, 0.66) 66%,
+      rgba(18, 3, 10, 0.76) 100%
+    ),
+    var(--card-photo);
+  background-size: cover;
+  background-position: center top;
+  box-shadow: var(--shadow-card);
+  color: #fff;
+  /* The wash is light enough to show the photograph, so the copy carries a
+     small shadow of its own — the script subheading in particular sits over
+     facial detail, where thin strokes are harder to read than the ratio says. */
+  text-shadow: 0 1px 3px rgba(12, 2, 8, 0.6), 0 2px 10px rgba(12, 2, 8, 0.4);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+#front-row       { --card-photo: url(img/editorial11.png); }
+#market-mirror   { --card-photo: url(img/editorial10.png); }
+#under-the-label { --card-photo: url(img/editorial12.png); }
+#deal-room       { --card-photo: url(img/editorial13.jpg); }
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--crimson);
+  box-shadow: var(--shadow-lift);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--blush);
+  color: var(--crimson);
+  font-size: 1.05rem;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+.feature-card:hover .feature-icon {
+  background: var(--crimson);
+  color: #fff;
+}
+
+.feature-card h3 {
+  color: #fff;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.55rem;
+}
+
+.feature-subheading {
+  font-family: var(--font-script);
+  font-size: 1.32rem;
+  line-height: 1.1;
+  color: var(--blush);
+}
+
+.feature-card > p:not(.feature-subheading) {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* margin-top: auto pins the list to the card's base, so all four line up even
+   though the descriptions above them differ in length. */
+.feature-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.feature-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.feature-links a::after {
+  content: "\2192";
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.feature-links a:hover {
+  color: var(--blush);
+  transform: translateX(3px);
+}
+
+.feature-links a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Editorial cards ----------------------------------------------------- */
+.edit-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* Mauve cards. Black copy only reaches 4.15 on this ground, so the card sets
+   its text in white, which measures 5.06. */
+.edit-card {
+  position: relative;
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 2rem 1.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--mauve);
+  color: #fff;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+/* Crimson rule that wipes in along the top edge on hover. */
+.edit-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--blush);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.edit-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+}
+
+.edit-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Blush reaches only 4.21 on the mauve, so the kicker stays white and leans on
+   its weight and letterspacing to read as a label instead. */
+.edit-kicker {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.edit-card h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.72rem;
+  line-height: 1.18;
+}
+
+.edit-card h3 {
+  color: #fff;
+}
+
+.edit-card p:not(.edit-kicker) {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.edit-mark {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: rgba(255, 255, 255, 0.45);
+  transition: transform 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+.edit-card:hover .edit-mark {
+  transform: translateY(-3px) scale(1.12);
+  color: var(--blush);
+}
+
+/* --------------------------------------------------------------------------
+   9. Modeling spotlight
+   -------------------------------------------------------------------------- */
+/* The photograph is the section now, rather than a framed panel beside the
+   copy. It is a bright frame, so a pale wash keeps the dark copy on it. */
+/* The photograph runs raw. The copy sits in its own pool of shade instead, the
+   same treatment the hero and the platform heading use. */
+.modeling-spotlight {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  justify-content: center;
+  background-image: url(img/editorial9.jpeg);
+  background-size: cover;
+  /* Framed on her face. The brightest crop of this photograph is lower down,
+     around 42%, but that pushes her out of the frame on a wide viewport, so
+     the pool below is kept light to make up the difference. */
+  background-position: center 24%;
+}
+
+.modeling-spotlight > * {
+  width: 100%;
+  max-width: 620px;
+}
+
+.spotlight-content {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+  /* The same white the hero uses — same colour, same shadow — so the two
+     sections that put copy straight on a photograph read identically.
+     KNOWN EXCEPTION: this section does not reach the 4.5 contrast floor.
+     editorial9 is bright and evenly lit, with no dark region for centred copy
+     to sit on, and dimming it enough to fix that is what made the picture look
+     flat. Brightness and consistency were both kept; the shortfall is
+     deliberate. See the note in the README. */
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 18px rgba(0, 0, 0, 0.3);
+}
+
+.spotlight-content .section-title { color: #fff; }
+.spotlight-content .section-title em { color: var(--blush); }
+.spotlight-content .eyebrow { color: var(--blush); }
+.spotlight-content .text-link { color: #fff; border-color: rgba(255, 255, 255, 0.75); }
+.spotlight-content .text-link:hover { color: var(--blush); border-color: var(--blush); }
+
+.spotlight-content p:not(.eyebrow) {
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   10. Personalization teaser — the crimson block
+   -------------------------------------------------------------------------- */
+/* Beauty still behind a crimson scrim, so the band reads as a campaign block
+   while the white copy on top stays legible. */
+.personalize-teaser {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  background: var(--crimson);
+}
+
+.personalize-teaser::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(200, 16, 46, 0.64), rgba(157, 12, 35, 0.7)),
+    url(img/editorial6.jpeg);
+  background-size: cover;
+  background-position: center;
+  animation: kenburns 52s ease-in-out infinite;
+}
+
+.personalize-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.personalize-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: var(--shell);
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  color: #fff;
+  text-align: center;
+}
+
+.personalize-panel .section-title em {
+  color: var(--blush);
+}
+
+.personalize-panel p {
+  max-width: 58ch;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.personalize-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. Closing conversion
+   -------------------------------------------------------------------------- */
+.daily-edit.section-light,
+.closing-conversion {
+  position: relative;
+  /* Without a stacking context here the z-index: -1 pools below would fall
+     behind the section's own background image and never be seen. */
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.closing-conversion {
+  text-align: center;
+}
+
+/* Copy pools for the two sections that share the backdrop. */
+.daily-edit .section-head,
+.closing-conversion .section-title,
+.closing-conversion .section-lede,
+.closing-conversion .signup-form {
+  position: relative;
+  z-index: 1;
+}
+
+.daily-edit .section-head { z-index: 0; }
+
+.daily-edit .section-head::before,
+.closing-conversion::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 62% 70% at 50% 50%,
+    rgba(24, 4, 12, 0.8) 0%,
+    rgba(24, 4, 12, 0.68) 32%,
+    rgba(24, 4, 12, 0.54) 50%,
+    rgba(24, 4, 12, 0.36) 64%,
+    rgba(24, 4, 12, 0.2) 77%,
+    rgba(24, 4, 12, 0.08) 88%,
+    rgba(24, 4, 12, 0) 100%
+  );
+  filter: blur(55px);
+  pointer-events: none;
+}
+
+.daily-edit .section-head::before { inset: -5.5rem -8rem; }
+.closing-conversion::before { inset: 2% 8%; }
+
+.daily-edit .section-title,
+.daily-edit .section-lede,
+.closing-conversion .section-title,
+.closing-conversion .section-lede,
+.closing-conversion .signup-form label,
+.closing-conversion .form-helper {
+  color: #fff;
+}
+
+/* These two sit on a dark pool now, where the crimson accent all but vanishes,
+   so the script phrase takes the blush the other dark sections use. */
+.daily-edit .section-title em,
+.closing-conversion .section-title em {
+  color: var(--blush);
+}
+
+.daily-edit .preview-label { position: relative; z-index: 1; }
+
+.closing-conversion .section-lede {
+  text-align: center;
+}
+
+.closing-conversion .signup-form {
+  align-items: center;
+}
+
+.closing-conversion .signup-row {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer
+   -------------------------------------------------------------------------- */
+#site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  padding: clamp(3rem, 6vw, 4.5rem) clamp(1.25rem, 5vw, 4rem) 2rem;
+  background: var(--grey-05);
+  border-top: 1px solid var(--line);
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(2rem, 5vw, 4rem);
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 1 260px;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.footer-tagline {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: transform 0.35s var(--ease), color 0.35s var(--ease),
+    border-color 0.35s var(--ease), background 0.35s var(--ease);
+}
+
+.footer-socials a:hover {
+  transform: translateY(-3px);
+  color: #fff;
+  border-color: var(--crimson);
+  background: var(--crimson);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 5vw, 4rem);
+  flex: 2 1 420px;
+}
+
+.footer-col {
+  position: relative;
+  flex: 1 1 140px;
+}
+
+.footer-heading {
+  margin-bottom: 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer-heading label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+/* The chevron is mobile-only; on desktop the lists are always open. */
+.footer-heading i {
+  display: none;
+}
+
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-list a {
+  font-size: 0.85rem;
+  color: var(--ink-mute);
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.footer-list a:hover {
+  color: var(--crimson);
+  transform: translateX(4px);
+}
+
+.footer-copyright {
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-mute);
+  font-size: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   13. Animations
+   -------------------------------------------------------------------------- */
+@keyframes kenburns {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50%      { transform: scale(1.08) translate(1.2%, -1%); }
+}
+
+@keyframes sheen {
+  0%, 70% { transform: translateX(-100%); }
+  100%    { transform: translateX(100%); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* A quick burst, then dark for most of the cycle, like a shutter firing. */
+@keyframes flash {
+  0%, 100% { opacity: 0; transform: scale(0.15) rotate(0deg); }
+  5%       { opacity: 1; transform: scale(1.25) rotate(10deg); }
+  11%      { opacity: 0.85; transform: scale(1) rotate(18deg); }
+  20%      { opacity: 0.4; transform: scale(0.8) rotate(26deg); }
+  32%      { opacity: 0; transform: scale(0.2) rotate(36deg); }
+}
+
+/* --------------------------------------------------------------------------
+   14. Mobile — the single breakpoint
+   -------------------------------------------------------------------------- */
+@media only screen and (max-width: 640px) {
+  /* The hero copy is centred at this width, and the photograph crops onto its
+     dark carpet, so the angled scrim cannot protect the text. Swap it for an
+     even wash — the photography still carries the hero through its own panel. */
+  /* Swap the two navs. */
+  .site-nav.desktop {
+    display: none;
+  }
+
+  .site-nav.mobile {
+    display: block;
+    padding: 0.9rem 1.25rem;
+  }
+
+  /* The phone crop is much taller, so the lower framing works there and is
+     left alone — it is only the wide viewport that needed moving up. */
+  .modeling-spotlight {
+    background-position: center 42%;
+  }
+
+  /* cover leaves this square photograph exactly as tall as the viewport, so a
+     vertical position has nothing to move against. Scaling it past the
+     viewport height is what makes the crop adjustable — which is how the floor
+     comes out of frame and her face goes into it. */
+  .cover {
+    background-size: auto 175%;
+    background-position: 70% 10%;
+  }
+
+  /* The runway shot stays pinned here too. The layer is the phone's viewport
+     now, so the crop moves across to keep the model in the narrow frame. */
+  .platform-intro::before {
+    background-position: 62% center;
+  }
+
+  /* Rows become columns. Every flex-basis set above would otherwise be read as
+     a HEIGHT once the container stacks, so these are reset to size on content. */
+  .hero-content,
+  .feature-card,
+  .edit-card,
+  .footer-brand,
+  .footer-links,
+  .footer-col,
+  .signup-row input,
+  .modeling-spotlight > * {
+    flex: 0 0 auto;
+  }
+
+  #hero {
+    min-height: auto;
+    text-align: center;
+  }
+
+  /* The closing block is much taller at this width, so its pool spreads to
+     cover the whole column rather than sitting in the middle of it. */
+  .closing-conversion::before {
+    inset: 0;
+    background: radial-gradient(
+      ellipse 98% 86% at 50% 48%,
+      rgba(24, 4, 12, 0.88) 0%,
+      rgba(24, 4, 12, 0.84) 40%,
+      rgba(24, 4, 12, 0.72) 58%,
+      rgba(24, 4, 12, 0.52) 72%,
+      rgba(24, 4, 12, 0.3) 84%,
+      rgba(24, 4, 12, 0.12) 93%,
+      rgba(24, 4, 12, 0) 100%
+    );
+  }
+
+  /* The copy block is taller and full-width here, so the pool spreads to cover
+     the eyebrow at the top and the secondary link at the bottom. */
+  .hero-content::before {
+    inset: -4.5rem -3rem;
+    background: radial-gradient(
+      ellipse 80% 70% at 50% 50%,
+      rgba(28, 6, 14, 0.86) 0%,
+      rgba(28, 6, 14, 0.84) 38%,
+      rgba(28, 6, 14, 0.76) 54%,
+      rgba(28, 6, 14, 0.62) 66%,
+      rgba(28, 6, 14, 0.44) 76%,
+      rgba(28, 6, 14, 0.26) 84%,
+      rgba(28, 6, 14, 0.12) 91%,
+      rgba(28, 6, 14, 0.04) 96%,
+      rgba(28, 6, 14, 0) 100%
+    );
+  }
+
+  .hero-shell {
+    flex-direction: column;
+  }
+
+  .hero-content {
+    align-items: center;
+  }
+
+
+  #hero-heading {
+    font-size: 2.5rem;
+  }
+
+  .signup-row {
+    flex-direction: column;
+  }
+
+  .signup-row input,
+  .btn-primary {
+    width: 100%;
+  }
+
+  .coverage-list,
+  .feature-grid,
+  .edit-grid {
+    flex-direction: column;
+  }
+
+  .modeling-spotlight {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .spotlight-content {
+    align-items: center;
+  }
+
+  /* Fewer flashes on a phone, and none where the copy sits. */
+  .g2, .g3, .g6, .g8, .g10, .g12 {
+    display: none;
+  }
+
+  /* Footer columns stack and turn into tappable accordions. */
+  .footer-top,
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-col {
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* The copyright already draws its own rule, so skip the last divider. */
+  .footer-col:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .footer-heading {
+    margin-bottom: 0;
+  }
+
+  .footer-heading label {
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+
+  .footer-heading i {
+    display: inline-flex;
+    transition: transform 0.35s var(--ease);
+  }
+
+  .footer-list {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease), opacity 0.3s var(--ease);
+  }
+
+  .footer-toggle:checked ~ .footer-list {
+    max-height: 220px;
+    opacity: 1;
+    padding-top: 0.85rem;
+  }
+
+  .footer-toggle:checked ~ .footer-heading i {
+    transform: rotate(180deg);
+  }
+
+  .footer-copyright {
+    text-align: center;
+  }
+}
+
+/* Respect a reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. Lighting — hover and press
+   Every interactive thing lights up in its own accent: crimson controls throw
+   a crimson glare, light-on-dark controls throw a white one.
+   -------------------------------------------------------------------------- */
+
+/* --- crimson accents --- */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  box-shadow: var(--glare-crimson);
+}
+
+.btn-primary:active {
+  box-shadow: var(--glare-crimson), inset 0 2px 10px rgba(90, 4, 18, 0.35);
+}
+
+.signup-row input:hover {
+  box-shadow: 0 0 18px rgba(200, 16, 46, 0.28);
+}
+
+.signup-row input:focus {
+  box-shadow: var(--glare-crimson);
+}
+
+.edit-card:hover,
+.edit-card:focus-within {
+  box-shadow: var(--shadow-lift), var(--glare-light);
+}
+
+.footer-socials a:hover,
+.footer-socials a:focus-visible {
+  box-shadow: var(--glare-crimson);
+}
+
+.footer-list a:hover,
+.feature-links a:hover {
+  text-shadow: 0 0 14px rgba(200, 16, 46, 0.55);
+}
+
+.preview-label:hover {
+  box-shadow: var(--glare-crimson);
+}
+
+/* --- light accents, on the dark and photographic panels --- */
+.feature-card:hover,
+.feature-card:focus-within {
+  box-shadow: var(--shadow-lift), var(--glare-light);
+}
+
+.coverage-list li:hover {
+  box-shadow: var(--glare-light);
+}
+
+.mobile-links a:hover,
+.secondary-link:hover,
+.text-link:hover {
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.75);
+}
+
+.spotlight-content .text-link:hover {
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.85), 0 1px 3px rgba(8, 1, 5, 0.9);
+}
+
+/* The banner is white, so a white glare would be invisible on it — everything
+   up there lights up crimson instead. */
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  text-shadow: 0 0 14px rgba(200, 16, 46, 0.6);
+}
+
+.nav-links a:hover::after {
+  box-shadow: 0 0 12px rgba(200, 16, 46, 0.75);
+}
+
+/* The base rule for this one is #hero .secondary-link, so the glare has to
+   match that specificity to land. */
+#hero .secondary-link:hover,
+#hero .secondary-link:focus-visible {
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.85), 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Both wordmarks behave the same: crimson, with a crimson glare. The footer
+   one previously took the glare but not the colour, because the colour lived
+   on .brand-link alone. */
+.brand-link:hover,
+.brand-link:focus-visible,
+.footer-logo:hover {
+  color: var(--crimson);
+  text-shadow: 0 0 18px rgba(200, 16, 46, 0.5);
+}
+
+.footer-logo {
+  cursor: default;
+  transition: color 0.3s var(--ease), text-shadow 0.3s var(--ease);
+}
+
+/* --- ink accents, on the white banner --- */
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  box-shadow: var(--glare-ink);
+}
+
+.nav-icon:hover {
+  text-shadow: 0 0 14px rgba(200, 16, 46, 0.6);
+}
+
+.hamburger:hover .hamburger-bar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+/* Pressing anything settles it slightly, so the glare reads as a press. */
+.btn-primary:active,
+.nav-cta:active,
+.coverage-list li:active,
+.footer-socials a:active {
+  transform: translateY(-1px);
+}
