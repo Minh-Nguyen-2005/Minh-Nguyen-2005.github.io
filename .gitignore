@@ -1,2 +1,11 @@
 .DS_Store
 
+# Full-resolution originals of the photos on the About page. The page serves
+# the web-sized copies in img/about/, so these stay on the local machine.
+img/magnetar_minh.jpeg
+img/magnetar_team.jpeg
+img/minh1.jpeg
+img/minh2.jpeg
+img/mom_me.jpeg
+img/o4u.jpeg
+img/vietnam_editorial_1.jpeg

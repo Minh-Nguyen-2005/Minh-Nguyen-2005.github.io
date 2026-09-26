@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Minh Nguyen | MyFashionSpace</title>
+  <meta
+    name="description"
+    content="Meet Minh Nguyen, the Dartmouth Computer Science and Mathematics senior from Vietnam who is building MyFashionSpace. A documentary in six chapters: AI, credit markets, nuclear power, fashion, community, and family."
+  />
+
+  <!-- Social preview copy -->
+  <meta property="og:title" content="In My Own Lane: the Minh Nguyen story" />
+  <meta
+    property="og:description"
+    content="Code, capital &amp; couture. A documentary-style portrait of the person behind MyFashionSpace."
+  />
+  <meta property="og:type" content="profile" />
+  <meta property="og:image" content="https://minh-nguyen-2005.github.io/img/about/magnetar_minh.jpg" />
+  <meta property="og:url" content="https://minh-nguyen-2005.github.io/about.html" />
+
+  <!-- The landing page's type stack — Cormorant (for IvyOra), Libre Franklin,
+       Pinyon Script (for Classic Script MN) — plus one guest for this page:
+       Bodoni Moda, a Didone for the marquee numerals, in the spirit of a
+       2000s glossy cover. Font Awesome is the same CSS build. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Libre+Franklin:wght@200;300;400&family=Pinyon+Script&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <!-- style.css first, untouched, for the tokens, header, footer and shared
+       controls; about.css layers this page on top of it. -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="about.css" />
+</head>
+<body class="about">
+  <a class="skip-link" href="#main-content">Skip to the story</a>
+
+  <header id="site-header">
+    <p id="announcement-bar">
+      <i class="fa-solid fa-star" aria-hidden="true"></i>
+      <span>Now showing: the Minh Nguyen story</span>
+      <i class="fa-solid fa-star" aria-hidden="true"></i>
+    </p>
+
+    <!-- The landing page's nav, pointed back at its sections. -->
+    <nav class="site-nav desktop" id="main-nav">
+      <div class="nav-brand">
+        <a href="index.html" class="brand-link">MyFashionSpace</a>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html#platform">The Platform</a></li>
+        <li><a href="index.html#coverage">Our Coverage</a></li>
+        <li><a href="index.html#daily-edit">The Daily Edit</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#" class="nav-icon" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="nav-icon" aria-label="Your account">
+          <i class="fa-regular fa-user" aria-hidden="true"></i>
+        </a>
+        <a href="index.html#signup" class="nav-cta">Get Early Access</a>
+      </div>
+    </nav>
+
+    <!-- Same checkbox-hack hamburger. Its links all leave the page, so the
+         overlay never needs closing over an in-page jump. -->
+    <nav class="site-nav mobile" id="mobile-nav">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+      <div class="mobile-bar">
+        <a href="index.html" class="brand-link">MyFashionSpace</a>
+        <label for="nav-toggle" class="hamburger" aria-label="Open the menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </label>
+      </div>
+
+      <div class="mobile-menu">
+        <ul class="mobile-links">
+          <li><a href="index.html#platform">The Platform</a></li>
+          <li><a href="index.html#coverage">Our Coverage</a></li>
+          <li><a href="index.html#daily-edit">The Daily Edit</a></li>
+          <li><a href="about.html" aria-current="page">About</a></li>
+        </ul>
+        <a href="index.html#signup" class="nav-cta">Get Early Access</a>
+        <p class="mobile-tagline">Fashion-first financial intelligence.</p>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- ================================================================
+         THE PREMIERE — the film poster. A real red house curtain behind it,
+         velvet wings that part on load, and the camera-flash glints.
+         ================================================================ -->
+    <section id="premiere" class="premiere on-dark" aria-labelledby="premiere-heading">
+      <!-- Stage dressing: a velvet valance and two curtains that part on load,
+           then stay gathered at the wings. -->
+      <div class="stage" aria-hidden="true">
+        <span class="curtain curtain-l"></span>
+        <span class="curtain curtain-r"></span>
+        <span class="valance"></span>
+      </div>
+
+      <div class="glints" aria-hidden="true">
+        <span class="glint g1"></span><span class="glint g2"></span>
+        <span class="glint g3"></span><span class="glint g4"></span>
+        <span class="glint g5"></span><span class="glint g6"></span>
+        <span class="glint g7"></span><span class="glint g8"></span>
+        <span class="glint g9"></span><span class="glint g10"></span>
+        <span class="glint g11"></span><span class="glint g12"></span>
+      </div>
+
+      <div class="premiere-shell">
+        <div class="premiere-copy">
+          <p class="eyebrow">
+            <i class="fa-solid fa-film" aria-hidden="true"></i>
+            A MyFashionSpace original &middot; Now showing
+          </p>
+
+          <div class="name-lockup">
+            <h1 id="premiere-heading" class="premiere-name">Minh Nguyen</h1>
+            <p class="pronoun-tag">they / them</p>
+          </div>
+
+          <p class="premiere-script">code, capital &amp; couture.</p>
+
+          <p class="premiere-intro">
+            I&rsquo;m a senior at Dartmouth from Vietnam, double majoring in Computer
+            Science and Mathematics. I work with models of every kind&mdash;machine-learning
+            models, financial models, and the runway kind&mdash;and I&rsquo;m building
+            <span class="brandmark">MyFashionSpace</span>, the house this site belongs to.
+          </p>
+
+          <ul class="credential-strip" aria-label="At a glance">
+            <li>Dartmouth &rsquo;27</li>
+            <li>CS (Honors) &amp; Math</li>
+            <li>GPA 3.91</li>
+            <li>Magnetar Capital &rsquo;26</li>
+            <li>FPT Software &rsquo;25</li>
+          </ul>
+
+          <div class="premiere-actions">
+            <a href="#prologue" class="btn-primary">
+              Press Play
+              <i class="fa-solid fa-play" aria-hidden="true"></i>
+            </a>
+            <a href="#credits" class="secondary-link">
+              Skip to the Credits
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- The poster. The empty cream wall above Minh is where the title sits. -->
+        <figure class="poster">
+          <div class="poster-art">
+            <img
+              src="img/about/magnetar_minh.jpg"
+              width="1350"
+              height="1800"
+              alt="Minh Nguyen in a tailored oatmeal blazer and white wide-leg trousers, standing against a cream wall that holds a hard shadow."
+            />
+            <p class="poster-studio">
+              <span class="brandmark">MyFashionSpace</span> presents
+            </p>
+            <p class="poster-title">In my own <em>lane</em></p>
+          </div>
+
+          <figcaption class="poster-billing">
+            <div class="laurels">
+              <p class="laurel">
+                <i class="fa-solid fa-wheat-awn" aria-hidden="true"></i>
+                <span>First runner-up<br />SV.STARTUP 2022</span>
+                <i class="fa-solid fa-wheat-awn" aria-hidden="true"></i>
+              </p>
+              <p class="laurel">
+                <i class="fa-solid fa-wheat-awn" aria-hidden="true"></i>
+                <span>Rufus Choate<br />Scholar</span>
+                <i class="fa-solid fa-wheat-awn" aria-hidden="true"></i>
+              </p>
+            </div>
+            <p class="billing">
+              Starring Minh Nguyen &middot; A documentary in six chapters &middot;
+              Filmed in Vietnam, Hanover &amp; Evanston &middot; Inspired by Mom
+            </p>
+            <p class="poster-date"><span>Now showing</span> Fall 2026</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SCENE SELECTION — the table of contents, as a 2000s DVD menu.
+         ================================================================ -->
+    <section id="scenes" class="scene-menu on-dark" aria-labelledby="scenes-heading">
+      <div class="scene-menu-head">
+        <h2 id="scenes-heading" class="section-title">Scene <em>selection.</em></h2>
+        <a href="#prologue" class="text-link">
+          <i class="fa-solid fa-play" aria-hidden="true"></i>
+          Play All
+        </a>
+      </div>
+
+      <nav class="scene-nav" aria-label="Chapters">
+        <ol class="scene-list">
+          <li>
+            <a href="#prologue" class="scene-link">
+              <span class="scene-num">Prologue</span>
+              <span class="scene-title">Hi, I&rsquo;m Minh.</span>
+              <span class="scene-sub">Who I am, and what I love</span>
+            </a>
+          </li>
+          <li>
+            <a href="#built-for-people" class="scene-link">
+              <span class="scene-num">Chapter 01</span>
+              <span class="scene-title">Built for people</span>
+              <span class="scene-sub">Signtegrate &middot; patient access &middot; FPT Software</span>
+            </a>
+          </li>
+          <li>
+            <a href="#follow-the-money" class="scene-link">
+              <span class="scene-num">Chapter 02</span>
+              <span class="scene-title">Follow the money</span>
+              <span class="scene-sub">Tuck &times; AECOM &middot; Magnetar Capital</span>
+            </a>
+          </li>
+          <li>
+            <a href="#power" class="scene-link">
+              <span class="scene-num">Chapter 03</span>
+              <span class="scene-title">I&rsquo;m watching the power</span>
+              <span class="scene-sub">My notes on AI, power &amp; nuclear</span>
+            </a>
+          </li>
+          <li>
+            <a href="#the-house" class="scene-link">
+              <span class="scene-num">Chapter 04</span>
+              <span class="scene-title">The house I&rsquo;m building</span>
+              <span class="scene-sub">Inside MyFashionSpace</span>
+            </a>
+          </li>
+          <li>
+            <a href="#community" class="scene-link">
+              <span class="scene-num">Chapter 05</span>
+              <span class="scene-title">Out, and all in</span>
+              <span class="scene-sub">WITHIN, O4U &amp; my communities</span>
+            </a>
+          </li>
+          <li>
+            <a href="#the-closet" class="scene-link">
+              <span class="scene-num">Chapter 06</span>
+              <span class="scene-title">The closet she opened for me</span>
+              <span class="scene-sub">My mom, my motivation</span>
+            </a>
+          </li>
+          <li>
+            <a href="#epilogue" class="scene-link">
+              <span class="scene-num">Epilogue</span>
+              <span class="scene-title">In my own lane</span>
+              <span class="scene-sub">What&rsquo;s next &middot; credits &middot; contact</span>
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </section>
+
+    <!-- ================================================================
+         PROLOGUE — who I am, in my own words.
+         ================================================================ -->
+    <section id="prologue" class="prologue" aria-labelledby="prologue-heading">
+      <div class="prologue-shell">
+        <div class="prologue-text">
+          <!-- The letter's printed border: vines from a 1919 Huế drawing in
+               two of its corners (the lotus silk behind the words is the
+               letter's own ::after). Decoration only. The letter's lines rise
+               in one by one, rather than the letter as a whole, so the sheet
+               itself is never its own stacking context and the prints
+               multiply straight onto the page's paper. -->
+          <span class="letter-florals" aria-hidden="true"></span>
+          <p class="kicker reveal">
+            <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+            Prologue &middot; Who I am
+          </p>
+          <h2 id="prologue-heading" class="section-title reveal">Hi, I&rsquo;m <em>Minh.</em></h2>
+
+          <p class="copy copy-lead reveal">
+            I&rsquo;m from Vietnam. I&rsquo;m non-binary and trans, and I&rsquo;m gay.
+            I&rsquo;m also a senior at Dartmouth, double majoring in Computer Science and
+            Mathematics.
+          </p>
+          <p class="copy reveal">
+            I&rsquo;m a person of faith, too. I&rsquo;m Buddhist, and lately I&rsquo;ve been
+            growing closer to God and to Christianity, through Bible study at Dartmouth&rsquo;s
+            Tucker Center and going to church. And to stay healthy inside and out, I&rsquo;ve been doing Pilates
+            and yoga.
+          </p>
+          <p class="copy reveal">
+            Academically, I love AI and machine learning. Professionally, I love finance, business, and trading. Passionately, I love fashion and modeling. And I have a big heart:
+            I love helping people.
+          </p>
+
+          <figure class="soundbite reveal">
+            <blockquote>
+              <p>I strive to combine all of those into my work.</p>
+            </blockquote>
+            <figcaption class="lower-third">
+              <span class="lt-name">Minh Nguyen</span>
+              <span class="lt-role">On AI, markets, fashion &amp; a big heart</span>
+            </figcaption>
+          </figure>
+
+          <p class="copy reveal">
+            So most of what I&rsquo;ve built has a person on the other end of it: the Deaf
+            community in Vietnam, patients waiting for care, elders and children who need
+            someone watching out for them&mdash;and now, fashionistas looking for a space of
+            their own.
+          </p>
+          <p class="copy reveal">
+            My motivation is my mom. You&rsquo;ll meet her in
+            <a href="#the-closet" class="inline-link">Chapter Six</a>.
+          </p>
+
+          <p class="signature reveal" aria-hidden="true">Minh</p>
+          <p class="signature-label reveal">Minh Nguyen &middot; Dartmouth &rsquo;27</p>
+        </div>
+
+        <div class="prologue-aside">
+          <figure class="polaroid reveal-still">
+            <img
+              src="img/about/minh1.jpg"
+              width="900"
+              height="1200"
+              loading="lazy"
+              decoding="async"
+              alt="Minh smiling beside a lake with green mountains behind, sunglasses pushed up, in a pale-blue fitted tee."
+            />
+            <figcaption>Off duty.</figcaption>
+          </figure>
+
+          <div class="fact-file reveal">
+            <p class="fact-file-title">Subject file</p>
+            <dl>
+              <div><dt>Name</dt><dd>Minh Nguyen</dd></div>
+              <div><dt>Pronouns</dt><dd>they / them</dd></div>
+              <div><dt>From</dt><dd>Vietnam</dd></div>
+              <div><dt>Now</dt><dd>Senior, Dartmouth College &rsquo;27</dd></div>
+              <div><dt>Studying</dt><dd>Computer Science (Honors) &amp; Mathematics</dd></div>
+              <div><dt>GPA</dt><dd>3.91 &middot; Rufus Choate Scholar</dd></div>
+            </dl>
+          </div>
+
+          <!-- A page from a 1990s Vietnamese fashion magazine, from Minh's mood
+               board. After Minh's own polaroid and file, so on a phone it comes
+               after them; side by side it is lifted to the top, and on a tablet
+               it heads a second column beside them. No caption: the picture
+               speaks for itself, and it is credited in the credits' Stills. -->
+          <figure class="mag-page reveal">
+            <img
+              class="mag-photo"
+              src="img/about/bg/vn-editorial.jpg"
+              width="736"
+              height="390"
+              loading="lazy"
+              decoding="async"
+              alt="A Vietnamese fashion editorial: a model in a cream silk &aacute;o d&agrave;i sleeps against a large ceramic urn of white lotus buds, beside a lit candle, under hanging clay pots."
+            />
+          </figure>
+
+          <!-- A second page from the mood board: Kate Moss in Vietnam, by Bruce
+               Weber for Vogue (credited in the credits' Stills, not beside the
+               picture). Side by side it is pasted beside Minh's signature,
+               below the letter's last line; stacked, it closes the second
+               column after the Vietnamese page. -->
+          <figure class="vogue-page reveal">
+            <div class="vogue-sheet">
+              <img
+                class="vogue-photo"
+                src="img/about/bg/vogue-vietnam.jpg"
+                width="498"
+                height="594"
+                loading="lazy"
+                decoding="async"
+                alt="Kate Moss in a champagne sequinned slip, reclining on red silk on a wooden daybed and holding a woven palm fan, with a hammock and tropical leaves behind her."
+              />
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER ONE — built for people.
+         ================================================================ -->
+    <section id="built-for-people" class="chapter chapter-people" aria-labelledby="people-heading">
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Chapter One &middot; Experience, 2021&ndash;2025
+        </p>
+        <h2 id="people-heading" class="section-title">Built for <em>people.</em></h2>
+        <p class="chapter-lede">
+          Three projects, three communities: a sign-language translator, faster access
+          to care, and cameras that call for help.
+        </p>
+      </div>
+
+      <!-- A documentary title card before the first scene. -->
+      <div class="intertitle reveal">
+        <p class="intertitle-num" aria-hidden="true">96%</p>
+        <p class="intertitle-text">
+          <span class="visually-hidden">96% &mdash;</span>
+          Of the 308 Deaf people and people with hearing loss I surveyed in Vietnam, 96%
+          said communicating was difficult. So I built a translator.
+        </p>
+      </div>
+
+      <div class="scene-grid">
+        <article class="scene-card reveal" id="signtegrate">
+          <p class="slate">Scene 01 &middot; Vietnam &middot; 2021&ndash;2023</p>
+          <h3>Signtegrate</h3>
+          <p class="scene-role">My high-school start-up</p>
+          <p class="copy">
+            A real-time Vietnamese Sign Language translator. I collected and annotated 394
+            sign videos, tracked hands and body with a MediaPipe pipeline, and trained a
+            DD-Net model that recognizes signs in under a second, at 70.1% accuracy.
+          </p>
+          <p class="award">
+            <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+            First runner-up, SV.STARTUP 2022, Vietnam&rsquo;s national student start-up
+            competition
+          </p>
+          <p class="made-for"><span>Made for</span> the Deaf community in Vietnam</p>
+        </article>
+
+        <article class="scene-card reveal" id="patient-access">
+          <p class="slate">Scene 02 &middot; Hanover, NH &middot; 2024</p>
+          <h3>Patient-access research</h3>
+          <p class="scene-role">Dartmouth &middot; FYREE fellow, then E.&nbsp;E. Just summer intern</p>
+          <p class="copy">
+            I cleaned and queried 11,000+ anonymized patient-flow and scheduling records
+            from five Dartmouth-Hitchcock clinics, then built discrete-event simulations in
+            AnyLogic and SimPy to test new scheduling strategies. In simulation, they cut
+            average waits by 25% and raised 10-day patient access from 14&ndash;28% to 55%.
+          </p>
+          <p class="made-for"><span>Made for</span> patients waiting for care</p>
+        </article>
+
+        <article class="scene-card reveal" id="fpt-software">
+          <p class="slate">Scene 03 &middot; Hanoi &middot; 2025</p>
+          <h3>FPT Software</h3>
+          <p class="scene-role">AI Computer Vision Engineer Intern</p>
+          <p class="copy">
+            I worked on a camera-based safety system designed to spot falls&mdash;especially
+            for elders and children&mdash;and alert firefighters, police, and hospitals. I
+            crawled 10,000+ images across five poses, auto-labeled a 100,000-image dataset
+            (70% less manual labeling), and served a real-time vision-language model on a
+            Jetson Nano with 40% lower latency.
+          </p>
+          <p class="made-for"><span>Made for</span> elders, children, and the responders who reach them</p>
+        </article>
+      </div>
+
+      <!-- FPT's production note, clipped under the scenes rather than inside
+           the third card, so the three cards share one height with no empty
+           paper above their "Made for" lines. It follows the FPT card and
+           always hangs under it: at FPT's width under the third column when
+           the three cards share a row, centred when FPT has a row to itself. -->
+      <p class="scene-note reveal">
+        <span class="scene-note-tag">Also:</span> I diagnosed a NAT port-mapping issue between a WebRTC client and NVIDIA
+        Omniverse Isaac Sim running in Docker.
+      </p>
+    </section>
+
+    <!-- ================================================================
+         BY THE NUMBERS — the crimson promo band, VS style.
+         ================================================================ -->
+    <section id="numbers" class="stat-band on-dark" aria-labelledby="numbers-heading">
+      <h2 id="numbers-heading" class="stat-band-label">
+        <i class="fa-solid fa-star" aria-hidden="true"></i>
+        By the numbers
+        <i class="fa-solid fa-star" aria-hidden="true"></i>
+      </h2>
+
+      <!-- Each numeral counts up as it scrolls in where the browser supports
+           scroll-driven animations; the plain figure is always in the markup. -->
+      <ul class="stat-row">
+        <li class="stat">
+          <p class="stat-num count count-gpa" style="--to: 91">
+            <span class="count-static">3.91</span>
+          </p>
+          <p class="stat-text">GPA &middot; Rufus Choate Scholar, Dartmouth&rsquo;s top-5% honor</p>
+        </li>
+        <li class="stat">
+          <p class="stat-num count" style="--to: 11">
+            <span class="count-static">11%</span>
+          </p>
+          <p class="stat-text">Base-case upside in the AECOM valuation my Tuck team presented</p>
+        </li>
+        <li class="stat">
+          <p class="stat-num count" style="--to: 40">
+            <span class="count-static">40%</span>
+          </p>
+          <p class="stat-text">Lower glass-to-glass latency for real-time vision AI at FPT</p>
+        </li>
+        <li class="stat">
+          <p class="stat-num count" style="--to: 55">
+            <span class="count-static">55%</span>
+          </p>
+          <p class="stat-text">10-day patient access in our clinic simulations, up from 14&ndash;28%</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER TWO — follow the money.
+         ================================================================ -->
+    <section id="follow-the-money" class="chapter chapter-money" aria-labelledby="money-heading">
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Chapter Two &middot; Finance, 2025&ndash;2026
+        </p>
+        <h2 id="money-heading" class="section-title">Follow the <em>money.</em></h2>
+        <p class="chapter-lede">
+          A valuation at Tuck, then a summer in alternative credit at Magnetar Capital.
+        </p>
+      </div>
+
+      <div class="money-shell">
+        <article class="look reveal" id="tuck">
+          <div class="look-meta">
+            <p class="slate">Scene 04 &middot; Hanover, NH &middot; December 2025</p>
+            <h3>Tuck Business Bridge Program</h3>
+            <p class="scene-role">AECOM valuation &middot; Tuck School of Business</p>
+          </div>
+          <div class="look-body">
+            <p class="copy">
+              My team built a three-statement model and a
+              <abbr title="discounted cash flow">DCF</abbr> for AECOM, projecting $22.6B in
+              revenue and $1.1B in EBIT by 2029: a $109.56 base-case share price, about 11%
+              upside, which we presented to executives and faculty. I led the AI and
+              proprietary-software analysis, turning adoption scenarios into the margin,
+              CapEx, working-capital, and free-cash-flow assumptions.
+            </p>
+            <p class="made-for"><span>Made for</span> executives and faculty at Tuck</p>
+          </div>
+        </article>
+
+        <article class="look reveal" id="magnetar">
+          <div class="look-meta">
+            <p class="slate">Scene 05 &middot; Evanston, IL &middot; Summer 2026</p>
+            <h3>Magnetar Capital</h3>
+            <p class="scene-role">Alternative Credit &amp; Fixed Income Summer Analyst</p>
+
+            <figure class="still reveal-still">
+              <img
+                src="img/about/magnetar_team.jpg"
+                width="1050"
+                height="1400"
+                loading="lazy"
+                decoding="async"
+                alt="Minh, second from left in a beige suit, with six members of the Magnetar summer team in a presentation room."
+              />
+              <figcaption>With my Magnetar summer team. I&rsquo;m second from left.</figcaption>
+            </figure>
+          </div>
+
+          <div class="look-body">
+            <h4 class="look-subhead">Fundamental credit</h4>
+            <p class="copy">
+              I paired qualitative analysis of high-yield issuers with forecast models of their
+              financial statements, testing free cash flow, interest coverage, the maturing debt
+              each would need to refinance, and pro-forma liquidity. That gave me my own view of
+              default risk, which I set against the risk priced into their credit spreads to
+              judge whether each spread was too wide, too tight, or about right. I presented my
+              final recommendation to the firm&rsquo;s senior investment professionals.
+            </p>
+
+            <h4 class="look-subhead">Thematic diligence</h4>
+            <p class="copy">
+              I also did diligence on a thematic investment idea. I weighed near-term against
+              long-term demand; assessed the creditworthiness of the companies behind it on
+              liquidity, leverage, execution and regulatory risk, and customer concentration;
+              and mapped the supply chain end to end to find the binding constraint. I then
+              synthesized the findings into an investment recommendation.
+            </p>
+            <p class="gloss">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
+              <span>Company names, positions, and recommendations from my internship stay
+              confidential. What&rsquo;s here is how I worked, not what I concluded.</span>
+            </p>
+
+            <p class="made-for">
+              <span>Made for</span> Magnetar&rsquo;s senior investment team
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER THREE — my market notes, on a black band.
+         ================================================================ -->
+    <section id="power" class="chapter chapter-power on-dark" aria-labelledby="power-heading">
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Chapter Three &middot; What I&rsquo;m learning
+        </p>
+        <h2 id="power-heading" class="section-title">
+          Everyone&rsquo;s watching AI. <em>I&rsquo;m watching the power.</em>
+        </h2>
+        <p class="chapter-lede">
+          AI runs on data centers, and data centers run on power. That&rsquo;s why
+          I&rsquo;ve been following nuclear: firm, clean, and, I think, the next big source
+          of power for data centers.
+        </p>
+        <p class="research-meta">
+          Personal research notes &middot; Built from public sources only &middot; As of September 2026 &middot; Views my own, not
+          any employer&rsquo;s &middot; Not investment advice
+        </p>
+      </div>
+
+      <!-- A news lower-third: the one dated fact the notes turn on. -->
+      <p class="chyron reveal">
+        <span class="chyron-tag"><span class="rec-dot" aria-hidden="true"></span>June 23, 2026</span>
+        <span class="chyron-text">
+          The Department of Energy announces up to $17.5B in conditional loans to help build
+          10 large nuclear reactors
+        </span>
+        <a
+          class="chyron-src"
+          href="https://www.energy.gov/articles/department-energy-announces-american-nuclear-supply-chain-loans"
+          rel="noopener"
+          target="_blank"
+        >Source: energy.gov</a>
+      </p>
+
+      <ol class="chain">
+        <li class="reveal">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3 class="step-title">The demand</h3>
+          <p class="step-text">
+            AI is spreading into every industry: LLMs today, vision-language models and
+            robotics next. Hyperscalers are spending billions on the data centers to run it
+            all, and those need an enormous amount of power, around the clock.
+          </p>
+        </li>
+        <li class="reveal">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3 class="step-title">Firm and clean</h3>
+          <p class="step-text">
+            Renewables are intermittent, and the 2026 Middle East crisis has left
+            global gas markets tight and volatile. Nuclear runs day and night, without the
+            carbon.
+          </p>
+        </li>
+        <li class="reveal">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3 class="step-title">The funding gap</h3>
+          <p class="step-text">
+            Many next-generation reactor developers are pre-revenue with no credit ratings,
+            burning cash on units targeted for around 2030 to the early 2030s. For now,
+            their cash flow hinges on government support and early commitments from big
+            power buyers.
+          </p>
+        </li>
+        <li class="reveal">
+          <span class="step-num" aria-hidden="true">04</span>
+          <h3 class="step-title">The catalysts</h3>
+          <p class="step-text">
+            In June, the DOE announced up to $17.5B in conditional loans to help build 10
+            large AP1000 reactors: Washington putting its balance sheet behind new nuclear.
+            Amazon, Google, and Meta have signed nuclear deals too, from equity stakes to
+            prepayments.
+          </p>
+        </li>
+        <li class="reveal">
+          <span class="step-num" aria-hidden="true">05</span>
+          <h3 class="step-title">Who benefits</h3>
+          <p class="step-text">
+            Many of those deals are staged or early-stage, so the sooner reactors get built,
+            the sooner that money turns into revenue. For lenders and investors across the sector, news like this signals potential mega deals ahead.
+          </p>
+        </li>
+        <li class="payoff reveal">
+          <span class="step-num" aria-hidden="true">06</span>
+          <h3 class="step-title">The bottleneck I&rsquo;m watching</h3>
+          <p class="step-text">
+            Many advanced reactor designs call for
+            <abbr title="high-assay low-enriched uranium">HALEU</abbr>: uranium enriched to
+            between 5% and just under 20%. My read of the public record is that the choke point
+            is enrichment&mdash;how fast the US can add the centrifuge capacity to make HALEU at
+            scale.
+          </p>
+        </li>
+      </ol>
+
+      <div class="mind-changer reveal">
+        <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+        <p>
+          <strong>What would change my mind:</strong> new reactors slipping well past their early-2030s targets, big tech&rsquo;s power deals staying non-binding, or new enrichment plants coming online after the reactors that need their fuel.
+        </p>
+      </div>
+
+      <p class="sources">
+        Sources:
+        <a href="https://www.energy.gov/articles/department-energy-announces-american-nuclear-supply-chain-loans" rel="noopener" target="_blank">DOE loan announcement</a>
+        &middot;
+        <a href="https://www.iea.org/reports/gas-market-report-q3-2026/executive-summary" rel="noopener" target="_blank">IEA Gas Market Report, Q3 2026</a>
+        &middot;
+        <a href="https://www.energy.gov/ne/articles/what-high-assay-low-enriched-uranium-haleu" rel="noopener" target="_blank">DOE: What is HALEU?</a>
+      </p>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER FOUR — MyFashionSpace, in VS "More to Discover" tiles.
+         ================================================================ -->
+    <section id="the-house" class="chapter chapter-house" aria-labelledby="house-heading">
+      <!-- The set: a cobalt seamless backdrop with original black-ink paper
+           cut-outs (drawn for this page) hanging on strings, and two paper
+           lilies standing on the floor. Decoration only. -->
+      <div class="paper-set" aria-hidden="true">
+        <span class="cutout cut-cloud"></span>
+        <span class="cutout cut-sun"></span>
+        <span class="cutout cut-flower cut-flower-1"></span>
+        <span class="cutout cut-moon"></span>
+        <span class="cutout cut-cloud-sm"></span>
+        <span class="cutout cut-flower cut-flower-2"></span>
+        <span class="cutout cut-lily cut-lily-l"></span>
+        <span class="cutout cut-lily cut-lily-r"></span>
+      </div>
+
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Chapter Four &middot; MyFashionSpace
+        </p>
+        <h2 id="house-heading" class="section-title">The house <em>I&rsquo;m building.</em></h2>
+        <p class="chapter-lede">
+          Since spring 2026, I&rsquo;ve been building
+          <span class="brandmark">MyFashionSpace</span>: a glamorous, Y2K-designed home
+          for fashionistas.
+        </p>
+        <p class="copy house-intro">
+          At its heart is a social platform where fashionistas make friends, style their own
+          closets with a personal AI stylist, and sell their couture on an auction
+          marketplace. This site is its newest wing: fashion-first financial intelligence,
+          following the headlines, financials, and deals behind beauty, fashion, and
+          modeling&mdash;where my love of markets meets my love of fashion.
+        </p>
+      </div>
+
+      <ul class="house-grid">
+        <li class="house-tile reveal">
+          <div class="house-frame">
+            <img src="img/editorial3.jpeg" width="736" height="1046" loading="lazy" decoding="async" alt="" class="crop-friends" />
+            <p class="house-title">Make <em>friends.</em></p>
+          </div>
+          <p class="house-caption">The social space</p>
+        </li>
+        <li class="house-tile reveal">
+          <div class="house-frame">
+            <img src="img/editorial5.jpeg" width="736" height="552" loading="lazy" decoding="async" alt="" class="crop-closet" />
+            <p class="house-title">Style <em>your closet.</em></p>
+          </div>
+          <p class="house-caption">With a personal AI stylist</p>
+        </li>
+        <li class="house-tile reveal">
+          <div class="house-frame">
+            <img src="img/editorial1.jpg" width="1200" height="1589" loading="lazy" decoding="async" alt="" class="crop-auction" />
+            <p class="house-title">Sell <em>your couture.</em></p>
+          </div>
+          <p class="house-caption">The auction marketplace</p>
+        </li>
+        <li class="house-tile house-tile-here reveal">
+          <a href="index.html" class="house-frame house-link">
+            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+            <span class="here-label">The newest wing &middot; You are here</span>
+            <span class="house-title">The business <em>of style.</em></span>
+            <span class="here-cta">
+              Explore the platform
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </span>
+          </a>
+          <p class="house-caption">Fashion-first financial intelligence</p>
+        </li>
+      </ul>
+
+      <div class="house-foot reveal">
+        <p class="off-clock">
+          <i class="fa-solid fa-camera-retro" aria-hidden="true"></i>
+          Off the clock, I do photoshoots, runway walks, and castings.
+        </p>
+        <a href="index.html#signup" class="text-link">
+          Join the early-access list
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER FIVE — community, on the landing page's mauve.
+         ================================================================ -->
+    <section id="community" class="chapter chapter-community on-dark" aria-labelledby="community-heading">
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Chapter Five &middot; Community
+        </p>
+        <h2 id="community-heading" class="section-title">Out, <em>and all in.</em></h2>
+        <p class="chapter-lede">
+          I&rsquo;m non-binary and gay, so LGBTQ+ advocacy is personal to me.
+        </p>
+      </div>
+
+      <!-- Two columns that start and end together: the Out and All in lists
+           side by side under the title, the O4U press print closing the Out
+           list (O4U is on it) and Minh's soundbite closing the All in list. -->
+      <div class="community-shell">
+        <div class="community-col community-out">
+          <div class="org-col reveal">
+            <h3 class="org-head">Out</h3>
+            <ul class="org-list">
+              <li class="org-lead">
+                <span class="org-name">WITHIN <span class="lead-badge">I lead it</span></span>
+                <span class="org-note">The biggest LGBTQ+ advocacy group on campus</span>
+              </li>
+              <li>
+                <span class="org-name">Triangle House</span>
+                <span class="org-note">Dartmouth&rsquo;s LGBTQ+ living-learning community</span>
+              </li>
+              <li>
+                <span class="org-name">The Tabard</span>
+                <span class="org-note">My gender-inclusive fraternity</span>
+              </li>
+              <li>
+                <span class="org-name">Out for Undergrad (O4U)</span>
+                <span class="org-note">Campus Ambassador at Dartmouth &middot; O4U Digital 2025 &middot; O4U Mentorship</span>
+              </li>
+              <li>
+                <span class="org-name">Out in Tech</span>
+                <span class="org-note">Member of the global LGBTQ+ tech community</span>
+              </li>
+            </ul>
+          </div>
+
+          <figure class="press-print reveal-still">
+            <img
+              src="img/about/o4u.jpg"
+              width="1400"
+              height="1050"
+              loading="lazy"
+              decoding="async"
+              alt="A group of students wearing conference lanyards, posed in a row against a blue wall at the O4U Digital 2025 conference."
+            />
+            <figcaption>At O4U Digital 2025</figcaption>
+          </figure>
+        </div>
+
+        <div class="community-col community-in">
+          <div class="org-col reveal">
+            <h3 class="org-head">All in</h3>
+            <ul class="org-list">
+              <li class="org-new">
+                <span class="org-name">Women in Business (WIB) &amp; Smart Woman Securities (SWS) <span class="lead-badge">New</span></span>
+                <span class="org-note">Two women-in-finance clubs at Dartmouth. Joining them marks my start in womanhood, and a new step in my career.</span>
+              </li>
+              <li>
+                <span class="org-name">Vietnamese Student Association</span>
+                <span class="org-note">Former Vice President</span>
+              </li>
+              <li>
+                <span class="org-name">Bible study, Dartmouth&rsquo;s Tucker Center</span>
+                <span class="org-note">Where I&rsquo;ve been growing closer to God and Christianity</span>
+              </li>
+              <li><span class="org-name">Dartmouth Quant Club</span></li>
+              <li><span class="org-name">Dartmouth Tech Consulting Group</span></li>
+              <li><span class="org-name">CodePath</span></li>
+              <li>
+                <span class="org-name">Student Council, Hanoi&#8209;Amsterdam High School for the Gifted</span>
+                <span class="org-note">Executive Committee</span>
+              </li>
+            </ul>
+          </div>
+
+          <figure class="soundbite reveal">
+            <blockquote>
+              <p>I love teamwork, leadership, and being a trailblazer.</p>
+            </blockquote>
+            <figcaption class="lower-third">
+              <span class="lt-name">Minh Nguyen</span>
+              <span class="lt-role">On community</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER SIX — my mom. The pinned room is Minh's pink lace
+         (cropped so no one is in frame), softened and lit from the window.
+         ================================================================ -->
+    <section id="the-closet" class="chapter chapter-closet" aria-labelledby="closet-heading">
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Chapter Six &middot; Motivation
+        </p>
+        <h2 id="closet-heading" class="section-title">The closet she <em>opened for me.</em></h2>
+      </div>
+
+      <div class="closet-shell">
+        <div class="closet-aside">
+          <div class="window-still reveal-still" aria-hidden="true"></div>
+          <figure class="mom-photo reveal-still">
+            <img
+              src="img/about/mom_me.jpg"
+              width="941"
+              height="706"
+              loading="lazy"
+              decoding="async"
+              alt="Minh and their mom smiling together at night, Minh's arm around her, with colored lantern lights reflected in the river behind them."
+            />
+            <figcaption>My mom and me.</figcaption>
+          </figure>
+          <figure class="soundbite reveal">
+            <blockquote>
+              <p>Knowing that I&rsquo;ll always have her beside me&mdash;that drives me.</p>
+            </blockquote>
+            <figcaption class="lower-third">
+              <span class="lt-name">Minh Nguyen</span>
+              <span class="lt-role">On my mom</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="closet-text reveal">
+          <p class="copy dropcap">
+            My mom is hard-working, ambitious, and so caring. In her twenties, she was the
+            CFO of a tech start-up, before she gave her career up for our family.
+          </p>
+          <p class="copy">
+            The day before my flight back to college, she took me to a closet she had kept
+            tucked away for decades. It was full of her clothes from her own college years in
+            the 2000s. She had great fashion sense. She told me to pick whatever I wanted for
+            college.
+          </p>
+          <p class="copy">
+            I was so emotional. Ever since coming out as non-binary and trans, it has felt ten
+            times harder to navigate life and acceptance back home in Vietnam, where many
+            people still hold traditional, conservative views.
+          </p>
+          <p class="copy">
+            I know I&rsquo;ll always have her beside me, and I know how much she has
+            sacrificed for me to be who I am today. That&rsquo;s what drives me&mdash;in AI, in
+            finance, and on the runway. Someday, I&rsquo;m going to take her to places
+            she&rsquo;s never been, so she never has to save up for a vacation again.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         EPILOGUE — the plum bookend: what's next, and what I bring.
+         ================================================================ -->
+    <section id="epilogue" class="chapter epilogue on-dark" aria-labelledby="epilogue-heading">
+      <div class="glitter" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="glints" aria-hidden="true">
+        <span class="glint g1"></span><span class="glint g4"></span>
+        <span class="glint g5"></span><span class="glint g7"></span>
+        <span class="glint g9"></span><span class="glint g11"></span>
+      </div>
+
+      <div class="chapter-head reveal">
+        <p class="kicker">
+          <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+          Epilogue &middot; What&rsquo;s next
+        </p>
+        <h2 id="epilogue-heading" class="section-title">In my own <em>lane.</em></h2>
+        <p class="chapter-lede">
+          My long-term goal is to become a leader in my own lane&mdash;whether that&rsquo;s
+          owning business ventures, becoming a supermodel and fashion mogul, or being a
+          managing director at a big bank. Code, capital, and couture: I don&rsquo;t plan to
+          choose.
+        </p>
+      </div>
+
+      <ul class="coming-soon">
+        <li class="teaser reveal">
+          <span class="teaser-label">Coming soon</span>
+          <span class="teaser-title">The founder</span>
+          <span class="teaser-sub">Owning business ventures</span>
+        </li>
+        <li class="teaser reveal">
+          <span class="teaser-label">Coming soon</span>
+          <span class="teaser-title">The supermodel &amp; fashion mogul</span>
+          <span class="teaser-sub">The runway, and the business behind it</span>
+        </li>
+        <li class="teaser reveal">
+          <span class="teaser-label">Coming soon</span>
+          <span class="teaser-title">The managing director</span>
+          <span class="teaser-sub">Leading at a big bank</span>
+        </li>
+      </ul>
+
+      <div class="bring reveal">
+        <h3 class="bring-head">What I bring <em>to the table.</em></h3>
+        <ol class="bring-list">
+          <li>
+            <strong>I take an idea from the model to the room.</strong>
+            <span>At Magnetar, I built the forecast models, ran the credit analysis, and presented
+            my recommendation to senior investment professionals.</span>
+            <a href="#magnetar" class="inline-link">Chapter Two</a>
+          </li>
+          <li>
+            <strong>I follow a trend to its bottleneck.</strong>
+            <span>In my own research, I trace AI to power, power to nuclear, and nuclear to the
+            centrifuges behind HALEU.</span>
+            <a href="#power" class="inline-link">Chapter Three</a>
+          </li>
+          <li>
+            <strong>I write the code behind the analysis.</strong>
+            <span>Computer vision on edge hardware, clinic simulations, and a CS (Honors) and
+            Math degree underneath.</span>
+            <a href="#built-for-people" class="inline-link">Chapter One</a>
+          </li>
+          <li>
+            <strong>I build for people, and I lead them.</strong>
+            <span>Signtegrate began with a survey of 308 people. I served as Vice President of
+            the Vietnamese Student Association, and today I lead WITHIN.</span>
+            <a href="#community" class="inline-link">Chapter Five</a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         THE CREDITS — the full bag, and the contact.
+         ================================================================ -->
+    <section id="credits" class="credits on-dark" aria-labelledby="credits-heading">
+      <h2 id="credits-heading" class="section-title reveal">Roll <em>credits.</em></h2>
+
+      <dl class="credit-roll">
+        <div class="credit credit-star reveal">
+          <dt>Starring</dt>
+          <dd>
+            <img
+              src="img/about/minh2.jpg"
+              width="750"
+              height="1000"
+              loading="lazy"
+              decoding="async"
+              alt="Close-up of Minh in a blue-striped oxford shirt, with a calm expression."
+              class="headshot"
+            />
+            <span>Minh Nguyen <span class="credit-aside">they / them</span></span>
+          </dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Inspired by</dt>
+          <dd>My mom</dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Filmed on location</dt>
+          <dd>Vietnam &middot; Hanover, New Hampshire &middot; Evanston, Illinois</dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Featuring</dt>
+          <dd>
+            WITHIN &middot; Triangle House &middot; The Tabard &middot; Out for Undergrad
+            &middot; Out in Tech &middot; Women in Business &middot; Smart Woman Securities
+            &middot; Vietnamese Student Association &middot; Tucker Center Bible study &middot; Dartmouth Quant Club &middot; Dartmouth
+            Tech Consulting Group &middot; CodePath &middot; Hanoi&#8209;Amsterdam High School for the
+            Gifted Student Council
+          </dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Code</dt>
+          <dd>Python &middot; JavaScript &middot; SQL &middot; R &middot; HTML/CSS</dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Machine learning</dt>
+          <dd>PyTorch &middot; YOLOv11 &middot; OpenCV &middot; scikit-learn &middot; MediaPipe &middot; MLflow</dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Finance</dt>
+          <dd>
+            Three-statement modeling &middot; DCF &middot; Accounting &middot; Excel &middot;
+            PowerPoint &middot; Bloomberg &middot; Capital IQ
+          </dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Tools</dt>
+          <dd>
+            Tableau &middot; AWS &middot; Docker &middot; Linux &middot; Claude Code &middot;
+            Codex &middot; GitHub Copilot
+          </dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Coursework</dt>
+          <dd>
+            Machine Learning &middot; Artificial Intelligence &middot; Deep Learning &middot;
+            Statistics &middot; Linear Algebra &middot; Real Analysis &middot; Microeconomics
+            &middot; Evolutionary Game Theory &middot; Database Systems &middot; Data
+            Structures &middot; Algorithms &middot; Discrete Math
+          </dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Honors</dt>
+          <dd>
+            Rufus Choate Scholar &middot; College Honor List &middot; Garden &amp; Turco
+            Families Scholarship &middot; Faculty citations in MATH 23, COSC 74, COSC 76
+            &amp; COSC 78
+            <span class="credit-aside">notes professors add to a Dartmouth transcript for standout work</span>
+          </dd>
+        </div>
+        <div class="credit reveal">
+          <dt>Certifications</dt>
+          <dd>
+            Wall Street Prep: Accounting &amp; Financial Statement Analysis, Analyzing
+            Financial Reports, PowerPoint Shortcuts for Investment Banking, Microsoft Excel
+            &middot; Grow with Google: Data Analytics &middot; CodePath: Advanced Technical
+            Interview Prep, Foundations of AI Engineering
+          </dd>
+        </div>
+        <!-- Stills: every set on the page, with its license and source.
+             Curtain: Rob Laughter, Unsplash License, https://unsplash.com/photos/red-theater-curtain-WW1jsInXgwM
+             Velvet (curtain wings and valance): Liana S, Unsplash License, https://unsplash.com/photos/rich-red-velvet-theater-curtains-with-stage-curtains-nxZ3CK5KTME
+             Film reel: Sami TÜRK, Pexels License, https://www.pexels.com/photo/close-up-of-vintage-film-reel-in-soft-light-34084909/ (reel-sm.jpg is a portrait crop of the same photo, for phones)
+             Porcelain (peony in a blue-and-white vase): Fiona Murray-deGraaff, Unsplash License, https://unsplash.com/photos/a-blue-and-white-vase-with-a-flower-in-it-rZi_go_qmZ0
+             Lotus embroidery (printed faintly behind the prologue's letter): floral and bird embroidery on silk, Nguyễn dynasty, 19th to early 20th century, National Museum of Vietnamese History, Hanoi; photo by Daderot, CC0 (public domain dedication), https://commons.wikimedia.org/wiki/File:Floral_and_bird_embroidery,_Nguyen_dynasty,_19th_to_early_20th_century_-_National_Museum_of_Vietnamese_History_-_Hanoi,_Vietnam_-_DSC05588.JPG (img/about/bg/lotus-embroidery.jpg)
+             Huế florals (the prologue letter's corner vines): Lê Văn Tùng, ornamental panels drawn in red ink, Bulletin des Amis du Vieux Huế, 1919, public domain, https://archive.org/details/40BAVH (img/about/bg/hue-1919-florals.jpg, cropped)
+             Magazine page (prologue): a Vietnamese fashion editorial from Minh's mood board (img/about/bg/vn-editorial.jpg, shown whole on the page, uncaptioned; credited here only)
+             Kate Moss in Vietnam (prologue): Bruce Weber for Vogue, 1990s, a magazine page from Minh's mood board (img/about/bg/vogue-vietnam.jpg, shown whole, uncaptioned; credited here only; all rights with their owners)
+             Cement tiles: Valentin Ciccarone, Unsplash License, https://unsplash.com/photos/hmWIxIrbuP8
+             Negatives on a light table: Ron Lach, Pexels License, https://www.pexels.com/photo/camera-film-on-light-table-10276039/
+             Sequins: Tim Mossholder, Unsplash License, https://unsplash.com/photos/a-close-up-of-a-red-and-gold-sequin-fabric-QhMklrq-f30
+             Banking hall: Historic American Buildings Survey (HABS IN-62, Indiana National Bank, Indianapolis), Library of Congress, public domain (no known restrictions), https://www.loc.gov/resource/hhh.in0057.photos/?sp=11
+             Cooling towers: Kyle Miller, Pexels License, https://www.pexels.com/photo/view-of-a-nuclear-power-plant-18335700/
+             Cobalt backdrop: Engin Akyurt, Pexels License, https://www.pexels.com/photo/a-bright-blue-textured-background-15429340/ (the paper cut-outs, the doodle spray over the house tiles and the magazine page's greeked columns are original SVG drawings made for this page)
+             House prints (Chapter Four's tiles): MyFashionSpace campaign board (img/editorial3.jpeg, img/editorial5.jpeg, img/editorial1.jpg, uncaptioned; credited here only)
+             Mirror ball: Paul Zoetemeijer, Unsplash License, https://unsplash.com/photos/closeup-photography-of-mirror-ball-ruujnFOHS30
+             Lace: MyFashionSpace campaign board (img/editorial7.jpeg, cropped so no one is in frame)
+             Lace curtain in window light (the closet's room): Tolga deniz Aran, Pexels License, https://www.pexels.com/photo/dramatic-sunlight-hitting-the-curtains-15408607/
+             Window blinds: Ruan Richard Rodrigues, Unsplash License, https://unsplash.com/photos/white-window-blinds-on-white-wall-NzTfWq_thaA
+             Shutters (a lime-washed corridor in Ho Chi Minh City): Nguyễn Viết Minh Lâm, Pexels License, https://www.pexels.com/photo/sunlit-corridor-with-vintage-shutters-in-vietnam-35928752/
+             Runway hall: Faron Brazis, Pexels License, https://www.pexels.com/photo/elegant-auditorium-with-runway-and-chandelier-38954247/
+             Runway footage: Victoria's Secret Fashion Show footage from Minh's mood board (all rights with their owners), cropped to a 2.39:1 frame
+             Empty cinema: Mesh (@crypticsy), Unsplash License, https://unsplash.com/photos/red-empty-cinema-chairs-uFHfFHYYEgU -->
+        <div class="credit reveal">
+          <dt>Stills</dt>
+          <dd>
+            The curtain: Rob Laughter &amp; Liana S (Unsplash) &middot; The reel: Sami T&Uuml;RK
+            (Pexels) &middot; The porcelain: Fiona Murray-deGraaff (Unsplash) &middot; The lotus
+            embroidery: Nguy&#7877;n-dynasty silk, National Museum of Vietnamese History (photo:
+            Daderot, CC0) &middot; The Hu&#7871; florals: L&ecirc; V&#259;n T&ugrave;ng, Bulletin des Amis
+            du Vieux Hu&#7871;, 1919 &middot; The magazine
+            page: a Vietnamese editorial (from my mood board) &middot; Kate Moss in Vietnam:
+            Bruce Weber for Vogue (from my mood board) &middot; The tiles:
+            Valentin Ciccarone (Unsplash) &middot; The negatives: Ron Lach (Pexels) &middot; The
+            sequins: Tim Mossholder (Unsplash) &middot; The banking hall: Historic American
+            Buildings Survey, Library of Congress &middot; The towers: Kyle Miller (Pexels)
+            &middot; The cobalt set: Engin Akyurt (Pexels) &middot; The house prints:
+            MyFashionSpace campaign board &middot; The mirror ball: Paul
+            Zoetemeijer (Unsplash) &middot; The lace: MyFashionSpace campaign board &amp; Tolga deniz
+            Aran (Pexels) &middot; The blinds: Ruan Richard Rodrigues (Unsplash) &middot; The
+            shutters: Nguy&#7877;n Vi&#7871;t Minh L&acirc;m (Pexels) &middot; The runway: Faron Brazis (Pexels) &middot; Runway footage:
+            Victoria&rsquo;s Secret Fashion Show (from my mood board; all rights with their owners) &middot; The empty
+            house: Mesh (Unsplash)
+            <span class="credit-aside">Unsplash &amp; Pexels licenses, and the public domain. The paper cut-outs, the doodles and the magazine&rsquo;s type were drawn for this page.</span>
+          </dd>
+        </div>
+        <div class="credit credit-booking reveal" id="bookings">
+          <dt>For bookings &amp; inquiries</dt>
+          <dd>
+            <p class="booking-note">
+              If you&rsquo;re working on credit, markets, AI, or the business of fashion,
+              I&rsquo;d love to hear from you.
+            </p>
+            <div class="booking-actions">
+              <a href="mailto:minh.t.nguyen.27@dartmouth.edu" class="btn-primary">
+                Email Me
+                <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+              </a>
+            </div>
+            <!-- One channel per lane, each labelled with what it's for. -->
+            <ul class="channels" aria-label="Find me elsewhere">
+              <li>
+                <a href="https://www.linkedin.com/in/minhtainguyen" class="channel" rel="noopener" target="_blank">
+                  <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                  <span class="channel-name">LinkedIn</span>
+                  <span class="channel-for">Finance &amp; networking</span>
+                  <span class="visually-hidden">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/Minh-Nguyen-2005" class="channel" rel="noopener" target="_blank">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i>
+                  <span class="channel-name">GitHub</span>
+                  <span class="channel-for">AI &amp; tech</span>
+                  <span class="visually-hidden">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/minh.ngxx/" class="channel" rel="noopener" target="_blank">
+                  <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                  <span class="channel-name">Instagram <span class="channel-handle">@minh.ngxx</span></span>
+                  <span class="channel-for">Fashion &amp; modeling</span>
+                  <span class="visually-hidden">(opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+
+      <div class="fame-star reveal" aria-hidden="true">
+        <span class="fame-name">Minh<br />Nguyen</span>
+        <i class="fa-solid fa-film"></i>
+      </div>
+      <p class="based-on reveal">Based on a true story.</p>
+      <a href="#premiere" class="secondary-link back-to-top">
+        Back to the Poster
+        <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+      </a>
+    </section>
+  </main>
+
+  <footer id="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-logo">MyFashionSpace</p>
+        <p class="footer-tagline">Serious about the business of style.</p>
+        <ul class="footer-socials">
+          <li><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+          <li><a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest" aria-hidden="true"></i></a></li>
+          <li><a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a></li>
+          <li><a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <input type="checkbox" id="fc-discover" class="footer-toggle" />
+          <h3 class="footer-heading">
+            <label for="fc-discover">Discover <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label>
+          </h3>
+          <ul class="footer-list">
+            <li><a href="index.html#platform">The Platform</a></li>
+            <li><a href="index.html#coverage">Our Coverage</a></li>
+            <li><a href="index.html#daily-edit">The Daily Edit</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <input type="checkbox" id="fc-connect" class="footer-toggle" />
+          <h3 class="footer-heading">
+            <label for="fc-connect">Connect <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label>
+          </h3>
+          <ul class="footer-list">
+            <li><a href="about.html" aria-current="page">About</a></li>
+            <li><a href="#bookings">Contact</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <input type="checkbox" id="fc-info" class="footer-toggle" />
+          <h3 class="footer-heading">
+            <label for="fc-info">Your Information <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></label>
+          </h3>
+          <ul class="footer-list">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-copyright">&copy; 2026 <span class="brandmark">MyFashionSpace</span>.</p>
+  </footer>
+</body>
+</html>

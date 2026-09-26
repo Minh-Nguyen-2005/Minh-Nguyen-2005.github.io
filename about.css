@@ -1,0 +1,4647 @@
+/* ==========================================================================
+   MyFashionSpace — About (Minh Nguyen)
+
+   Loaded after style.css, which is left untouched: the tokens, header, footer,
+   buttons, eyebrows, section titles and glints all come from there. This file
+   only adds the About page, styled as a documentary about Minh — a premiere
+   poster, a DVD scene menu, six chapters and a credits roll — in the landing
+   page's own palette and type.
+
+   Motion follows the landing page (fade-up, sheen, Ken Burns, camera-flash
+   glints, hover glare) plus a few cinematic touches borrowed from ADÉLA's
+   "Nicole Kidman" video: projector rays, blind-light, falling glitter and
+   foil title cards. Anything scroll-driven is progressive enhancement, and
+   all of it switches off under prefers-reduced-motion.
+
+   Flexbox throughout; the one breakpoint is the landing page's 640px.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Page tokens
+   The landing's blush, crimson and mauve stay the brand anchors. This page
+   adds a Moulin Rouge dressing room around them: ruby velvet, champagne
+   gold, and a drop of absinthe emerald, used sparingly, like a jewel.
+   -------------------------------------------------------------------------- */
+.about {
+  --plum: #33101f;
+  --plum-deep: #1c060e;
+  --night: #0d0306;
+  --pool: rgba(28, 6, 14, 0.56);
+
+  --velvet: #5a0b1f;
+  --velvet-deep: #2b0510;
+  --velvet-lit: #8e1432;
+  --gold: #d4af6a;
+  --gold-light: #f3e2b3;
+  --gold-deep: #9c7a3c;
+  --gold-ink: #7a5a1f;      /* gold dark enough for small text on ivory */
+  --ivory: #fbf5ea;
+  --emerald: #0f6b4f;
+  --absinthe: #3ccf94;
+
+  --font-didone: "Bodoni Moda", "Didot", "Bodoni 72", var(--font-display);
+
+  /* Gold leaf: a metallic ramp with two highlights. */
+  --foil: linear-gradient(100deg, var(--gold-deep) 0%, var(--gold-light) 20%, var(--gold) 38%,
+      #fff6dc 50%, #c49a4e 62%, var(--gold-light) 80%, var(--gold-deep) 100%);
+
+  /* Premiere: a ruby-velvet stage, lit from behind the poster. */
+  --press-wall: radial-gradient(ellipse 75% 85% at 70% 42%, var(--velvet-lit) 0%, var(--velvet) 34%,
+      var(--velvet-deep) 72%, #12020a 100%);
+
+  /* Film grain, drawn in SVG so no image is loaded for it. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+
+  --shadow-print: 0 18px 44px rgba(28, 6, 14, 0.28);
+
+  /* Stock stills behind the dark bands (credited in the page's credits). */
+  --seats-photo: url(img/about/seats.jpg);
+
+  /* ONE PRINT, TWELVE SETS. Every chapter is shot on a real set or a real
+     material and graded onto the credits' film stock: photo at the bottom,
+     then a dye (background-blend-mode: color), then veils, vignette, pools
+     and grain. Photographers and sources are listed in the credits' Stills
+     row and in the comment beside it in about.html. */
+  --plate-curtain: url(img/about/bg/curtain.jpg);
+  --plate-velvet: url(img/about/bg/velvet.jpg);
+  --plate-reel: url(img/about/bg/reel.jpg);
+  --plate-reel-sm: url(img/about/bg/reel-sm.jpg);
+  --plate-porcelain: url(img/about/bg/porcelain.jpg);
+  --plate-tiles: url(img/about/bg/tiles.jpg);
+  --plate-negatives: url(img/about/bg/negatives.jpg);
+  --plate-sequins: url(img/about/bg/sequins.jpg);
+  --plate-bank: url(img/about/bg/banking-hall.jpg);
+  --power-photo: url(img/about/bg/towers.jpg);
+  --plate-cobalt: url(img/about/bg/cobalt.jpg);
+  --plate-ball: url(img/about/bg/mirrorball.jpg);
+  --plate-lace: url(img/about/lace.jpg);
+  --plate-lace-hi: url(img/about/bg/lace-sheer.jpg);
+  --plate-blinds: url(img/about/bg/blinds.jpg);
+  --plate-shutters: url(img/about/bg/shutters.jpg);
+  --plate-runway: url(img/about/bg/runway.jpg);
+  --runway-sprite: url(img/about/bg/runway-sprite.jpg);
+  --runway-still: url(img/about/bg/runway-still.jpg);
+
+  /* The shared print: one vignette for the projected (dark) plates, one
+     warm edge-burn for the printed (light) ones, and a monochrome paper
+     tooth that is always static and multiplied. */
+  --vignette-dark: radial-gradient(ellipse 120% 95% at 50% 45%, rgba(13, 3, 6, 0) 55%, rgba(13, 3, 6, 0.45) 100%);
+  --edge-burn: radial-gradient(ellipse 110% 90% at 50% 45%, rgba(122, 90, 31, 0) 62%, rgba(122, 90, 31, 0.1) 100%);
+  --grain-fine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+  /* A 1990s magazine's screen: a fine dot, felt at arm's length. */
+  --halftone: radial-gradient(circle at 50% 50%, rgba(40, 34, 70, 0.16) 0 0.7px, rgba(40, 34, 70, 0) 1.2px) 0 0 / 4px 4px;
+  --frame-line: 1px solid rgba(212, 175, 106, 0.35);
+  /* The projector's warm halation, screened over every dark plate, so the
+     night chapters share one print. */
+  --halation: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255, 200, 170, 0.07), rgba(255, 200, 170, 0) 72%);
+}
+
+/* Anchors from the scene menu land below the sticky header, not under it. */
+.about [id] {
+  scroll-margin-top: 8.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. Shared pieces
+   -------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.8rem 1.2rem;
+  background: var(--crimson);
+  color: #fff;
+  font: 600 0.7rem/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* The About link stays lit in all three places it appears. */
+.nav-links a[aria-current="page"],
+.mobile-links a[aria-current="page"],
+.footer-list a[aria-current="page"] {
+  color: var(--crimson);
+}
+
+.nav-links a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* Running copy: Libre Franklin, one step heavier than the landing's 200,
+   because these paragraphs are read rather than skimmed. */
+.copy,
+.chapter-lede,
+.premiere-intro,
+.step-text,
+.org-note,
+.teaser-sub,
+.bring-list span,
+.booking-note,
+.gloss,
+.mind-changer p,
+.scene-sub,
+.scene-note,
+.intertitle-text .visually-hidden {
+  font-family: var(--font-copy);
+  font-weight: 300;
+  letter-spacing: 0.005em;
+}
+
+.copy {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.copy-lead {
+  font-size: 1.12rem;
+  color: var(--ink);
+}
+
+.inline-link {
+  color: var(--crimson);
+  border-bottom: 1px solid currentColor;
+  transition: color 0.3s var(--ease), text-shadow 0.3s var(--ease);
+}
+
+.inline-link:hover {
+  text-shadow: 0 0 14px rgba(200, 16, 46, 0.55);
+}
+
+/* Literal kicker over each playful headline, so a skimmer always knows what
+   the section is. The clapperboard marks it as a chapter. */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font: 600 0.68rem/1.35 var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+/* On the light chapters, where the kicker sits on grained paper or a
+   photographed floor, hall or curtain, the small kicker takes the landing's
+   deeper crimson: brand crimson on blush tops out at 4.93:1, so any grain or
+   pattern under an 11px label pushes it below 4.5:1. #9d0c23 holds ~7:1. */
+.prologue .kicker,
+.chapter-people .kicker,
+.chapter-money .kicker,
+.chapter-closet .kicker {
+  color: var(--crimson-dark);
+}
+
+.chapter-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 820px;
+  text-align: center;
+}
+
+.chapter-lede {
+  max-width: 60ch;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.chapter {
+  position: relative;
+}
+
+/* Scene slates: the small uppercase location-and-date line, documentary style. */
+.slate {
+  font: 600 0.62rem/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+.scene-role {
+  font: 600 0.66rem/1.45 var(--font-body);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* "Made for": the person on the other end of each piece of work. */
+.made-for {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.made-for span {
+  display: block;
+  margin-bottom: 0.2rem;
+  font: normal 600 0.6rem/1.2 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+/* Interview soundbites: Minh's own words, with a broadcast lower-third. */
+.soundbite {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0.4rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--crimson);
+  border-bottom: 1px solid var(--crimson);
+}
+
+.soundbite blockquote {
+  margin: 0;
+}
+
+.soundbite blockquote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.soundbite blockquote p::before {
+  content: "\201C";
+  color: var(--crimson);
+}
+
+.soundbite blockquote p::after {
+  content: "\201D";
+  color: var(--crimson);
+}
+
+.lower-third {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  font: 600 0.62rem/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.lt-name,
+.lt-role {
+  padding: 0.6rem 0.8rem;
+}
+
+.lt-name {
+  background: var(--crimson);
+  color: #fff;
+}
+
+.lt-role {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* A drop cap to open the letter-like passages. */
+.dropcap::first-letter {
+  float: left;
+  padding: 0.1em 0.12em 0 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 4.2em;
+  line-height: 0.78;
+  color: var(--crimson);
+}
+
+/* --- Dark grounds restate the landing's light-on-dark rules --------------- */
+.on-dark .section-title {
+  color: #fff;
+}
+
+.on-dark .kicker,
+.on-dark .eyebrow {
+  color: var(--gold);
+}
+
+/* On the dark bands the script accent is set in gold leaf. The padding
+   gives the swashes room, since the foil only paints inside the box; it is
+   cloned onto every line, so a script accent that wraps (as on a phone)
+   keeps its descenders ("power.", not "hower."). */
+.on-dark .section-title em {
+  padding: 0 0.14em 0.36em 0.24em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background: var(--foil) 0 0 / 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: foil 9s ease-in-out infinite;
+}
+
+/* Blush still wins on mauve, where gold reads muddy. */
+.chapter-community .section-title em {
+  background: none;
+  color: var(--blush);
+  -webkit-text-fill-color: currentColor;
+  animation: none;
+}
+
+.on-dark .chapter-lede {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.on-dark .text-link {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.on-dark .text-link:hover {
+  color: var(--blush);
+  border-color: var(--blush);
+}
+
+.on-dark .secondary-link {
+  color: #fff;
+}
+
+.on-dark .secondary-link:hover {
+  color: var(--blush);
+  border-color: var(--blush);
+}
+
+/* The global crimson focus ring disappears on crimson, mauve and near-black. */
+.on-dark :focus-visible {
+  outline-color: #fff;
+}
+
+.on-dark .soundbite {
+  border-color: rgba(255, 227, 237, 0.55);
+}
+
+.on-dark .soundbite blockquote p {
+  color: #fff;
+}
+
+.on-dark .soundbite blockquote p::before,
+.on-dark .soundbite blockquote p::after {
+  color: var(--blush);
+}
+
+/* Film grain on the dark, cinematic bands. */
+.premiere::after,
+.scene-menu::after,
+.chapter-power::after,
+.credits::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 0;
+  background-image: var(--grain);
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: grain 1.2s steps(6) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   3. The premiere — hero poster
+   -------------------------------------------------------------------------- */
+.premiere {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  justify-content: center;
+  min-height: 78vh;
+  /* Room under the swag valance, so no swag or fringe covers the poster. */
+  padding-top: calc(clamp(3rem, 6vw, 4.5rem) + 2.5rem);
+  background: var(--press-wall);
+  color: #fff;
+}
+
+/* Upstage: a real red house curtain, toned house-red to ruby, its top lost
+   in the fly-tower dark, with a champagne follow-spot pooled exactly where
+   the poster stands. Soft because the file is small, not because of a blur. */
+.premiere::before {
+  content: "";
+  position: absolute;
+  inset: -3%;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 34% 58% at 77% 50%, rgba(243, 226, 179, 0.4), rgba(243, 226, 179, 0.12) 50%, rgba(243, 226, 179, 0) 76%),
+    radial-gradient(ellipse 62% 90% at 77% 50%, rgba(13, 3, 6, 0) 35%, rgba(13, 3, 6, 0.42) 85%),
+    radial-gradient(ellipse 55% 70% at 26% 52%, rgba(13, 3, 6, 0.6), rgba(13, 3, 6, 0.36) 45%, rgba(13, 3, 6, 0) 78%),
+    linear-gradient(180deg, rgba(13, 3, 6, 0.62) 0, rgba(13, 3, 6, 0) 22%, rgba(13, 3, 6, 0) 64%, var(--night) 95%),
+    var(--vignette-dark),
+    linear-gradient(var(--velvet-lit), var(--velvet-deep)),
+    var(--plate-curtain) 50% 20% / cover no-repeat;
+  background-blend-mode: screen, normal, normal, normal, normal, color, normal;
+  pointer-events: none;
+  animation: kenburns 50s ease-in-out infinite;
+}
+
+.premiere-shell {
+  position: relative;
+  z-index: 1;
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(3rem, 6vw, 5rem);
+  width: 100%;
+  max-width: var(--shell);
+}
+
+.premiere-copy {
+  flex: 1 1 420px;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3rem;
+  position: relative;
+  z-index: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* The landing's feathered pool of shade, so the copy never sits on a lit fold. */
+.premiere-copy::before {
+  content: "";
+  position: absolute;
+  inset: -6rem -10rem;
+  z-index: -1;
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, rgba(28, 6, 14, 0.56) 0%,
+      rgba(28, 6, 14, 0.5) 32%, rgba(28, 6, 14, 0.34) 55%, rgba(28, 6, 14, 0.14) 76%, rgba(28, 6, 14, 0) 100%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* The landing hero's staggered entrance, reused. */
+.premiere-copy > * {
+  animation: fadeUp 0.85s var(--ease) both;
+}
+
+.premiere-copy > *:nth-child(1) { animation-delay: 0.95s; }
+.premiere-copy > *:nth-child(2) { animation-delay: 1.04s; }
+.premiere-copy > *:nth-child(3) { animation-delay: 1.13s; }
+.premiere-copy > *:nth-child(4) { animation-delay: 1.22s; }
+.premiere-copy > *:nth-child(5) { animation-delay: 1.31s; }
+.premiere-copy > *:nth-child(6) { animation-delay: 1.40s; }
+
+.name-lockup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 1.1rem;
+}
+
+.premiere-name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  line-height: 1;
+  color: #fff;
+}
+
+.pronoun-tag {
+  margin-bottom: 0.85rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid rgba(212, 175, 106, 0.8);
+  font: 600 0.62rem/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  text-shadow: none;
+}
+
+/* A foil highlight travels across the script line, like light on a
+   metallic title card. */
+.premiere-script {
+  margin-top: -0.5rem;
+  padding: 0.1em 0.15em 0.2em 0;
+  font-family: var(--font-script);
+  font-size: clamp(2.1rem, 4.6vw, 3.5rem);
+  line-height: 1.05;
+  background: var(--foil) 0 0 / 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+  animation: fadeUp 0.85s var(--ease) 1.13s both, foil 7s ease-in-out 2.2s infinite;
+}
+
+.premiere-intro {
+  max-width: 52ch;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.93);
+}
+
+.premiere-intro .brandmark {
+  color: var(--gold-light);
+}
+
+.credential-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0;
+  font: 600 0.64rem/1.4 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.credential-strip li:not(:last-child)::after {
+  content: "\2726";
+  margin: 0 0.8rem;
+  font-size: 0.55rem;
+  color: var(--gold);
+}
+
+.premiere-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.9rem;
+  margin-top: 0.3rem;
+}
+
+/* --- Stage dressing: curtains that part on load ------------------------------ */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Real velvet, toned ruby, darker at the hem, with a gold trim along the
+   leading edge. The two wings are the two halves of ONE photograph (200%
+   wide, one anchored left, one right), so the centre join is continuous.
+   scaleX from the outer edge gathers the real folds and pile together
+   rather than sliding the cloth. */
+.curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, transparent 16%, transparent 70%, rgba(0, 0, 0, 0.58) 100%),
+    linear-gradient(var(--velvet-lit), var(--velvet)),
+    var(--plate-velvet),
+    var(--velvet);
+  background-size: auto, auto, 200% 100%, auto;
+  background-repeat: no-repeat;
+  background-blend-mode: normal, color, normal, normal;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55);
+  animation: part 2.1s cubic-bezier(0.7, 0, 0.2, 1) 0.25s both;
+}
+
+.curtain::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold) 40%, var(--gold-deep));
+  box-shadow: 0 0 14px rgba(212, 175, 106, 0.6);
+}
+
+.curtain-l {
+  left: 0;
+  transform-origin: left center;
+  transform: scaleX(0.1);
+  background-position: 0 0, 0 0, 0% 50%, 0 0;
+}
+
+.curtain-l::after { right: 0; }
+
+.curtain-r {
+  right: 0;
+  transform-origin: right center;
+  transform: scaleX(0.1);
+  background-position: 0 0, 0 0, 100% 50%, 0 0;
+}
+
+.curtain-r::after { left: 0; }
+
+/* A deep swag valance across the top, cut from the same velvet: a solid
+   pelmet band, then a row of draped swags, each shaded round like real
+   cloth, with gold bullion fringe hanging from its hem. The cloth lives on
+   ::before and the fringe on ::after, each cut by its own scallop mask, so
+   neither clips the other or the element's drop-shadow. --sw is one swag's
+   width, --vh the valance's depth, --band the pelmet. */
+.valance {
+  --sw: 200px;
+  --vh: 84px;
+  --band: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--vh);
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.5));
+}
+
+.valance::before,
+.valance::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.valance::before {
+  background:
+    radial-gradient(ellipse 50% 100% at 50% 0, rgba(255, 196, 206, 0.12), rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0.5) 79%) 50% 0 / var(--sw) var(--vh) repeat-x,
+    linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.1) 36%, rgba(0, 0, 0, 0) 60%),
+    linear-gradient(var(--velvet-lit), var(--velvet-deep)),
+    var(--plate-velvet) 0 0 / 420px auto repeat-x;
+  background-blend-mode: normal, normal, color, normal;
+  -webkit-mask:
+    linear-gradient(#000, #000) 0 0 / 100% var(--band) no-repeat,
+    radial-gradient(ellipse 50% 100% at 50% 0, #000 76%, rgba(0, 0, 0, 0) 77.5%) 50% 0 / var(--sw) var(--vh) repeat-x;
+  mask:
+    linear-gradient(#000, #000) 0 0 / 100% var(--band) no-repeat,
+    radial-gradient(ellipse 50% 100% at 50% 0, #000 76%, rgba(0, 0, 0, 0) 77.5%) 50% 0 / var(--sw) var(--vh) repeat-x;
+}
+
+/* Bullion fringe: gilt threads along each swag's hem. */
+.valance::after {
+  background:
+    linear-gradient(180deg, rgba(60, 30, 0, 0) 60%, rgba(60, 30, 0, 0.35)),
+    repeating-linear-gradient(90deg, #f3e2b3 0 1px, #d4af6a 1px 2.5px, #9c7a3c 2.5px 3.5px, rgba(0, 0, 0, 0) 3.5px 5px);
+  -webkit-mask: radial-gradient(ellipse 50% 100% at 50% 0, rgba(0, 0, 0, 0) 76.5%, #000 77%, #000 94%, rgba(0, 0, 0, 0) 96%) 50% 0 / var(--sw) var(--vh) repeat-x;
+  mask: radial-gradient(ellipse 50% 100% at 50% 0, rgba(0, 0, 0, 0) 76.5%, #000 77%, #000 94%, rgba(0, 0, 0, 0) 96%) 50% 0 / var(--sw) var(--vh) repeat-x;
+}
+
+@property --chase {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* --- The poster ------------------------------------------------------------ */
+.poster {
+  /* 1px once the poster has wrapped below the copy (a tablet), else 0px. */
+  --s: clamp(0px, (830px + clamp(3rem, 6vw, 5rem) - 100cqw) * 9999, 1px);
+  position: relative;
+  z-index: 0;
+  flex: 0 1 410px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  /* Wrapped, it is centred on the stage rather than left at the wing. */
+  margin-left: min(calc(var(--s) * 99999), calc((100cqw - min(410px, 100cqw)) / 2 + (1px - var(--s)) * 99999));
+  outline: 1px solid rgba(212, 175, 106, 0.6);
+  outline-offset: 8px;
+  box-shadow: 0 30px 70px rgba(18, 2, 10, 0.6);
+  animation: fadeIn 1.2s var(--ease) 1s both;
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+
+.poster:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 70px rgba(28, 6, 14, 0.55), var(--glare-light);
+}
+
+/* Projector rays — the light burst behind a cinema ident — turning slowly
+   behind the poster. */
+.poster::before {
+  content: "";
+  position: absolute;
+  inset: -55% -70%;
+  z-index: -1;
+  /* A whisper of haze inside the follow-spot, now that the spot carries the light. */
+  background: repeating-conic-gradient(from 0deg at 50% 50%,
+      rgba(243, 226, 179, 0.07) 0deg 4deg, rgba(243, 226, 179, 0) 4deg 15deg);
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(closest-side, #000 18%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 18%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
+  animation: rays 90s linear infinite;
+  pointer-events: none;
+}
+
+/* Marquee bulbs round the frame. A bright stretch chases round them, the way
+   a cinema's lights run round the name on opening night. */
+.poster::after {
+  --bulb: radial-gradient(circle, #fff8e6 0 1.8px, rgba(243, 226, 179, 0.9) 2.4px,
+      rgba(212, 175, 106, 0.3) 4.2px, transparent 5.6px);
+  content: "";
+  position: absolute;
+  inset: -24px;
+  z-index: -1;
+  background:
+    var(--bulb) top / 18px 12px,
+    var(--bulb) bottom / 18px 12px,
+    var(--bulb) left / 12px 18px,
+    var(--bulb) right / 12px 18px;
+  background-repeat: round no-repeat, round no-repeat, no-repeat round, no-repeat round;
+  -webkit-mask-image: conic-gradient(from var(--chase), #000 0deg 50deg,
+      rgba(0, 0, 0, 0.3) 100deg 180deg, #000 180deg 230deg, rgba(0, 0, 0, 0.3) 280deg 360deg);
+  mask-image: conic-gradient(from var(--chase), #000 0deg 50deg,
+      rgba(0, 0, 0, 0.3) 100deg 180deg, #000 180deg 230deg, rgba(0, 0, 0, 0.3) 280deg 360deg);
+  filter: drop-shadow(0 0 4px rgba(243, 226, 179, 0.65));
+  animation: chase 7s linear infinite;
+  transition: filter 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.poster:hover::after {
+  filter: drop-shadow(0 0 8px rgba(243, 226, 179, 0.95));
+}
+
+.poster-art {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  aspect-ratio: 3 / 4;
+  background: #d9d5ca;
+}
+
+.poster-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  transform-origin: 50% 70%;
+  animation: kenburns 46s ease-in-out infinite;
+}
+
+/* Gloss: the announcement bar's sheen, running across the poster. */
+.poster-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.24) 50%, transparent 62%);
+  transform: translateX(-100%);
+  animation: sheen 9s var(--ease) 1.5s infinite;
+  pointer-events: none;
+}
+
+.poster-studio {
+  position: absolute;
+  top: 5cqw;
+  left: 0;
+  right: 0;
+  font: 600 max(0.55rem, 2.2cqw)/1 var(--font-body);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink);
+}
+
+.poster-studio .brandmark {
+  margin-right: 0.35em;
+  font-size: 2.2em;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--crimson);
+}
+
+.poster-title {
+  position: absolute;
+  top: 15cqw;
+  left: 0;
+  right: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: max(0.9rem, 6.2cqw);
+  line-height: 1;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink);
+}
+
+.poster-title em {
+  display: block;
+  margin-top: 0.05em;
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: 3.2em;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--crimson);
+}
+
+/* The billing block under the art, as on a one-sheet. */
+.poster-billing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.05rem 1.1rem 1.15rem;
+  background: var(--night);
+  text-align: center;
+}
+
+.laurels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.4rem;
+}
+
+.laurel {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font: 600 0.55rem/1.35 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.laurel i {
+  font-size: 1.35rem;
+  color: var(--gold);
+  transform: rotate(-24deg);
+}
+
+.laurel i:last-child {
+  transform: scaleX(-1) rotate(-24deg);
+}
+
+.billing {
+  max-width: 34ch;
+  font: 600 0.56rem/1.7 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.poster-date {
+  font: 600 0.6rem/1 var(--font-body);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.poster-date span {
+  margin-right: 0.5em;
+  color: var(--gold);
+}
+
+.premiere .g2,
+.premiere .g5,
+.premiere .g8,
+.premiere .g12,
+.epilogue .g4,
+.epilogue .g9 {
+  --tint: var(--gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   4. Scene selection — a 2000s DVD menu
+   -------------------------------------------------------------------------- */
+/* The projection booth: a vintage steel reel, backlit through a dusty booth
+   window, toned champagne in the light and ruby-black in the steel. It is
+   PINNED like the landing's runway still (fixed layer + clip-path), so the
+   reel holds while the menu slides over it. Nothing on this section may take
+   transform, filter, contain, will-change or .reveal: any of them would trap
+   the fixed layer. The frame-line on top is the cut from the poster. */
+.scene-menu {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--night);
+  border-top: var(--frame-line);
+  color: #fff;
+}
+
+/* Graded on the credits' own stock (a ruby-to-plum dye over the steel), so
+   the booth sits between the premiere's velvet and the credits' night; the
+   only gold is the dusty light at the booth window, screened back in. */
+.scene-menu::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--halation),
+    radial-gradient(ellipse 30% 40% at 72% 10%, rgba(243, 226, 179, 0.3), rgba(243, 226, 179, 0) 100%),
+    var(--vignette-dark),
+    linear-gradient(rgba(13, 3, 6, 0.5), rgba(13, 3, 6, 0.5)),
+    linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
+    var(--plate-reel) 30% 50% / cover no-repeat;
+  background-blend-mode: screen, screen, normal, normal, color, normal;
+  pointer-events: none;
+}
+
+.scene-menu > * {
+  position: relative;
+  z-index: 1;
+}
+
+.scene-menu-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* The pinned frame behind the title changes as you scroll, so the title
+   carries its own pool of shade. */
+.scene-menu-head::before {
+  content: "";
+  position: absolute;
+  inset: -4rem -8rem;
+  z-index: -1;
+  background: radial-gradient(ellipse 50% 60% at 30% 50%, rgba(28, 6, 14, 0.56), rgba(28, 6, 14, 0.3) 50%, rgba(28, 6, 14, 0) 100%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.scene-nav {
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* A 1px hairline grid: the list's own colour shows through the gaps. */
+.scene-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+}
+
+/* Smoked menu glass over the machine that plays the film. The hairlines
+   move onto the tiles so they no longer wash the glass. */
+.scene-list li {
+  flex: 1 1 calc(25% - 1px);
+  min-width: 230px;
+  background: rgba(13, 3, 6, 0.66);
+  -webkit-backdrop-filter: blur(6px) saturate(1.1);
+  backdrop-filter: blur(6px) saturate(1.1);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.18);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .scene-list li {
+    background: rgba(13, 3, 6, 0.86);
+  }
+}
+
+.scene-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.4rem 3rem 1.5rem 1.4rem;
+  transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.scene-num {
+  font: 600 0.62rem/1 var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blush);
+}
+
+.scene-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.scene-sub {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+/* The DVD highlight: the selected scene fills crimson and a play mark
+   slides in. */
+.scene-link::after {
+  content: "\25B8";
+  position: absolute;
+  top: 1.2rem;
+  right: 1.3rem;
+  font-size: 1.2rem;
+  color: #fff;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.scene-link:hover,
+.scene-link:focus-visible {
+  z-index: 1;
+  background: var(--crimson);
+  box-shadow: inset 0 0 0 1px var(--gold-light), var(--glare-crimson);
+}
+
+.scene-link:hover .scene-num,
+.scene-link:focus-visible .scene-num,
+.scene-link:hover .scene-sub,
+.scene-link:focus-visible .scene-sub {
+  color: #fff;
+}
+
+.scene-link:hover::after,
+.scene-link:focus-visible::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scene-link:focus-visible {
+  outline-offset: -4px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Prologue
+   -------------------------------------------------------------------------- */
+/* Minh's letter on ivory stock, and beside it a soft 35mm still in the
+   palette of To Ngoc Van's "Young Woman with Lilies": a white bloom in
+   blue-and-white porcelain on a powder-blue ground, printed with a fine
+   screen. The still hangs behind Minh's own column (see .prologue-aside
+   below), never behind the letter, so the words always sit on open paper.
+   The page's one cool note. */
+.prologue {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--grain-fine) 0 0 / 180px 180px, var(--edge-burn), var(--ivory);
+  background-blend-mode: multiply, normal, normal;
+}
+
+.prologue-shell {
+  /* The letter (basis 460px) and the aside (340px) share a row until the
+     shell is narrower than both plus the gap; then the aside wraps below.
+     --stacked is 1px when that has happened and 0px when not, measured in
+     container units so it tracks the real wrap, with no extra breakpoint.
+     Stacked on a tablet, the aside becomes two columns: Minh's own polaroid
+     and file (--col-w wide) and, beside them, the two mood-board pages. */
+  --gap: clamp(2.5rem, 6vw, 5rem);
+  --stacked: clamp(0px, (800px + var(--gap) - 100cqw) * 9999, 1px);
+  --col-w: min(340px, (100cqw - var(--gap)) / 2);
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap);
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* The letter is not a stacking context of its own (its lines rise in one
+   by one, rather than the sheet as a whole), so the prints behind and
+   around it multiply straight onto the section's paper. Its pool of light
+   and its lotus sit at z-index -1 in the section's own stacking context
+   (the section is isolated): above the paper, below every word. */
+.prologue-text {
+  position: relative;
+  flex: 1 1 460px;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.15rem;
+}
+
+/* A pool of paper-light under the letter, so it always reads on open stock. */
+.prologue-text::before {
+  content: "";
+  position: absolute;
+  inset: -3rem -5rem;
+  z-index: -1;
+  background: radial-gradient(ellipse 58% 70% at 50% 50%, rgba(251, 245, 234, 0.9), rgba(251, 245, 234, 0));
+  filter: blur(44px);
+  pointer-events: none;
+}
+
+/* Behind the words, very faintly, a Nguyễn-dynasty silk embroidery (pink
+   lotus and gold lotus leaves, herons and cranes) is printed onto the
+   ivory like an old plate: the silk lifted to white and multiplied, so only
+   the stitching prints, faded toward ivory and gold and a hair soft. It is
+   centred on the lotus cluster and feathered out long before the kicker at
+   the top and the Chapter Six link at the foot, so every line of copy
+   keeps at least 4.5:1 over its darkest thread. */
+.prologue-text::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 47%;
+  left: -7%;
+  width: 116%;
+  aspect-ratio: 1400 / 1143;
+  translate: 0 -50%;
+  background: url(img/about/bg/lotus-embroidery.jpg) 0 0 / 100% 100% no-repeat;
+  filter: saturate(0.55) brightness(1.3) contrast(1.4) sepia(0.22) blur(0.45px);
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+  /* The herons and cranes fade away; the lotus stays. */
+  -webkit-mask-image: radial-gradient(ellipse 46% 50% at 42% 46%, #000 28%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 46% 50% at 42% 46%, #000 28%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+
+/* ...and it is bordered in red ink: two corners cut from a 1919 drawing by
+   Lê Văn Tùng of two ornamental panels (Bulletin des Amis du Vieux Huế).
+   The top of its right-hand panel (the garland's last flowers, turning
+   down into a flowering vine) stands in the free paper beside the title;
+   the panel's star-leaf corner closes the letter at the foot: under the
+   signature side by side, where the Kate Moss page fills the other corner,
+   and beside it when stacked. The scan is small, so each crop is shown at
+   its own size (smaller on a phone). A color-dodge lifts the scan's peach
+   paper and its dither to white, and the crop is multiplied onto the page,
+   so only the red-brown line prints; every edge is feathered. The
+   corners sit in the section's stacking context at z-index 0, so they
+   also print over the porcelain's bloom (stacked) and stay under the
+   letter's lines and the aside's pages.
+   --fs is the print's scale, --cx/--cy the crop's corner in the scan and
+   --cw/--ch its size. */
+.letter-florals {
+  --fs: 1;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.letter-florals::before,
+.letter-florals::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  /* The print sits inside 3px of bare margin, so its edge never lands on a
+     fractional pixel (where the scan and the dodge part ways and leave a
+     hairline of undodged paper). */
+  box-sizing: content-box;
+  width: calc(var(--cw) * var(--fs));
+  height: calc(var(--ch) * var(--fs));
+  margin: -3px;
+  padding: 3px;
+  background:
+    linear-gradient(rgb(26, 77, 128), rgb(26, 77, 128)),
+    url(img/about/bg/hue-1919-florals.jpg) calc(-1 * var(--cx) * var(--fs)) calc(-1 * var(--cy) * var(--fs)) / calc(732px * var(--fs)) auto no-repeat;
+  background-origin: content-box;
+  background-clip: content-box;
+  background-blend-mode: color-dodge, normal;
+  /* Softens the scan's colour dither into one ink. */
+  filter: saturate(0.75) blur(0.25px);
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  -webkit-mask-image: var(--fade-x), var(--fade-y);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-x), var(--fade-y);
+  mask-composite: intersect;
+}
+
+/* The garland's last flowers and the vine: 197 x 150 of the scan
+   (500-697, 50-200), fading in from the left and out at the foot. */
+.letter-florals::before {
+  --cx: 500px;
+  --cy: 50px;
+  --cw: 197px;
+  --ch: 150px;
+  --fade-x: linear-gradient(90deg, rgba(0, 0, 0, 0) 3px, #000 34%, #000 calc(100% - 9px), rgba(0, 0, 0, 0) calc(100% - 3px));
+  --fade-y: linear-gradient(180deg, rgba(0, 0, 0, 0) 3px, #000 9px, #000 58%, rgba(0, 0, 0, 0) calc(100% - 5px));
+  top: calc(-2.7rem * var(--fs));
+  right: -0.5rem;
+}
+
+/* The star-leaf corner. Side by side, the panel's bottom-left corner
+   (428-550, 846-1042) under the signature; stacked, its bottom-right corner
+   (568-697, 896-1041, the top of the stem left off and faded in) beside
+   it. --stacked (0px or 1px, from the shell) switches each value with
+   min(A + s * 1e5, B + (1px - s) * 1e5). */
+.letter-florals::after {
+  --s: var(--stacked);
+  --cx: min(calc(428px + var(--s) * 99999), calc(568px + (1px - var(--s)) * 99999));
+  --cy: min(calc(846px + var(--s) * 99999), calc(896px + (1px - var(--s)) * 99999));
+  --cw: min(calc(122px + var(--s) * 99999), calc(129px + (1px - var(--s)) * 99999));
+  --ch: min(calc(196px + var(--s) * 99999), calc(145px + (1px - var(--s)) * 99999));
+  --fade-x: linear-gradient(90deg, rgba(0, 0, 0, 0) 3px, #000 9px, #000 calc(100% - 9px), rgba(0, 0, 0, 0) calc(100% - 3px));
+  --fade-y: linear-gradient(180deg, rgba(0, 0, 0, 0) 3px, #000 calc(9px + var(--s) * 32), #000 calc(100% - 9px), rgba(0, 0, 0, 0) calc(100% - 3px));
+  top: min(calc(100% + 1.4rem + var(--s) * 99999), calc(100% - var(--ch) * var(--fs) + 1rem + (1px - var(--s)) * 99999));
+  left: min(calc(-2px + var(--s) * 99999), calc(100% - var(--cw) * var(--fs) + 0.4rem + (1px - var(--s)) * 99999));
+}
+
+.prologue-text .section-title {
+  margin-bottom: 0.4rem;
+}
+
+.signature {
+  margin-top: 0.6rem;
+  font-family: var(--font-script);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--crimson);
+}
+
+.signature-label {
+  margin-top: -0.6rem;
+  font: 600 0.62rem/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  /* ink-soft, not ink-mute: this 10px label sits on paper tooth. */
+  color: var(--ink-soft);
+}
+
+/* Side by side, the Vietnamese magazine page sits at the head of the column
+   and Minh's polaroid is pasted over its lower corner, a couple of lines of
+   type below the photo (room is made at the top); the Kate Moss page is
+   pasted beside Minh's signature, at the foot of the letter (room is made
+   at the bottom). Stacked on a tablet, the two pages form a second column beside
+   Minh's polaroid and file; on a phone (see section 17) they follow the
+   file, so Minh's own polaroid and file always come between them and the
+   letter. The pages' geometry lives here, because the column's padding
+   makes room for them. Each value switches with
+   min(A + s * 1e5, B + (1px - s) * 1e5): A side by side, B stacked. */
+.prologue-aside {
+  /* How far the page may reach into the gutter: the free space between the
+     letter (max 640px) and this column, less a margin, so it never covers a
+     word at any width. */
+  --over: clamp(0px, 100cqw - 1024px, 116px);
+  /* Stacked, the second column: whatever is left beside Minh's column. */
+  --right-w: min(340px, 100cqw - var(--col-w) - var(--gap));
+  --page-w-stacked: var(--right-w);
+  /* Stacked, the Kate Moss page closes the second column: its width, and
+     its height (a 26px folio, the scan at 498 x 594, a 14px margin). */
+  --vp-w-stacked: min(300px, var(--right-w));
+  --vp-h-stacked: calc(40px + (var(--vp-w-stacked) - 28px) * 594 / 498);
+  /* Side by side up to 430px wide; stacked, the second column's width. */
+  --page-w: max(min(340px + var(--over), 430px) - var(--stacked) * 99999, var(--page-w-stacked));
+  /* A 26px folio, the photo at its own 736 x 390 shape, then a few lines
+     of type (no caption: the picture is credited in the credits only):
+     3.05rem of type side by side, a little more (3.05rem + 19px) stacked. */
+  --page-photo-h: calc((var(--page-w) - 32px) * 390 / 736);
+  --page-type-h: calc(3.05rem + var(--stacked) * 19);
+  --page-h: calc(26px + var(--page-photo-h) + 0.6rem + var(--page-type-h) + 14px);
+  /* Side by side, the page is lifted 4rem above the column, but its tilted
+     top corner always keeps about 2.5rem of paper above it, however far the
+     section's top padding shrinks (style.css: clamp(3.5rem, 7vw, 6rem)). */
+  --page-top: max(-4rem, 3rem - clamp(3.5rem, 7vw, 6rem));
+  position: relative;
+  flex: 0 1 min(340px, var(--col-w) + (1px - var(--stacked)) * 99999);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  /* Side by side the polaroid is pasted over the page's type, a couple of
+     lines under the photo; stacked, 4px. */
+  padding-top: max(4px, calc(var(--page-top) + 26px + var(--page-photo-h) + 2.4rem) - var(--stacked) * 99999);
+  /* Side by side, 4rem below the subject file for the foot of the Kate
+     Moss page; stacked, none (the pages stand beside the column). */
+  padding-bottom: min(calc(4rem + var(--stacked) * 99999), calc((1px - var(--stacked)) * 99999));
+}
+
+.prologue-aside > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* The porcelain still. It hangs behind this column only, so no line of the
+   letter ever runs onto it at any width. Side by side it starts just past
+   the letter's last word (the free space between the two columns is
+   max(gap, shell - 980px)), fades in over 110px, bleeds off the right edge
+   and fades out at the foot. Stacked (tablet and phone), it stands behind
+   the polaroid: the bloom crowns it and the vase runs down behind it.
+   --stacked (0px or 1px, from the shell) switches each value with
+   min(A + s * 1e5, B + (1px - s) * 1e5), which is A side by side and B
+   stacked. Printed in a normal blend so the ground stays powder blue, with a
+   light 3px screen. */
+.prologue-aside::after {
+  --s: var(--stacked);
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: min(calc(-1 * clamp(3.5rem, 7vw, 6rem) + var(--s) * 99999), calc(-150px + (1px - var(--s)) * 99999));
+  left: round(min(calc(20px - max(clamp(2.5rem, 6vw, 5rem), 100cqw - 980px) + var(--s) * 99999),
+      calc((100cqw - 100vw) / 2 - 10px + (1px - var(--s)) * 99999)), 1px);
+  /* Stacked on a tablet Minh's column (--col-w) stands at the left, so the
+     right edge still reaches the section's edge, behind the second column. */
+  right: min(calc((100cqw - 100vw) / 2 - 10px + var(--s) * 99999),
+      calc((100cqw - 100vw) / 2 - 10px - 100cqw + var(--col-w) + (1px - var(--s)) * 99999));
+  height: min(calc(1200px + var(--s) * 99999), calc(100% + 150px + 8rem + (1px - var(--s)) * 99999));
+  background:
+    var(--grain-fine),
+    radial-gradient(circle, rgba(40, 44, 90, 0.12) 0 0.55px, rgba(40, 44, 90, 0) 1px) 0 0 / 3px 3px,
+    var(--plate-porcelain);
+  background-repeat: repeat, repeat, no-repeat;
+  background-size: 180px 180px, auto, auto min(calc(1150px + var(--s) * 99999), calc(820px + (1px - var(--s)) * 99999));
+  background-position: 0 0, 0 0, min(calc(-135px + var(--s) * 99999), calc((100vw - 100cqw) / 2 + 10px + var(--col-w) / 2 - 262px + (1px - var(--s)) * 99999)) 0;
+  background-blend-mode: multiply, multiply, normal;
+  filter: saturate(1.06) contrast(0.94) sepia(0.1) brightness(1.03);
+  opacity: 0.86;
+  -webkit-mask-image:
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0, #000 max(0px, 110px - var(--s) * 99999)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #000 calc(var(--s) * 220), #000 min(calc(900px + var(--s) * 99999), calc(600px + (1px - var(--s)) * 99999)), rgba(0, 0, 0, 0) min(calc(1150px + var(--s) * 99999), calc(815px + (1px - var(--s)) * 99999)));
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0, #000 max(0px, 110px - var(--s) * 99999)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #000 calc(var(--s) * 220), #000 min(calc(900px + var(--s) * 99999), calc(600px + (1px - var(--s)) * 99999)), rgba(0, 0, 0, 0) min(calc(1150px + var(--s) * 99999), calc(815px + (1px - var(--s)) * 99999)));
+  mask-composite: intersect;
+  /* The box starts on a fractional pixel; a repeating mask would wrap its
+     opaque end onto that first column and draw a hairline. */
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* A page torn from a 1990s Vietnamese fashion magazine, recreated as print:
+   a folio line at the head (page number, section, rule), the editorial
+   from Minh's mood board shown whole and uncaptioned (it is credited in the
+   credits' Stills), then two justified columns of greeked type (bars, never
+   words) with a red drop cap and a hairline column rule, all on uncoated
+   stock with a halftone screen. The photo is graded as faded film, but lightly, so the
+   model, the urn of lotus buds and the candle read at a glance. Side by
+   side it sits at the head of this column, beside the letter's opening
+   (never its lines about Mom), and Minh's polaroid is pasted over only its
+   lower corner of type; stacked on a tablet, it heads the second column,
+   level with the polaroid; on a phone it drops below the subject file. */
+.prologue-aside > .mag-page {
+  --paper: #f4ecda;
+  --bar: rgba(60, 45, 35, 0.42);
+  position: absolute;
+  z-index: 0;
+  /* Side by side: 4rem above the column. Stacked: at the head of the
+     second column. */
+  top: min(calc(var(--page-top) + var(--stacked) * 99999), calc(0.25rem + (1px - var(--stacked)) * 99999));
+  left: min(calc(-1 * var(--over) + var(--stacked) * 99999), calc(var(--col-w) + var(--gap) + (1px - var(--stacked)) * 99999));
+  display: flex;
+  flex-direction: column;
+  width: var(--page-w);
+  /* Side by side, its own height. Stacked, it runs down to 2.4rem above
+     the Kate Moss page, however tall Minh's column is, so the two columns
+     end together: the photo takes the extra height (see .mag-photo), and
+     the type stays a few lines deep. */
+  height: max(var(--page-h), calc(100% - 0.25rem - 2.4rem - var(--vp-h-stacked) - (1px - var(--stacked)) * 99999));
+  margin: 0;
+  padding: 26px 16px 14px;
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    linear-gradient(90deg, rgba(70, 45, 20, 0.2), rgba(70, 45, 20, 0) 5%),
+    /* folio: page number, section, rule */
+    linear-gradient(var(--bar), var(--bar)) left 16px top 10px / 12px 3px no-repeat,
+    linear-gradient(var(--bar), var(--bar)) right 16px top 10px / 54px 3px no-repeat,
+    linear-gradient(rgba(60, 45, 35, 0.3), rgba(60, 45, 35, 0.3)) 16px 19px / calc(100% - 32px) 1px no-repeat,
+    var(--halftone),
+    var(--paper);
+  background-blend-mode: multiply, multiply, normal, normal, normal, multiply, normal;
+  box-shadow: 0 1px 1px rgba(90, 40, 30, 0.14), 0 12px 26px rgba(90, 40, 30, 0.18);
+  rotate: 2.2deg;
+}
+
+/* Faded 35mm on uncoated paper: soft contrast, lifted blacks, a warm cast.
+   Side by side it is shown whole, at its own shape. When a stacked page
+   runs taller, the photo grows into the extra height and is cropped to
+   its left side: the lotus buds, the model asleep against the urn, and
+   the candle. */
+.mag-photo {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  height: var(--page-photo-h);
+  object-fit: cover;
+  object-position: 7% 50%;
+  filter: saturate(0.88) contrast(0.92) sepia(0.12) brightness(1.03);
+}
+
+/* The print over the photo: a fine halftone screen, paper tooth and a
+   yellowed highlight, multiplied like ink on stock. It ends where the
+   photo does, however tall that is. */
+.prologue-aside > .mag-page::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: 16px;
+  right: 16px;
+  bottom: calc(14px + 0.6rem + var(--page-type-h));
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    var(--halftone),
+    linear-gradient(rgba(251, 236, 200, 0.22), rgba(251, 236, 200, 0.22));
+  box-shadow: inset 0 0 0 1px rgba(60, 45, 35, 0.14);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Two justified columns of greeked type under the photo, a few lines deep. */
+.prologue-aside > .mag-page::after {
+  content: "";
+  flex: 0 0 var(--page-type-h);
+  margin-top: 0.6rem;
+  /* Width-fit and cropped at the foot. */
+  background: url(img/about/bg/greek-columns.svg) 0 0 / 100% auto no-repeat;
+}
+
+/* The second mood-board page: Kate Moss in Vietnam, by Bruce Weber for
+   Vogue, printed on the same stock as the Vietnamese page (folio, halftone,
+   paper tooth, faded-film grade) but as a left-hand page, its gutter shade
+   on the right, tilted the other way. Uncaptioned: it is credited in the
+   credits' Stills.
+
+   Side by side, the page sits in the free paper at the foot of the letter,
+   right of the signature's 205px column (where the letter's Huế vine
+   closes the border), so its top edge stays below the letter's last line
+   (the lines about Mom) at every width, and its foot drops 4rem below the
+   subject file. --vp-h grows with the shell up to 352px, tracking the room
+   the letter leaves beside the signature. */
+.prologue-aside > .vogue-page {
+  /* Below a 1016px shell the page sits further under the Mom line (the
+     aside runs longer than the letter), so the floor rises by up to 36px to
+     use that room while keeping at least ~50px clear of the line. */
+  --vp-h: clamp(228px + clamp(0px, (1016px - 100cqw) * 0.22, 36px), 228px + (100cqw - 1016px) * 1.12, 352px);
+  --vp-sw: calc((var(--vp-h) - 40px) * 498 / 594 + 28px);
+  /* The page is centred in what the letter's width leaves beside the
+     signature's column. */
+  --vp-gap: clamp(20px, (min(640px, 100cqw - 340px - var(--gap)) - 205px - var(--vp-sw)) / 2, 100px);
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  /* Side by side: past the signature's column. Stacked: centred in the
+     second column, its foot level with the subject file's. */
+  left: min(calc(340px - 100cqw + 205px + var(--vp-gap) + var(--stacked) * 99999),
+      calc(var(--col-w) + var(--gap) + (var(--right-w) - var(--vp-w-stacked)) / 2 + (1px - var(--stacked)) * 99999));
+  width: min(calc(var(--vp-sw) + var(--stacked) * 99999), calc(var(--vp-w-stacked) + (1px - var(--stacked)) * 99999));
+  margin: 0;
+}
+
+.vogue-sheet {
+  --paper: #f5eee0;
+  --bar: rgba(60, 45, 35, 0.42);
+  position: relative;
+  padding: 26px 14px 14px;
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    linear-gradient(270deg, rgba(70, 45, 20, 0.2), rgba(70, 45, 20, 0) 6%),
+    /* folio: page number and title at the outer edge, then the rule */
+    linear-gradient(var(--bar), var(--bar)) left 14px top 10px / 12px 3px no-repeat,
+    linear-gradient(var(--bar), var(--bar)) left 32px top 10px / 44px 3px no-repeat,
+    linear-gradient(rgba(60, 45, 35, 0.3), rgba(60, 45, 35, 0.3)) 14px 19px / calc(100% - 28px) 1px no-repeat,
+    var(--halftone),
+    var(--paper);
+  background-blend-mode: multiply, multiply, normal, normal, normal, multiply, normal;
+  box-shadow: 0 1px 1px rgba(90, 40, 30, 0.14), 0 12px 26px rgba(90, 40, 30, 0.18);
+  rotate: -1.8deg;
+}
+
+/* Shown whole, at its own shape, graded like the other page. */
+.vogue-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 498 / 594;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(0.94) sepia(0.1) brightness(1.03);
+}
+
+/* Over the photo, paper tooth and a yellowed highlight only: the scan
+   already carries the magazine's own screen. */
+.vogue-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 26px 14px 14px;
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    linear-gradient(rgba(251, 236, 200, 0.16), rgba(251, 236, 200, 0.16));
+  box-shadow: inset 0 0 0 1px rgba(60, 45, 35, 0.14);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* The one tilted object on the page. It straightens when you reach for it. */
+.polaroid {
+  width: 100%;
+  max-width: 300px;
+  margin: 0;
+  padding: 12px 12px 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+  /* A closer, warmer shadow: it lies on the page. */
+  box-shadow: 0 10px 24px rgba(90, 40, 30, 0.22);
+  transform: rotate(-2.5deg);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: var(--shadow-lift), var(--glare-crimson);
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.polaroid figcaption {
+  padding-top: 0.55rem;
+  font-family: var(--font-script);
+  font-size: 1.8rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--crimson);
+}
+
+/* The subject file, headed with a clapperboard's stripes. */
+.fact-file {
+  width: 100%;
+  max-width: 340px;
+  border: 1px solid var(--ink);
+  background: #fff;
+}
+
+.fact-file-title {
+  padding: 0.75rem 1rem;
+  background: var(--ink);
+  color: #fff;
+  font: 600 0.64rem/1 var(--font-body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.fact-file-title::before {
+  content: "";
+  display: block;
+  height: 12px;
+  margin: -0.75rem -1rem 0.75rem;
+  background: linear-gradient(90deg, var(--gold-light) 0 8px, transparent 8px) 4px 50% / 18px 5px repeat-x;
+}
+
+.fact-file dl {
+  margin: 0;
+}
+
+.fact-file dl div {
+  display: flex;
+  /* When the file is narrow (a small tablet), an answer that no longer
+     fits beside its label drops under it, whole and right-aligned, instead
+     of breaking into a lone "'27". */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.fact-file dl div:first-child {
+  border-top: 0;
+}
+
+.fact-file dt {
+  flex: 0 0 auto;
+  font: 600 0.6rem/1.3 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.fact-file dd {
+  /* Up to 14rem beside the label (two balanced lines for the longest
+     answer); past that it wraps to its own line. */
+  max-width: 14rem;
+  margin: 0 0 0 auto;
+  /* Two-line answers break evenly, never leaving a lone "'27". */
+  text-wrap: balance;
+  font-variant-numeric: lining-nums;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.3;
+  text-align: right;
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   6. Chapter one — built for people
+   -------------------------------------------------------------------------- */
+/* A worn cement-tile floor (gach bong) of a Saigon or Hanoi house, shot
+   from above and printed like faded Kodachrome in its own colours (ochre,
+   cocoa, cream and faded teal) on a warm cream-blush stock: two of this
+   chapter's three scenes are in Vietnam. A few strips of 35mm negatives lie
+   on the tiles, crisp, like footage waiting to be marked up for the edit.
+   The file is one seamless two-tile repeat. */
+.chapter-people {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--grain-fine) 0 0 / 180px 180px, var(--edge-burn), #f7e6dc;
+  background-blend-mode: multiply, normal, normal;
+}
+
+.chapter-people::before,
+.chapter-people::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.chapter-people::before {
+  inset: 0;
+  background: var(--plate-tiles) 50% 0 / 540px auto repeat;
+  filter: sepia(0.1) contrast(0.9) brightness(1.05);
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  /* The floor fades back behind the heading, so its small kicker reads. */
+  -webkit-mask-image: radial-gradient(ellipse min(46%, 520px) 300px at 50% 190px, rgba(0, 0, 0, 0.4), #000 100%);
+  mask-image: radial-gradient(ellipse min(46%, 520px) 300px at 50% 190px, rgba(0, 0, 0, 0.4), #000 100%);
+}
+
+.chapter-people::after {
+  top: -2%;
+  right: -6%;
+  width: min(1040px, 78%);
+  aspect-ratio: 3 / 2;
+  background: var(--plate-negatives) 0 0 / 100% 100% no-repeat;
+  filter: grayscale(1) contrast(1.25);
+  mix-blend-mode: multiply;
+  opacity: 0.42;
+  rotate: -4deg;
+  -webkit-mask-image: linear-gradient(200deg, #000 30%, transparent 70%);
+  mask-image: linear-gradient(200deg, #000 30%, transparent 70%);
+}
+
+/* A pool of light on the heading, like a lamp over the floor. */
+.chapter-people .chapter-head {
+  position: relative;
+  z-index: 0;
+}
+
+.chapter-people .chapter-head::before,
+.chapter-money .chapter-head::before,
+.chapter-closet .chapter-head::before {
+  content: "";
+  position: absolute;
+  inset: -3.5rem -7rem;
+  z-index: -1;
+  /* Centred a little high and held brighter to mid-radius, so the small
+     crimson kicker at the top of the head keeps 4.5:1 over the pattern. */
+  background: radial-gradient(ellipse 62% 72% at 50% 44%, rgba(255, 227, 237, 0.97), rgba(255, 227, 237, 0.88) 55%, rgba(255, 227, 237, 0));
+  filter: blur(34px);
+  pointer-events: none;
+}
+
+/* On the tiles the lamp's pool is warm cream, the floor's own stock, not a
+   pink glow. */
+.chapter-people .chapter-head::before {
+  background: radial-gradient(ellipse 62% 72% at 50% 44%, rgba(252, 240, 234, 0.97), rgba(252, 240, 234, 0.88) 55%, rgba(252, 240, 234, 0));
+}
+
+/* A documentary title card: white on black, letterboxed. */
+.intertitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2.5rem;
+  width: 100%;
+  max-width: 940px;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3.5rem);
+  background: var(--night);
+  box-shadow: inset 0 14px 0 #000, inset 0 -14px 0 #000;
+  color: #fff;
+}
+
+/* Glitter in the numerals, like a sequinned title card. */
+.intertitle-num {
+  font-family: var(--font-didone);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 11vw, 8rem);
+  line-height: 0.9;
+  font-variant-numeric: lining-nums;
+  background:
+    radial-gradient(circle, #fff 0 0.8px, transparent 1.4px) 0 0 / 11px 11px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.85) 0 0.6px, transparent 1.2px) 5px 7px / 17px 17px,
+    linear-gradient(125deg, var(--blush) 0%, var(--rose) 38%, var(--blush) 58%, var(--crimson) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: glitter 6s linear infinite;
+}
+
+.intertitle-text {
+  flex: 1 1 320px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+  line-height: 1.35;
+}
+
+.scene-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+.scene-card {
+  position: relative;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0 1.75rem 1.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+/* Clapperboard stripes across the top edge of every scene. */
+/* A strip of film along the top edge of every scene: sprocket holes on black. */
+.scene-card::before,
+.look::before {
+  content: "";
+  display: block;
+  height: 14px;
+  margin: 0 -1.75rem 0.55rem;
+  background:
+    linear-gradient(90deg, var(--gold-light) 0 8px, transparent 8px) 4px 50% / 18px 5px repeat-x,
+    var(--ink);
+  transition: background 0.4s var(--ease);
+}
+
+.scene-card:hover,
+.scene-card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift), var(--glare-crimson);
+}
+
+.scene-card:hover::before,
+.look:hover::before {
+  background:
+    linear-gradient(90deg, #fff 0 8px, transparent 8px) 4px 50% / 18px 5px repeat-x,
+    var(--crimson);
+}
+
+.scene-card .slate {
+  padding-top: 0.85rem;
+}
+
+.scene-card h3,
+.look h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+/* Signtegrate's award, set like the festival laurels on the poster: the
+   line centred between two gilt wheat-awn sprays, on a champagne plaque
+   ruled in gold (the sprays stand in for the trophy). The three cards share
+   one height and Signtegrate has the shortest story, so the plaque keeps
+   its own height and is centred (auto margins) in whatever paper the
+   taller cards leave between the copy and "Made for", instead of leaving
+   a hole above "Made for". It adds only its rules and a little padding to
+   the old award line, so it never makes Signtegrate the tallest card on a
+   desktop. */
+.award {
+  position: relative;
+  flex: 0 0 auto;
+  margin-block: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.75rem;
+  border-block: 1px solid rgba(212, 175, 106, 0.6);
+  background: rgba(243, 226, 179, 0.16);
+  font: 600 0.62rem/1.55 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--crimson);
+}
+
+.award i {
+  display: none;
+}
+
+/* The plaque's own auto margins centre it; "Made for" follows at one gap. */
+.award + .made-for {
+  margin-top: 0;
+}
+
+.award::before,
+.award::after {
+  content: "\e2cd";
+  position: absolute;
+  top: 50%;
+  margin-top: -0.55rem;
+  font: normal 900 1.1rem/1 "Font Awesome 6 Free";
+  color: var(--gold);
+}
+
+.award::before {
+  left: 0.35rem;
+  transform: rotate(-24deg);
+}
+
+.award::after {
+  right: 0.35rem;
+  transform: scaleX(-1) rotate(-24deg);
+}
+
+/* FPT's production note: a slip of the cards' paper clipped under the
+   scenes, one grid-gap below them, so the cards no longer stretch to fit
+   it. The tag is the slates' crimson label. While FPT has a row to itself
+   (two cards, then FPT; or a phone), the slip is centred under it at its
+   own width, one line on a tablet. When the three cards share a row (the
+   grid is at least 3 x 300px plus two gaps wide), it is FPT's width and
+   hangs under FPT alone, at the grid's right edge. --three is 1px then and
+   0px otherwise; each value switches with the page's usual min/max trick.
+   The percentages are of the section's width, which the grid shares up to
+   --shell. */
+.scene-note {
+  --grid-w: min(100%, var(--shell));
+  --card-w: calc((var(--grid-w) - 2.5rem) / 3);
+  --three: clamp(0px, (var(--grid-w) - 939.9px) * 9999, 1px);
+  width: fit-content;
+  min-width: max(0px, var(--card-w) - (1px - var(--three)) * 99999);
+  max-width: min(100%, var(--card-w) + (1px - var(--three)) * 99999);
+  /* Centred in the section, a margin of the grid's width less one card
+     puts the slip's own box under the third card. */
+  margin-left: max(0px, var(--grid-w) - var(--card-w) - (1px - var(--three)) * 99999);
+  margin-top: calc(1.25rem - clamp(2rem, 4vw, 3rem));
+  padding: 0.75rem 1.4rem 0.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--ink-mute);
+}
+
+.scene-note-tag {
+  margin-right: 0.3rem;
+  font: 600 0.62rem/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+/* --------------------------------------------------------------------------
+   7. By the numbers — the crimson promo band
+   -------------------------------------------------------------------------- */
+/* A crimson sequinned gown filling the frame: a real macro of sewn sequins,
+   one plane sharp and the rest melting into bokeh. The grey plate is laid
+   over the brand crimson in OVERLAY, so the crimson holds in the mid-tones,
+   deepens to oxblood between the discs and lifts to rose where they catch
+   the light; the print is taken down a stop so those highlights stay close
+   to brand crimson. Over it, an aligned second pass keeps only the top five
+   per cent of the plate (the specular tips), warmed to champagne and
+   screened: the sparkle. The landing's sheen becomes a catchlight that
+   crosses the band and makes the tips flare as it passes. */
+.stat-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--crimson-dark);
+  color: #fff;
+}
+
+.stat-band > * {
+  position: relative;
+  z-index: 1;
+}
+
+.stat-band::before,
+.stat-band::after {
+  content: "";
+  position: absolute;
+  inset: -4%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.stat-band::before {
+  background:
+    var(--grain) 0 0 / 180px 180px,
+    var(--vignette-dark),
+    var(--plate-sequins) 50% 72% / max(100%, 1100px) auto no-repeat,
+    var(--crimson);
+  background-blend-mode: overlay, normal, overlay, normal;
+  filter: brightness(0.7) saturate(1.1);
+  animation: kenburns 40s ease-in-out infinite;
+}
+
+.stat-band::after {
+  background: var(--plate-sequins) 50% 72% / max(100%, 1100px) auto no-repeat;
+  filter: brightness(0.5) contrast(16) brightness(1.3) sepia(0.6);
+  mix-blend-mode: screen;
+  -webkit-mask: linear-gradient(105deg, rgba(0, 0, 0, 0.42) 42%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0.42) 58%) 100% 0 / 300% 100% no-repeat;
+  mask: linear-gradient(105deg, rgba(0, 0, 0, 0.42) 42%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0.42) 58%) 100% 0 / 300% 100% no-repeat;
+  animation: kenburns 40s ease-in-out infinite, catchlight 8s var(--ease) infinite;
+}
+
+/* A feathered pool of oxblood under each label, so no sparkle sits
+   behind the small white type. */
+.stat-text,
+.stat-band-label {
+  position: relative;
+}
+
+.stat-text::before,
+.stat-band-label::before {
+  content: "";
+  position: absolute;
+  inset: -0.6rem -0.9rem;
+  z-index: -1;
+  background: rgba(90, 11, 31, 0.7);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.stat-band-label::before {
+  inset: -0.6rem -1.4rem;
+}
+
+.stat-band-label {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font: 600 0.68rem/1 var(--font-body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.stat-band-label i {
+  font-size: 0.55rem;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+.stat {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.4rem 1.5rem 0.2rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.stat-num {
+  font-family: var(--font-didone);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 8vw, 6.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.stat-text {
+  max-width: 24ch;
+  font: 600 0.66rem/1.55 var(--font-body);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 1px 2px rgba(60, 0, 12, 0.55);
+}
+
+/* A little halation, as white type does on a lit print. */
+.stat-num {
+  text-shadow: 0 0 22px rgba(255, 214, 200, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   8. Chapter two — follow the money
+   -------------------------------------------------------------------------- */
+/* An empty Gilded-Age banking hall after hours: marble columns, bronze
+   teller grilles and a leaded-glass skylight, from a large-format Historic
+   American Buildings Survey negative, toned gold-sepia and veiled in ivory
+   like an old albumen print. PINNED: the hall holds still while the ledgers
+   scroll past, like walking the length of the counter. Never add transform,
+   filter, contain, will-change or .reveal to the section itself. */
+.chapter-money {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--ivory);
+}
+
+.chapter-money::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    linear-gradient(rgba(251, 245, 234, 0.5), rgba(251, 245, 234, 0.5)),
+    var(--edge-burn),
+    linear-gradient(#f3e2b3, #7a5a1f),
+    var(--plate-bank) 50% 40% / cover no-repeat;
+  background-blend-mode: multiply, normal, normal, color, normal;
+  pointer-events: none;
+}
+
+/* Section-relative, painted over the fixed hall: a pool of light that holds
+   the heading steady while the hall moves behind it. */
+.chapter-money::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 440px at 50% 0, rgba(251, 245, 234, 0.94), rgba(251, 245, 234, 0.6) 50%, rgba(251, 245, 234, 0) 78%);
+  pointer-events: none;
+}
+
+.chapter-money .chapter-head {
+  position: relative;
+  z-index: 0;
+}
+
+.chapter-money .chapter-head::before {
+  background: radial-gradient(ellipse 56% 60% at 50% 50%, rgba(251, 245, 234, 0.92), rgba(251, 245, 234, 0.55) 45%, rgba(251, 245, 234, 0));
+}
+
+.money-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* Each ledger is a query container, so its halves know when they have
+   stacked (--look-s: 1px stacked, 0px side by side), with no breakpoint. */
+.look {
+  position: relative;
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem clamp(2rem, 5vw, 4rem);
+  padding: 0 1.75rem 2rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  /* The ledgers stand in the hall. */
+  box-shadow: 0 18px 44px rgba(90, 60, 20, 0.16);
+  transition: box-shadow 0.4s var(--ease);
+}
+
+.look-meta,
+.look-body {
+  --look-s: clamp(0px, (780px + clamp(2rem, 5vw, 4rem) - 100cqw) * 9999, 1px);
+}
+
+.look::before {
+  flex: 0 0 calc(100% + 3.5rem);
+  margin-bottom: 0;
+}
+
+.look:hover,
+.look:focus-within {
+  box-shadow: 0 24px 54px rgba(90, 60, 20, 0.22);
+}
+
+/* Side by side, the left half is stretched to the text's height and the
+   "Made for" credit is set at its foot (room is made with padding), so both
+   halves end on one line: the credit closes the title column, level with
+   the text's last line, and the Magnetar still grows to fill what is left
+   (never shorter than 16:9). Stacked, the credit returns under the text. */
+.look-meta {
+  /* 360px side by side; stacked, the full card, as on a phone. */
+  flex: 0 1 min(calc(360px + var(--look-s) * 99999), calc(100% + (1px - var(--look-s)) * 99999));
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding-bottom: calc((1px - var(--look-s)) * 72);
+}
+
+.look-body {
+  flex: 1 1 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding-bottom: calc(var(--look-s) * 72);
+}
+
+.look-body .made-for {
+  position: absolute;
+  left: 1.75rem;
+  bottom: 2rem;
+  width: min(calc(360px + var(--look-s) * 99999), calc(100cqw + (1px - var(--look-s)) * 99999));
+}
+
+.look-subhead {
+  margin: 0.4rem 0 -0.3rem;
+  font: 600 0.7rem/1.3 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+.look-body .look-subhead:first-child {
+  margin-top: 0;
+}
+
+.gloss {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid var(--crimson);
+  background: var(--blush-pale);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.gloss i {
+  margin-top: 0.2rem;
+  color: var(--crimson);
+}
+
+abbr[title] {
+  text-decoration: underline dotted rgba(200, 16, 46, 0.6);
+  text-underline-offset: 3px;
+  cursor: help;
+}
+
+/* A letterboxed film still: black mat above and below a 16:9 frame. In the
+   title column it takes the height the text leaves (the photo is a
+   portrait, so a taller frame only shows more of the team). */
+.still {
+  display: flex;
+  flex-direction: column;
+  margin: 0.6rem 0 0;
+  padding: 7% 0 0;
+  background: var(--night);
+}
+
+.look-meta .still {
+  flex: 1 1 auto;
+}
+
+.still img {
+  display: block;
+  flex: 1 1 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: 50% 48%;
+}
+
+.still figcaption {
+  padding: 0.8rem 1rem 0.9rem;
+  font: 600 0.6rem/1.5 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* --------------------------------------------------------------------------
+   9. Chapter three — the power, on black
+   -------------------------------------------------------------------------- */
+/* The towers at dusk, printed like a night newsreel onto the credits' film
+   stock: steam gone rose, pylons plum-black, the sky night. PINNED like the
+   credits' cinema and the closet's lace (fixed layer + clip-path), so the
+   plant stands behind every note, all the way down, while the research
+   scrolls over it. Never add transform, filter, contain, will-change or
+   .reveal to the section itself: the fixed layer would be trapped. */
+.chapter-power {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--night);
+  border-top: var(--frame-line);
+  color: #fff;
+}
+
+.chapter-power::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--halation),
+    var(--vignette-dark),
+    radial-gradient(ellipse 50% 32% at 50% 24%, rgba(13, 3, 6, 0.5), rgba(13, 3, 6, 0) 72%),
+    linear-gradient(180deg, rgba(13, 3, 6, 0.46), rgba(13, 3, 6, 0.72) 48%, rgba(13, 3, 6, 0.84)),
+    linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
+    var(--power-photo, none) 50% 35% / cover no-repeat;
+  background-blend-mode: screen, normal, normal, normal, color, normal;
+  pointer-events: none;
+  animation: kenburns 60s ease-in-out infinite;
+}
+
+.chapter-power > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Night pools: the heading, every note and the closing box carry their own
+   feathered shade, so no pylon wire or lit plume ever crosses the copy. */
+.chapter-power .chapter-head::before,
+.chain li::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.chapter-power .chapter-head::before {
+  inset: -3rem -8rem;
+  background: radial-gradient(ellipse 55% 58% at 50% 42%, rgba(13, 3, 6, 0.62), rgba(13, 3, 6, 0.4) 55%, rgba(13, 3, 6, 0));
+  filter: blur(40px);
+}
+
+.chain li::after {
+  inset: -1.2rem -1.6rem -1.4rem;
+  background: radial-gradient(closest-side, rgba(13, 3, 6, 0.55), rgba(13, 3, 6, 0.38) 70%, rgba(13, 3, 6, 0));
+  filter: blur(18px);
+}
+
+.research-meta {
+  font: 600 0.6rem/1.7 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+/* A news lower-third for the one dated fact. */
+.chyron {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  max-width: 980px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+
+.chyron-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.1rem;
+  background: var(--crimson);
+  color: #fff;
+  font: 600 0.62rem/1.2 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* The "on air" dot. */
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: onAir 1.8s ease-in-out infinite;
+}
+
+.chyron-text {
+  flex: 1 1 320px;
+  padding: 0.8rem 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.chyron-src {
+  align-self: center;
+  padding: 0.8rem 1.2rem;
+  font: 600 0.6rem/1.2 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.chyron-src:focus-visible {
+  outline-color: var(--crimson);
+}
+
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.6rem 2rem;
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each step is a dot on one line: a square crimson node, a hairline rule. */
+.chain li {
+  position: relative;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.chain li::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--crimson);
+  box-shadow: 0 0 12px rgba(200, 16, 46, 0.8);
+}
+
+.step-num {
+  font-family: var(--font-didone);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.step-title {
+  font: 600 0.72rem/1.3 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.step-text {
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* The payoff step is inverted: the bottleneck Minh found. */
+.chain .payoff {
+  padding: 1.4rem 1.5rem 1.6rem;
+  border-top: 3px solid var(--crimson);
+  background: #fff;
+}
+
+.chain .payoff::before {
+  display: none;
+}
+
+.payoff .step-num { color: var(--crimson); }
+.payoff .step-title { color: var(--ink); }
+.payoff .step-text { color: var(--ink-soft); }
+
+.mind-changer {
+  display: flex;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 980px;
+  padding: 1.35rem 1.6rem;
+  border: 1px solid rgba(255, 227, 237, 0.4);
+  background: rgba(13, 3, 6, 0.5);
+}
+
+.mind-changer i {
+  margin-top: 0.3rem;
+  color: var(--blush);
+}
+
+.mind-changer p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mind-changer strong {
+  font-weight: 400;
+  color: #fff;
+}
+
+.sources {
+  font: 600 0.6rem/2 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.sources a {
+  color: var(--blush);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   10. Chapter four — the house, as VS "More to Discover" tiles
+   -------------------------------------------------------------------------- */
+/* The remix chapter, as a pop-art paper set in the spirit of 2010s
+   Vietnamese runway sets: a cobalt seamless backdrop (a real photograph of
+   cobalt craft felt, toned and lit like a studio sweep) with ORIGINAL
+   black-ink paper cut-outs hanging on thin strings, each throwing a real
+   paper shadow. The heading is a white card hung on two strings, and the
+   four tiles are pinned up as prints with a white card edge. */
+.chapter-house {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* The foot of the band is the paper's sweep into the floor: a soft lit
+     crest where the sheet curves, then the floor falling into shade. */
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    linear-gradient(180deg, rgba(6, 12, 50, 0) calc(100% - 150px), rgba(200, 214, 255, 0.1) calc(100% - 96px),
+      rgba(6, 12, 50, 0.08) calc(100% - 60px), rgba(6, 12, 50, 0.26)),
+    radial-gradient(ellipse 62% 48% at 50% 26%, rgba(150, 175, 255, 0.2), rgba(150, 175, 255, 0) 72%),
+    radial-gradient(ellipse 120% 95% at 50% 40%, rgba(6, 12, 50, 0) 55%, rgba(6, 12, 50, 0.42) 100%),
+    linear-gradient(180deg, rgba(6, 12, 50, 0.3) 0, rgba(6, 12, 50, 0) 26%, rgba(6, 12, 50, 0) 70%,
+      rgba(170, 190, 255, 0.1) 83%, rgba(6, 12, 50, 0.16) 100%),
+    linear-gradient(rgba(29, 58, 164, 0.42), rgba(29, 58, 164, 0.42)),
+    linear-gradient(#1d3aa4, #1d3aa4),
+    var(--plate-cobalt) 50% 50% / cover no-repeat;
+  background-blend-mode: multiply, normal, screen, normal, normal, normal, color, normal;
+}
+
+.chapter-house > *:not(.paper-set) {
+  position: relative;
+  z-index: 1;
+}
+
+.chapter-house :focus-visible {
+  outline-color: #fff;
+}
+
+.paper-set {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Each cut-out hangs from the top of the set: the element runs from the
+   ceiling down to the bottom of the art, so it swings from its string. */
+.cutout {
+  position: absolute;
+  top: 0;
+  width: var(--w);
+  height: calc(var(--string) + var(--w) * var(--ar));
+  background: var(--art) 50% 100% / 100% auto no-repeat;
+  filter: drop-shadow(9px 16px 7px rgba(6, 12, 50, 0.45));
+  transform-origin: 50% 0;
+  animation: sway var(--sd, 11s) ease-in-out var(--sdl, 0s) infinite alternate;
+}
+
+.cutout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% + var(--sx, 0px));
+  width: 1px;
+  height: calc(var(--string) + 14px);
+  background: rgba(228, 234, 255, 0.55);
+}
+
+.cut-cloud    { --art: url(img/about/bg/cutout-cloud.svg);    --ar: 0.467; --w: clamp(190px, 19vw, 290px); --string: 44px;  left: 3%;  --sd: 13s; }
+.cut-sun      { --art: url(img/about/bg/cutout-sun.svg);      --ar: 1;     --w: clamp(110px, 10vw, 150px); --string: 210px; left: 9%;  --sd: 10s; --sdl: -4s; }
+.cut-flower   { --art: url(img/about/bg/cutout-flower.svg);   --ar: 1;     --w: 54px; }
+.cut-flower-1 { --string: 120px; left: 18%; --sd: 8s; --sdl: -2s; }
+.cut-moon     { --art: url(img/about/bg/cutout-moon.svg);     --ar: 0.947; --w: clamp(110px, 10vw, 150px); --string: 70px;  right: 7%;  --sd: 12s; --sdl: -6s; --sx: -18px; }
+.cut-cloud-sm { --art: url(img/about/bg/cutout-cloud-sm.svg); --ar: 0.534; --w: clamp(150px, 14vw, 210px); --string: 236px; right: 2%;  --sd: 14s; --sdl: -3s; }
+.cut-flower-2 { --string: 300px; right: 17%; --sd: 9s; --sdl: -5s; }
+
+/* Two paper lilies (hoa hue, the Vietnam thread) stand on the floor. */
+.cut-lily {
+  --art: url(img/about/bg/cutout-lily.svg);
+  --ar: 1.397;
+  --w: clamp(120px, 11vw, 170px);
+  --string: 0px;
+  top: auto;
+  bottom: -2px;
+  transform-origin: 50% 100%;
+  animation: none;
+}
+
+.cut-lily::before { display: none; }
+
+/* Where the paper lily stands on the sweep, a soft contact shadow. */
+.cut-lily::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 8%;
+  right: 8%;
+  height: 16px;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 0, 20, 0.4), rgba(0, 0, 20, 0));
+}
+.cut-lily-l { left: 1.5%; }
+.cut-lily-r { right: 1.5%; transform: scaleX(-1); }
+
+/* The title card: white stock, an inked border, hung on two strings. */
+.chapter-house .chapter-head {
+  padding: clamp(2rem, 4vw, 2.9rem) clamp(1.5rem, 4.5vw, 3.6rem) clamp(2.1rem, 4vw, 3rem);
+  background: #fff;
+  outline: 1.5px solid var(--ink);
+  outline-offset: -11px;
+  box-shadow: 10px 18px 24px rgba(6, 12, 50, 0.42);
+}
+
+.chapter-house .chapter-head::before,
+.chapter-house .chapter-head::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  width: 1px;
+  height: 480px;
+  background: rgba(228, 234, 255, 0.6);
+}
+
+.chapter-house .chapter-head::before { left: 12%; }
+.chapter-house .chapter-head::after  { right: 12%; }
+
+.chapter-house .house-grid {
+  gap: 2rem 1.9rem;
+}
+
+/* The prints, pinned up with a white card edge that throws a paper shadow. */
+.chapter-house .house-frame {
+  box-shadow: 0 0 0 7px #fff, 10px 18px 22px rgba(6, 12, 50, 0.48);
+}
+
+.chapter-house .house-tile:hover .house-frame {
+  box-shadow: 0 0 0 7px #fff, 14px 26px 30px rgba(6, 12, 50, 0.5), var(--glare-light);
+}
+
+.chapter-house .house-tile-here:hover .house-frame,
+.chapter-house .house-link:focus-visible {
+  box-shadow: 0 0 0 7px #fff, 14px 26px 30px rgba(6, 12, 50, 0.5), var(--glare-crimson);
+}
+
+/* The keyboard ring clears the 7px white card edge and lands on cobalt,
+   where white reads (a ring at the default 3px offset vanished on white). */
+.chapter-house .house-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 11px;
+}
+
+.chapter-house .house-caption {
+  margin-top: 7px;
+  color: #fff;
+}
+
+/* "Girl over flowers": an original doodle spray (white five-petal flowers
+   in a fine ink line, pink centres, mint leaves, one hoa hue lily and a
+   scatter of dots) drawn over the corner of the first print and over the
+   crimson wing that is Minh's own, spilling onto the set. Kept clear of
+   faces and titles, and lifted with its print on hover. */
+.chapter-house .house-tile {
+  position: relative;
+}
+
+.chapter-house .house-tile:first-child::after,
+.chapter-house .house-tile-here::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: clamp(150px, 13vw, 196px);
+  aspect-ratio: 240 / 200;
+  background: url(img/about/bg/doodle-spray.svg) 0 0 / 100% 100% no-repeat;
+  filter: drop-shadow(0 1px 0 rgba(6, 12, 50, 0.3));
+  transition: translate 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.chapter-house .house-tile:first-child::after {
+  top: -52px;
+  left: -58px;
+  transform: scaleX(-1) rotate(-14deg);
+}
+
+.chapter-house .house-tile-here::after {
+  top: -40px;
+  right: -46px;
+  transform: rotate(-6deg);
+}
+
+.chapter-house .house-tile:hover::after {
+  translate: 0 -5px;
+}
+
+.chapter-house .off-clock {
+  color: #fff;
+}
+
+.chapter-house .off-clock i {
+  color: #ff9cc0;
+}
+
+.chapter-house .house-foot .text-link {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.chapter-house .house-foot .text-link:hover {
+  color: var(--blush);
+  border-color: var(--blush);
+}
+
+.house-intro {
+  max-width: 64ch;
+}
+
+.house-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+.house-tile {
+  flex: 1 1 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.house-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--mauve);
+  transition: box-shadow 0.45s var(--ease), transform 0.45s var(--ease);
+}
+
+.house-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease);
+}
+
+/* Each campaign image is framed on its story. */
+.crop-friends { object-position: 78% 60%; transform: scale(1.55); transform-origin: 80% 62%; }
+.crop-closet  { object-position: 90% 50%; transform: scale(1.02); transform-origin: 85% 55%; }
+.crop-auction { object-position: 50% 30%; transform: scale(1.02); transform-origin: 50% 35%; }
+
+.house-tile:hover .crop-friends { transform: scale(1.62); }
+.house-tile:hover .crop-closet,
+.house-tile:hover .crop-auction { transform: scale(1.08); }
+
+.house-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 42%, rgba(24, 4, 12, 0.74));
+  pointer-events: none;
+}
+
+.house-tile:hover .house-frame {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lift), var(--glare-light);
+}
+
+.house-title {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.1rem;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.95rem;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(12, 2, 8, 0.6);
+}
+
+.house-title em {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: var(--blush);
+}
+
+.house-caption {
+  font: 600 0.64rem/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* The fourth tile is the way home: this site, the newest wing. */
+.house-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  padding: 1.4rem 1.25rem 1.2rem;
+  background: var(--crimson);
+  color: #fff;
+}
+
+.house-link::after {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), transparent 40%);
+}
+
+.house-link > i {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.25rem;
+  font-size: 1.4rem;
+  color: var(--blush);
+}
+
+.house-link .house-title {
+  position: static;
+}
+
+.here-label,
+.here-cta {
+  position: relative;
+  z-index: 1;
+  font: 600 0.62rem/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.here-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  transition: gap 0.3s var(--ease);
+}
+
+.house-tile-here:hover .house-frame,
+.house-link:focus-visible {
+  box-shadow: var(--shadow-lift), var(--glare-crimson);
+}
+
+.house-link:hover .here-cta,
+.house-link:focus-visible .here-cta {
+  gap: 0.9rem;
+}
+
+.house-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 2.5rem;
+}
+
+.off-clock {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.off-clock i {
+  font-style: normal;
+  color: var(--crimson);
+}
+
+/* --------------------------------------------------------------------------
+   11. Chapter five — community, on mauve
+   -------------------------------------------------------------------------- */
+/* After hours at the club: a real mirror ball, printed as LIGHT. The band
+   is plum night with a mauve haze where the ball hangs; the ball itself is
+   dyed pink-to-lilac and SCREENED, so its mirror tiles glow instead of
+   greying, strongest behind the press print and fading to quiet plum under
+   the lists. Over it, the light the ball throws: small pink and white
+   flecks scattered across the walls, drifting very slowly as it turns. */
+.chapter-community {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    var(--grain) 0 0 / 180px 180px,
+    var(--halation),
+    var(--vignette-dark),
+    radial-gradient(ellipse 62% 58% at 24% 42%, rgba(164, 86, 114, 0.5), rgba(164, 86, 114, 0.14) 55%, rgba(164, 86, 114, 0) 78%),
+    linear-gradient(180deg, var(--plum), #270a17);
+  background-blend-mode: overlay, screen, normal, normal, normal;
+  color: #fff;
+}
+
+.chapter-community > * {
+  position: relative;
+  z-index: 1;
+}
+
+.chapter-community::before,
+.chapter-community::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* The ball's lit side (its right half in the photograph) is set behind the
+   press print; its dark crown bleeds off the left edge. */
+.chapter-community::before {
+  inset: 0;
+  /* Black under the photo: past its edge the dye has nothing to colour, and
+     black screens to nothing. */
+  /* The plate ends at 24vw + 740px, and its grey backdrop still glows under
+     the dye, so it is faded to black before that edge: no seam, just night. */
+  background:
+    linear-gradient(160deg, #ffc6dd, #e6b3ff),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) calc(24vw + 380px), #000 calc(24vw + 720px)),
+    var(--plate-ball) calc(24vw - 1360px) 0 / auto 1400px no-repeat,
+    linear-gradient(#000, #000);
+  background-blend-mode: color, normal, normal, normal;
+  mix-blend-mode: screen;
+  opacity: 0.62;
+  /* Fading to quiet plum under the lists, with a darker clearing behind
+     the heading. */
+  -webkit-mask-image:
+    linear-gradient(90deg, #000 0 40%, rgba(0, 0, 0, 0.22) 60%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(ellipse min(34%, 440px) 150px at 50% calc(clamp(3.5rem, 7vw, 6rem) + 120px), rgba(0, 0, 0, 0.3), #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, #000 0 40%, rgba(0, 0, 0, 0.22) 60%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(ellipse min(34%, 440px) 150px at 50% calc(clamp(3.5rem, 7vw, 6rem) + 120px), rgba(0, 0, 0, 0.3), #000 100%);
+  mask-composite: intersect;
+}
+
+/* Thrown light: three scatters of flecks on co-prime tiles, so the pattern
+   never visibly repeats. They fall across the ball's side of the room and on
+   the two bare corners of the wall (above and below the lists, never behind
+   them), and drift a few dozen pixels as the ball turns. */
+.chapter-community::after {
+  --fleck: rgba(255, 236, 246, 0.95), rgba(255, 196, 226, 0.4) 40%, rgba(255, 196, 226, 0);
+  --fleck-l: rgba(240, 222, 255, 0.92), rgba(214, 180, 255, 0.36) 40%, rgba(214, 180, 255, 0);
+  inset: -80px;
+  background:
+    radial-gradient(8px 5px at 18% 22%, var(--fleck)) 0 0 / 430px 370px,
+    radial-gradient(5px 5px at 64% 58%, var(--fleck-l)) 0 0 / 430px 370px,
+    radial-gradient(9px 6px at 86% 12%, var(--fleck)) 0 0 / 430px 370px,
+    radial-gradient(6px 4px at 38% 80%, var(--fleck)) 0 0 / 530px 470px,
+    radial-gradient(7px 7px at 72% 34%, var(--fleck-l)) 0 0 / 530px 470px,
+    radial-gradient(5px 4px at 8% 64%, var(--fleck)) 0 0 / 530px 470px,
+    radial-gradient(10px 6px at 52% 8%, var(--fleck)) 0 0 / 610px 530px,
+    radial-gradient(6px 5px at 26% 46%, var(--fleck-l)) 0 0 / 610px 530px,
+    radial-gradient(7px 4px at 90% 72%, var(--fleck)) 0 0 / 610px 530px;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  -webkit-mask-image:
+    linear-gradient(90deg, #000 0 42%, rgba(0, 0, 0, 0) 54%),
+    radial-gradient(ellipse 26% 22% at 86% 12%, #000 30%, rgba(0, 0, 0, 0) 80%),
+    radial-gradient(ellipse 30% 20% at 82% 93%, #000 30%, rgba(0, 0, 0, 0) 80%);
+  mask-image:
+    linear-gradient(90deg, #000 0 42%, rgba(0, 0, 0, 0) 54%),
+    radial-gradient(ellipse 26% 22% at 86% 12%, #000 30%, rgba(0, 0, 0, 0) 80%),
+    radial-gradient(ellipse 30% 20% at 82% 93%, #000 30%, rgba(0, 0, 0, 0) 80%);
+  animation: ballturn 26s ease-in-out infinite alternate;
+}
+
+/* Pools of night under the heading and the soundbite, so the script and
+   the quote sit on quiet glass however the light falls. */
+.chapter-community .chapter-head::before,
+.chapter-community .soundbite::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.chapter-community .chapter-head::before {
+  inset: -3rem -8rem;
+  background: radial-gradient(ellipse 58% 64% at 50% 56%, rgba(39, 10, 23, 0.8), rgba(39, 10, 23, 0.52) 55%, rgba(39, 10, 23, 0));
+  filter: blur(34px);
+}
+
+.chapter-community .soundbite {
+  position: relative;
+  z-index: 0;
+}
+
+.chapter-community .soundbite::before {
+  inset: -1.5rem -2.5rem;
+  background: radial-gradient(ellipse 62% 62% at 50% 50%, rgba(39, 10, 23, 0.78), rgba(39, 10, 23, 0.4) 60%, rgba(39, 10, 23, 0));
+  filter: blur(30px);
+}
+
+/* Small labels here stay white, the one ink that is never in doubt. */
+.chapter-community .kicker {
+  color: #fff;
+}
+
+/* Two columns, weighted so they start and end together at every width:
+   the Out and All in headings level under the title, then the Out list over
+   the press print and the All in list over Minh's soundbite. The shell is
+   held to 1040px, where a wider 4:3 print would outgrow the lists. Stacked,
+   they read in order: Out, the print, All in, the soundbite. */
+.community-shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2.5rem clamp(2.5rem, 5vw, 4rem);
+  width: 100%;
+  max-width: 1040px;
+}
+
+.community-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.community-out {
+  flex: 1 1 400px;
+}
+
+.community-in {
+  flex: 1.1 1 440px;
+}
+
+/* A press print: a white border isolates the photo's blue wall from mauve. */
+.press-print {
+  margin: 0;
+  padding: 10px 10px 0;
+  background: #fff;
+  box-shadow: var(--shadow-print);
+}
+
+.press-print img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.press-print figcaption {
+  padding: 0.8rem 0.2rem 0.9rem;
+  font: 600 0.6rem/1.4 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* The Out list sits on the ball's lit side, over the print (and stacked,
+   both lists cross the thrown light), so each list gets a pool of night
+   like the soundbite's: the white notes always read on quiet glass. */
+.chapter-community .org-col {
+  position: relative;
+  z-index: 0;
+}
+
+.chapter-community .org-col::before {
+  content: "";
+  position: absolute;
+  inset: -2.75rem -3rem -2.25rem;
+  z-index: -1;
+  background: radial-gradient(ellipse 70% 66% at 50% 50%, rgba(39, 10, 23, 0.88), rgba(39, 10, 23, 0.72) 58%, rgba(39, 10, 23, 0));
+  filter: blur(26px);
+  pointer-events: none;
+}
+
+.org-head {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 2.6rem;
+  line-height: 1.1;
+  color: var(--blush);
+}
+
+.org-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.org-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.org-note {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #fff;
+}
+
+.lead-badge {
+  padding: 0.3rem 0.5rem;
+  background: var(--crimson);
+  color: #fff;
+  font: 600 0.56rem/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.org-lead,
+.org-new {
+  position: relative;
+}
+
+/* A white tick over the rule marks the entries that matter most: the group
+   Minh leads, and the two clubs that start a new chapter. */
+.org-lead::before,
+.org-new::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 42px;
+  height: 2px;
+  background: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   12. Chapter six — the closet, in window light
+   -------------------------------------------------------------------------- */
+/* Her closet, in window light, like ADÉLA's cream bedroom. PINNED
+   full-bleed: a high-resolution rose lace curtain, backlit from a window at
+   the right, is the room itself and keeps its crisp mesh and damask at any
+   width. Afternoon light through venetian blinds falls diagonally across it
+   (in overlay, so the bright slats lift and the wall between stays put), and the whole room is dyed
+   rose to violet-pink and veiled high-key in blush. Over it, Minh's
+   own pink lace (see ::after) lends its colour and its deep folds. Never add
+   transform, filter, contain, will-change or .reveal to the section itself:
+   the fixed layers would be trapped. */
+.chapter-closet {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--blush-pale);
+}
+
+.chapter-closet::before,
+.chapter-closet::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.chapter-closet::before {
+  background:
+    var(--grain-fine) 0 0 / 180px 180px,
+    var(--edge-burn),
+    radial-gradient(ellipse 44% 42% at 90% 4%, rgba(248, 236, 255, 0.72), rgba(248, 236, 255, 0) 100%),
+    linear-gradient(90deg, rgba(255, 240, 245, 0.62), rgba(255, 240, 245, 0.42) 40%, rgba(255, 240, 245, 0.36)),
+    linear-gradient(210deg, rgba(214, 140, 208, 0.5), rgba(232, 150, 190, 0.42) 45%, rgba(250, 210, 225, 0.34)),
+    var(--plate-blinds) 50% 58% / cover no-repeat,
+    var(--plate-lace-hi) 78% 50% / cover no-repeat;
+  background-blend-mode: multiply, normal, normal, normal, color, overlay, normal;
+  filter: saturate(1.05);
+}
+
+/* Minh's lace (a small file, so a hair of blur hides its JPEG
+   blocks), laid over the room in soft-light: its pink and its deep folds
+   come through, and the crisp mesh underneath carries the detail. */
+.chapter-closet::after {
+  background: var(--plate-lace) 50% 50% / cover no-repeat;
+  filter: blur(1px) saturate(1.1);
+  mix-blend-mode: soft-light;
+  opacity: 0.75;
+}
+
+.chapter-closet .chapter-head {
+  position: relative;
+  z-index: 0;
+}
+
+.chapter-closet .chapter-head::before {
+  background: radial-gradient(ellipse 62% 72% at 50% 44%, rgba(255, 240, 245, 0.97), rgba(255, 240, 245, 0.9) 55%, rgba(255, 240, 245, 0));
+}
+
+/* Held to 960px, like a letter and its keepsakes laid out on a dressing
+   table: at that width the letter and the column of stills (window, Mom,
+   soundbite) end together at every desktop width; wider, the photos grow
+   faster than the letter does. --stacked is 1px once the letter has
+   wrapped under the stills (a tablet or a phone) and 0px side by side,
+   measured in container units so it tracks the real wrap. */
+.closet-shell {
+  --gap: clamp(2.5rem, 6vw, 4.5rem);
+  --stacked: clamp(0px, (780px + var(--gap) - 100cqw) * 9999, 1px);
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2.5rem var(--gap);
+  width: 100%;
+  max-width: 960px;
+}
+
+/* Stacked (on a tablet), the stills and the letter both span the column,
+   edge to edge, one width and one line, with no strip of empty lace beside
+   either. */
+.closet-aside {
+  flex: 1 1 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* A framed still in the spirit of a lived-in Vietnamese home: an ochre
+   lime-washed corridor in Saigon with its patina and damp stains, dark
+   green-grey louvered shutters standing open onto white inner shutters, sun
+   on the sills (no one in frame). It is mounted on a woven sedge-mat border
+   (chieu coi) with a strip of lipstick-red silk, drawn in CSS. */
+.window-still {
+  aspect-ratio: 735 / 350;
+  border: 12px solid transparent;
+  padding: 4px;
+  background-image:
+    var(--plate-shutters),
+    linear-gradient(100deg, #9d0c23, #d4243f 38%, #a50f27 58%, #c81a36 80%, #960b22),
+    repeating-linear-gradient(90deg, rgba(92, 56, 22, 0.16) 0 1px, rgba(92, 56, 22, 0) 1px 7px),
+    repeating-linear-gradient(0deg, #d6b579 0 1.5px, #bf9a5c 1.5px 2.5px, #cfac6c 2.5px 4px, #b89156 4px 4.6px),
+    linear-gradient(90deg, #c9a466, #b9924f 50%, #c9a466);
+  background-origin: content-box, padding-box, border-box, border-box, border-box;
+  background-clip: content-box, padding-box, border-box, border-box, border-box;
+  background-size: cover, auto, auto, auto, auto;
+  background-position: 50% 50%, 0 0, 0 0, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
+  box-shadow: 0 18px 40px rgba(90, 30, 45, 0.22);
+}
+
+/* The letter, on a near-solid sheet of blush paper. The blind light now
+   falls across the room behind it, so the sheet itself stays clean.
+   Stacked, the sheet spans the column and its margins widen instead, so
+   the lines keep the prologue letter's 640px measure. */
+.closet-text {
+  --pad: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  flex: 1 1 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: var(--pad) min(calc(var(--pad) + var(--stacked) * 99999), calc(max(var(--pad), (100cqw - 640px) / 2) + (1px - var(--stacked)) * 99999));
+  background: var(--grain-fine) 0 0 / 180px 180px, rgba(255, 240, 245, 0.93);
+  background-blend-mode: multiply, normal;
+  box-shadow: 0 18px 44px rgba(90, 30, 45, 0.12);
+}
+
+.closet-aside .soundbite {
+  position: relative;
+  z-index: 0;
+}
+
+.closet-aside .soundbite::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem -2.5rem;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255, 240, 245, 0.88), rgba(255, 240, 245, 0));
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.closet-text .copy {
+  font-size: 1.05rem;
+}
+
+/* --------------------------------------------------------------------------
+   13. Epilogue — the plum bookend
+   -------------------------------------------------------------------------- */
+/* The runway hall at the end of the lane: a real empty runway down the
+   centre of an ornate old auditorium, graded plum and mauve, the lane
+   receding under the headline towards the hall's back-stage screen. The
+   plate is width-fit (its box has the photo's own shape) and the slow dolly
+   moves in on that screen. Minh's runway footage plays in the "What I
+   bring" table below (see .bring-list). The glitter keeps falling through,
+   and the band fades to night at its foot for the cut into the credits. */
+.epilogue {
+  isolation: isolate;
+  overflow: hidden;
+  /* Below the hall (on a tall band, where the width-fit hall runs out), the
+     house's own ruby velvet, the premiere's drapes, under a credits veil. */
+  background:
+    linear-gradient(180deg, rgba(28, 6, 14, 0.74), rgba(28, 6, 14, 0.86)),
+    linear-gradient(rgba(164, 86, 114, 0.55), rgba(51, 16, 31, 0.6)),
+    var(--plate-velvet) 50% 100% / cover no-repeat,
+    var(--plum-deep);
+  background-blend-mode: normal, color, normal, normal;
+  border-top: var(--frame-line);
+  color: #fff;
+}
+
+.epilogue::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -3%;
+  z-index: -1;
+  width: 106%;
+  aspect-ratio: 1600 / 1148;
+  /* The centre of the back-stage screen. */
+  transform-origin: 51.56% 43.12%;
+  background:
+    var(--grain) 0 0 / 180px 180px,
+    var(--halation),
+    var(--vignette-dark),
+    radial-gradient(ellipse 48% 28% at 50% 15%, rgba(28, 6, 14, 0.7), rgba(28, 6, 14, 0.4) 55%, rgba(28, 6, 14, 0) 82%),
+    linear-gradient(180deg, rgba(28, 6, 14, 0.56) 0, rgba(28, 6, 14, 0.64) 40%, rgba(28, 6, 14, 0.9) 75%, var(--plum-deep) 100%),
+    linear-gradient(rgba(164, 86, 114, 0.62), rgba(51, 16, 31, 0.66)),
+    var(--plate-runway) 0 0 / 100% 100% no-repeat;
+  background-blend-mode: overlay, screen, normal, normal, normal, color, normal;
+  /* The hall's foot dissolves into the velvet below it. */
+  -webkit-mask-image: linear-gradient(180deg, #000 62%, rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(180deg, #000 62%, rgba(0, 0, 0, 0));
+  pointer-events: none;
+  animation: dolly 44s ease-in-out infinite alternate;
+}
+
+.epilogue > *:not(.glints):not(.glitter) {
+  position: relative;
+  z-index: 1;
+}
+
+/* A feathered pool of shade of the heading's own, painted above the hall,
+   so the lede reads on quiet plum wherever the chandelier's light falls. */
+.epilogue .chapter-head::before {
+  content: "";
+  position: absolute;
+  inset: -3rem -8rem;
+  z-index: -1;
+  background: radial-gradient(ellipse 52% 56% at 50% 56%, rgba(28, 6, 14, 0.56), rgba(28, 6, 14, 0.4) 50%, rgba(28, 6, 14, 0) 100%);
+  filter: blur(46px);
+  pointer-events: none;
+}
+
+/* Glitter drifting down, as over a Moulin Rouge trapeze. */
+/* The glitter's layer also carries the band's last 180px, fading it to the
+   credits' night, so the cut between the two is seamless. */
+.glitter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(13, 3, 6, 0) calc(100% - 180px), var(--night));
+  pointer-events: none;
+}
+
+/* The camera flashes go off behind the copy and the cards, not over them. */
+.epilogue .glints {
+  z-index: 0;
+}
+
+.glitter span {
+  position: absolute;
+  top: -4%;
+  left: var(--x);
+  width: var(--s, 6px);
+  height: var(--s, 6px);
+  background: var(--c, #fff);
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+  opacity: 0;
+  animation: fall var(--d, 14s) linear var(--w, 0s) infinite;
+}
+
+.glitter span:nth-child(1)  { --x: 6%;  --s: 7px;  --d: 15s; --w: 0s;   }
+.glitter span:nth-child(2)  { --x: 14%; --s: 5px;  --d: 12s; --w: 4s;   --c: var(--gold-light); }
+.glitter span:nth-child(3)  { --x: 23%; --s: 8px;  --d: 18s; --w: 7s;   }
+.glitter span:nth-child(4)  { --x: 31%; --s: 4px;  --d: 11s; --w: 2s;   --c: var(--gold-light); }
+.glitter span:nth-child(5)  { --x: 42%; --s: 6px;  --d: 16s; --w: 9s;   }
+.glitter span:nth-child(6)  { --x: 51%; --s: 5px;  --d: 13s; --w: 1s;   --c: var(--gold-light); }
+.glitter span:nth-child(7)  { --x: 60%; --s: 9px;  --d: 19s; --w: 5s;   }
+.glitter span:nth-child(8)  { --x: 68%; --s: 4px;  --d: 12s; --w: 8s;   --c: var(--gold-light); }
+.glitter span:nth-child(9)  { --x: 77%; --s: 7px;  --d: 17s; --w: 3s;   }
+.glitter span:nth-child(10) { --x: 85%; --s: 5px;  --d: 14s; --w: 10s;  --c: var(--gold-light); }
+.glitter span:nth-child(11) { --x: 92%; --s: 6px;  --d: 16s; --w: 6s;   }
+.glitter span:nth-child(12) { --x: 97%; --s: 4px;  --d: 12s; --w: 11s;  --c: var(--gold-light); }
+.glitter span:nth-child(13) { --x: 19%; --s: 5px;  --d: 20s; --w: 12s;  --c: var(--absinthe); }
+.glitter span:nth-child(14) { --x: 47%; --s: 6px;  --d: 15s; --w: 13s;  --c: var(--blush); }
+.glitter span:nth-child(15) { --x: 72%; --s: 5px;  --d: 18s; --w: 2.5s; --c: var(--absinthe); }
+.glitter span:nth-child(16) { --x: 88%; --s: 7px;  --d: 21s; --w: 8.5s; --c: var(--blush); }
+
+.coming-soon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: var(--shell);
+}
+
+/* Three coming attractions, as 1950s lobby cards: smoked glass inside a
+   velvet border band and a stepped double gilt frame, an Art Deco fan of
+   gilt rays in each corner, and a crimson "Coming soon" banner. Each lights
+   up like a spotlight when you look at it. */
+.teaser {
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2.1rem 2.2rem 2.3rem;
+  border: 1px solid rgba(243, 226, 179, 0.28);
+  background: rgba(28, 6, 14, 0.62);
+  box-shadow: inset 0 0 0 5px rgba(142, 20, 50, 0.78), inset 0 0 0 6px rgba(243, 226, 179, 0.6);
+  outline: 1px solid rgba(212, 175, 106, 0.5);
+  outline-offset: -10px;
+  -webkit-backdrop-filter: blur(8px) saturate(1.15);
+  backdrop-filter: blur(8px) saturate(1.15);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease), outline-color 0.4s var(--ease);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .teaser {
+    background-color: rgba(28, 6, 14, 0.8);
+  }
+}
+
+.teaser::before {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto;
+  height: 150%;
+  background: radial-gradient(closest-side, rgba(255, 227, 237, 0.28), transparent);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  pointer-events: none;
+}
+
+/* The corner fans: eight gilt rays, a hub and a rim in each corner, cut to
+   a quarter circle by the mask. */
+.teaser::after {
+  --ray: rgba(243, 226, 179, 0.8) 0 3deg, rgba(243, 226, 179, 0) 3deg 11.25deg;
+  --rim: rgba(0, 0, 0, 0) 21px, rgba(212, 175, 106, 0.85) 21px 22.5px, rgba(0, 0, 0, 0) 23px;
+  --hub: rgba(243, 226, 179, 0.9) 0 4px, rgba(0, 0, 0, 0) 4.5px;
+  --quarter: #000 23px, rgba(0, 0, 0, 0) 23.5px;
+  content: "";
+  position: absolute;
+  inset: 11px;
+  background:
+    radial-gradient(circle at 0 0, var(--hub)) 0 0 / 28px 28px,
+    radial-gradient(circle at 100% 0, var(--hub)) 100% 0 / 28px 28px,
+    radial-gradient(circle at 0 100%, var(--hub)) 0 100% / 28px 28px,
+    radial-gradient(circle at 100% 100%, var(--hub)) 100% 100% / 28px 28px,
+    radial-gradient(circle at 0 0, var(--rim)) 0 0 / 28px 28px,
+    radial-gradient(circle at 100% 0, var(--rim)) 100% 0 / 28px 28px,
+    radial-gradient(circle at 0 100%, var(--rim)) 0 100% / 28px 28px,
+    radial-gradient(circle at 100% 100%, var(--rim)) 100% 100% / 28px 28px,
+    repeating-conic-gradient(from 90deg at 0 0, var(--ray)) 0 0 / 28px 28px,
+    repeating-conic-gradient(from 180deg at 100% 0, var(--ray)) 100% 0 / 28px 28px,
+    repeating-conic-gradient(from 0deg at 0 100%, var(--ray)) 0 100% / 28px 28px,
+    repeating-conic-gradient(from 270deg at 100% 100%, var(--ray)) 100% 100% / 28px 28px;
+  background-repeat: no-repeat;
+  -webkit-mask:
+    radial-gradient(circle at 0 0, var(--quarter)) 0 0 / 28px 28px no-repeat,
+    radial-gradient(circle at 100% 0, var(--quarter)) 100% 0 / 28px 28px no-repeat,
+    radial-gradient(circle at 0 100%, var(--quarter)) 0 100% / 28px 28px no-repeat,
+    radial-gradient(circle at 100% 100%, var(--quarter)) 100% 100% / 28px 28px no-repeat;
+  mask:
+    radial-gradient(circle at 0 0, var(--quarter)) 0 0 / 28px 28px no-repeat,
+    radial-gradient(circle at 100% 0, var(--quarter)) 100% 0 / 28px 28px no-repeat,
+    radial-gradient(circle at 0 100%, var(--quarter)) 0 100% / 28px 28px no-repeat,
+    radial-gradient(circle at 100% 100%, var(--quarter)) 100% 100% / 28px 28px no-repeat;
+  pointer-events: none;
+}
+
+.teaser:hover {
+  transform: translateY(-5px);
+  border-color: var(--blush);
+  outline-color: var(--gold-light);
+  box-shadow: inset 0 0 0 5px rgba(200, 16, 46, 0.8), inset 0 0 0 6px var(--gold-light), var(--glare-light);
+}
+
+.teaser:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.teaser > span {
+  position: relative;
+}
+
+/* The banner across the top of a lobby card. */
+.teaser-label {
+  align-self: flex-start;
+  margin-bottom: 0.25rem;
+  padding: 0.42rem 0.7rem 0.4rem 0.76rem;
+  background: var(--crimson);
+  box-shadow: 0 0 0 1px rgba(243, 226, 179, 0.5);
+  font: 600 0.6rem/1 var(--font-body);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* The three cards share one height; the banners stay level along the top,
+   and each title and line is centred in the space below it, so a one-line
+   title never leaves the foot of its card empty. */
+.teaser-title {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.75rem;
+  line-height: 1.15;
+}
+
+.teaser-sub {
+  margin-bottom: auto;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.bring {
+  width: 100%;
+  max-width: var(--shell);
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.bring-head {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  text-align: center;
+}
+
+.bring-head em {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: var(--blush);
+}
+
+/* THE TABLE, ON THE RUNWAY. Minh's runway footage (nine frames of 500 x
+   212 stacked in one sprite; the ninth is a camera's white flash) plays
+   behind the four items as a strip of film: each frame spans the table's
+   full width and the frames run down it one after another, so a desktop
+   table shows one frame, and a phone's, where the items stack, runs the
+   strip the whole length of the list instead of blowing one frame up. Each
+   step moves the strip on by exactly one frame (--frame-h, from the
+   table's own width in container units), so every frame holds its place.
+   It is graded into the velvet only lightly, and clipped to the table's
+   gilt border; the items sit on it as smoked glass, with the footage
+   running clear between and around them. */
+.bring-list {
+  --cell-gap: 20px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cell-gap);
+  margin: 0;
+  padding: var(--cell-gap);
+  list-style: none;
+  counter-reset: bring;
+  background: var(--plum-deep);
+  border: 1px solid rgba(212, 175, 106, 0.55);
+}
+
+.bring-list::before {
+  /* One frame's height. The strip runs 3px past the table's padding box on
+     every side, so the softening never shows a rim. */
+  --frame-h: calc((100cqw + 2 * var(--cell-gap) + 6px) * 212 / 500);
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  background: var(--runway-sprite) 50% 0 / 100% auto repeat-y;
+  /* A touch of softness, since the 500px footage is enlarged here. */
+  filter: blur(var(--reel-blur, 0.8px)) saturate(1.04);
+  animation: reel 1890ms steps(9, jump-none) infinite;
+  pointer-events: none;
+}
+
+/* The grade: a light plum veil, the projector's edge fall-off, and grain,
+   plus a thin frame line wherever two frames of the strip meet (the strip
+   moves a whole frame per step, so the lines never move; a desktop table
+   is shorter than one frame and shows none). */
+.bring-list::after {
+  --frame-h: calc((100cqw + 2 * var(--cell-gap) + 6px) * 212 / 500);
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(13, 3, 6, 0) calc(100% - 2px), rgba(13, 3, 6, 0.9) calc(100% - 2px)) 0 -2px / 100% var(--frame-h) repeat-y,
+    var(--grain-fine) 0 0 / 180px 180px,
+    radial-gradient(ellipse 80% 90% at 50% 45%, rgba(28, 6, 14, 0) 55%, rgba(28, 6, 14, 0.42) 100%),
+    linear-gradient(rgba(90, 11, 31, 0.14), rgba(43, 5, 16, 0.24));
+  pointer-events: none;
+}
+
+.bring-list li {
+  flex: 1 1 calc(50% - var(--cell-gap) / 2);
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.5rem 1.6rem 1.6rem;
+  /* Smoked glass: dark enough that the copy holds 4.5:1 even on the
+     footage's white camera flash. */
+  background: rgba(24, 5, 12, 0.62);
+  border: 1px solid rgba(243, 226, 179, 0.22);
+  -webkit-backdrop-filter: blur(2px) saturate(1.1);
+  backdrop-filter: blur(2px) saturate(1.1);
+  counter-increment: bring;
+}
+
+.bring-list li::before {
+  content: "0" counter(bring);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--blush);
+}
+
+.bring-list strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+.bring-list span {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.bring-list .inline-link {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  font: 600 0.6rem/1.6 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blush);
+}
+
+/* --------------------------------------------------------------------------
+   14. The credits — over the empty cinema
+   -------------------------------------------------------------------------- */
+.credits {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--night);
+  color: #fff;
+}
+
+.credits::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, var(--night) 0%, rgba(13, 3, 6, 0.8) 18%, rgba(13, 3, 6, 0.86) 70%, var(--night) 100%),
+    linear-gradient(rgba(164, 86, 114, 0.55), rgba(51, 16, 31, 0.55)),
+    var(--seats-photo, none) center 60% / cover no-repeat;
+  background-blend-mode: normal, color, normal;
+}
+
+.credits > * {
+  position: relative;
+  z-index: 1;
+}
+
+.credit-roll {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  width: 100%;
+  max-width: 880px;
+  margin: 0;
+}
+
+/* The classic two-column roll: roles right-aligned, names left-aligned. */
+.credit {
+  display: flex;
+  align-items: baseline;
+  gap: 1.6rem;
+}
+
+.credit dt {
+  flex: 0 0 38%;
+  font: 600 0.64rem/1.9 var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--blush);
+}
+
+.credit dd {
+  flex: 1 1 auto;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: #fff;
+}
+
+.credit-aside {
+  display: block;
+  font: 600 0.58rem/1.8 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.credit-star {
+  align-items: center;
+}
+
+.credit-star dd {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+
+.headshot {
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  object-position: 50% 35%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.credit-booking dd {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.booking-note {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.booking-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* A star on the walk of fame, for the lane Minh is making. */
+.fame-star {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 190px;
+  height: 190px;
+  margin-top: 1rem;
+  /* Charcoal-plum terrazzo: chips of different stones, sizes and shapes,
+     each scattered on its own co-prime tile, so it reads as poured stone,
+     not as a grid of dots. */
+  background:
+    radial-gradient(circle, rgba(243, 226, 179, 0.55) 0 1.1px, transparent 1.6px) 3px 5px / 37px 29px,
+    radial-gradient(circle, rgba(226, 91, 140, 0.5) 0 2px, transparent 2.6px) 17px 11px / 53px 47px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 0 0.7px, transparent 1.2px) 9px 21px / 23px 19px,
+    radial-gradient(3px 1.7px, rgba(190, 176, 170, 0.4) 0 60%, transparent) 29px 7px / 71px 61px,
+    radial-gradient(circle, rgba(0, 0, 0, 0.4) 0 1.5px, transparent 2.1px) 41px 33px / 59px 43px,
+    radial-gradient(circle, rgba(243, 226, 179, 0.4) 0 0.8px, transparent 1.3px) 25px 39px / 31px 41px,
+    radial-gradient(2.2px 3px, rgba(160, 60, 90, 0.45) 0 60%, transparent) 11px 50px / 67px 73px,
+    linear-gradient(135deg, #2a1119, #1d0a11 60%, #26101a);
+  border: 1px solid rgba(212, 175, 106, 0.35);
+  box-shadow: inset 0 0 0 6px var(--night), inset 0 0 0 7px rgba(212, 175, 106, 0.3);
+  transition: box-shadow 0.4s var(--ease);
+}
+
+/* The star in two pours, like the real pavement: a brass rim (::before)
+   and, inset within it, a rose terrazzo star (::after). */
+.fame-star::before,
+.fame-star::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  background: linear-gradient(160deg, var(--gold-light), var(--gold) 35%, var(--gold-deep) 70%, #c9a45e);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.fame-star::after {
+  inset: 22px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.16) 0 0.7px, transparent 1.2px) 0 0 / 13px 11px,
+    radial-gradient(circle, rgba(90, 4, 20, 0.55) 0 1px, transparent 1.5px) 3px 4px / 9px 7px,
+    radial-gradient(circle, rgba(255, 190, 212, 0.26) 0 0.9px, transparent 1.4px) 5px 1px / 17px 14px,
+    linear-gradient(160deg, #c03a6c, #a10c28 50%, #7e0a1f);
+}
+
+.fame-star:hover {
+  box-shadow: inset 0 0 0 6px var(--night), inset 0 0 0 7px rgba(255, 227, 237, 0.25), var(--glare-crimson);
+}
+
+/* The name and emblem are set in polished brass, engraved into the star
+   (a dark rim round each letter), above both pours. */
+.fame-name,
+.fame-star i {
+  position: relative;
+  z-index: 1;
+  color: #fff6dc;
+  text-shadow: 0 0 3px rgba(60, 0, 12, 0.9), 0 1px 1px rgba(60, 0, 12, 0.8);
+}
+
+.fame-name {
+  margin-top: 0.6rem;
+  font: 600 0.7rem/1.15 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.fame-star i {
+  font-size: 0.85rem;
+}
+
+.based-on {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--blush);
+}
+
+.back-to-top {
+  margin-top: -0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   15. Keyframes new to this page (the landing's kenburns, sheen, fadeUp,
+       fadeIn and flash are reused as they are)
+   -------------------------------------------------------------------------- */
+@keyframes part {
+  from { transform: scaleX(1); }
+}
+
+@keyframes chase {
+  to { --chase: 360deg; }
+}
+
+@keyframes foil {
+  0%, 100% { background-position: 100% 0; }
+  50%      { background-position: 0 0; }
+}
+
+@keyframes glitter {
+  from { background-position: 0 0, 5px 7px, 0 0; }
+  to   { background-position: 22px 44px, -29px 58px, 0 0; }
+}
+
+@keyframes rays {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes grain {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-4%, 3%); }
+  40%  { transform: translate(3%, -5%); }
+  60%  { transform: translate(-6%, -2%); }
+  80%  { transform: translate(5%, 4%); }
+  100% { transform: translate(-2%, 6%); }
+}
+
+@keyframes dolly {
+  to { transform: scale(1.06); }
+}
+
+@keyframes ballturn {
+  from { translate: 0 0; }
+  to   { translate: -46px 22px; }
+}
+
+@keyframes catchlight {
+  0%, 70% { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  100%    { -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+
+@keyframes reel {
+  to { background-position: 50% calc(-8 * var(--frame-h)); }
+}
+
+@keyframes sway {
+  from { rotate: -1.4deg; }
+  to   { rotate: 1.4deg; }
+}
+
+@keyframes onAir {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); }
+  50%      { opacity: 0.45; box-shadow: 0 0 0 5px rgba(255, 255, 255, 0); }
+}
+
+@keyframes fall {
+  0%   { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.8); }
+  10%  { opacity: 1; }
+  50%  { transform: translate(-18px, 55vh) rotate(160deg) scale(1); opacity: 0.9; }
+  85%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translate(12px, 110vh) rotate(320deg) scale(0.7); }
+}
+
+/* --------------------------------------------------------------------------
+   16. Scroll-driven entrances — progressive enhancement, motion-safe only.
+       Browsers without view timelines simply show everything in place.
+   -------------------------------------------------------------------------- */
+@property --num {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 32px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+/* Photos open from a letterbox to full frame, like a cut to widescreen. */
+@keyframes letterbox {
+  from { clip-path: inset(22% 0 22% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes count {
+  from { --num: 0; }
+  to   { --num: var(--to); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+
+    .reveal-still {
+      animation: letterbox linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    /* The numerals count up as the band scrolls in. The written figure stays
+       in the markup for screen readers; the counter is presentation only. */
+    .count .count-static {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* The count finishes while the numeral is still low on the screen, so
+       a reader who stops scrolling never sees a half-counted figure. */
+    .count::after {
+      content: counter(num) "%" / "";
+      counter-reset: num var(--num);
+      animation: count linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 15%;
+    }
+
+    .count-gpa::after {
+      content: "3." counter(num, decimal-leading-zero) / "";
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17. Mobile — the same single breakpoint as the landing page
+   -------------------------------------------------------------------------- */
+@media only screen and (max-width: 640px) {
+  .about [id] {
+    scroll-margin-top: 9rem;
+  }
+
+  /* Rows that stack must size on content, not on their flex-basis. */
+  .premiere-copy,
+  .poster,
+  .prologue-text,
+  .prologue-aside,
+  .community-col,
+  .closet-aside,
+  .closet-text,
+  .look-meta,
+  .look-body {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .premiere {
+    min-height: auto;
+    padding-top: 5rem;
+  }
+
+  .curtain-l,
+  .curtain-r {
+    transform: scaleX(0.035);
+  }
+
+  .valance {
+    --sw: 110px;
+    --vh: 50px;
+    --band: 16px;
+  }
+
+  .premiere-shell {
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  .premiere-copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .name-lockup,
+  .credential-strip,
+  .premiere-actions {
+    justify-content: center;
+  }
+
+  .name-lockup {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pronoun-tag {
+    margin-bottom: 0;
+  }
+
+  .premiere-script {
+    margin-top: -0.2rem;
+  }
+
+  .premiere-actions .btn-primary {
+    width: 100%;
+  }
+
+  .poster {
+    max-width: 330px;
+    align-self: center;
+    outline-offset: 8px;
+  }
+
+  .scene-list li {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .scene-link {
+    padding: 1.1rem 3rem 1.15rem 1.2rem;
+  }
+
+  .scene-title {
+    font-size: 1.35rem;
+  }
+
+  /* On a phone the column is full width and there is no second column, so
+     both mood-board pages join the flow below the subject file, centred:
+     the Vietnamese page with its top edge tucked 1rem under the file, then
+     the Kate Moss page. */
+  .prologue-shell {
+    --col-w: min(340px, 100cqw);
+  }
+
+  .prologue-aside {
+    --page-w-stacked: min(340px, 94cqw);
+    /* In the flow, the page keeps its own shape and its desktop lines of type. */
+    --page-type-h: 3.05rem;
+    padding-bottom: 0;
+  }
+
+  .prologue-aside > .mag-page {
+    position: relative;
+    top: auto;
+    left: auto;
+    height: var(--page-h);
+    margin-top: -3.4rem;
+    rotate: -2deg;
+  }
+
+  /* 276px keeps the 498px scan at about 2x on a phone's screen. */
+  .prologue-aside > .vogue-page {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: min(276px, 100%);
+  }
+
+  .vogue-sheet {
+    rotate: 1.6deg;
+  }
+
+  .polaroid {
+    max-width: 250px;
+  }
+
+  .fact-file {
+    max-width: none;
+  }
+
+  .intertitle {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .scene-card {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0 1.35rem 1.4rem;
+  }
+
+  .scene-card::before {
+    margin: 0 -1.35rem 0.55rem;
+  }
+
+  .look {
+    padding: 0 1.35rem 1.6rem;
+  }
+
+  .look::before {
+    flex-basis: calc(100% + 2.7rem);
+  }
+
+  /* On a phone the credit simply follows the text. */
+  .look-meta,
+  .look-body {
+    padding-bottom: 0;
+  }
+
+  .look-body .made-for {
+    position: static;
+    width: auto;
+    margin-top: 0.4rem;
+    align-self: stretch;
+  }
+
+  .stat {
+    flex: 1 1 45%;
+    padding: 1.1rem 0.75rem 0.4rem;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .stat-num {
+    font-size: 3.3rem;
+  }
+
+  .chain li {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .chyron-src {
+    padding-top: 0;
+  }
+
+  .house-tile {
+    flex: 1 1 45%;
+  }
+
+  .house-title {
+    left: 0.9rem;
+    right: 0.9rem;
+    bottom: 0.8rem;
+    font-size: 1.45rem;
+  }
+
+  /* Two-line titles on a phone climb above the photo's shade, so it
+     starts higher and runs deeper (the crimson tile keeps its own sheen). */
+  .house-tile:not(.house-tile-here) .house-frame::after {
+    background: linear-gradient(transparent 22%, rgba(24, 4, 12, 0.55) 55%, rgba(24, 4, 12, 0.84));
+  }
+
+  .house-link {
+    padding: 1rem 0.9rem 0.9rem;
+  }
+
+  .house-link > i {
+    top: 1rem;
+    left: 0.9rem;
+  }
+
+  .house-foot {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .off-clock {
+    flex-direction: column;
+    font-size: 1.2rem;
+  }
+
+  .teaser,
+  .bring-list li {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .credit,
+  .credit-star {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    text-align: center;
+  }
+
+  .credit dt {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .credit-star dd {
+    flex-direction: column;
+  }
+
+  .booking-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .booking-actions .btn-primary {
+    width: 100%;
+  }
+
+  .mind-changer {
+    padding: 1.1rem 1.15rem;
+  }
+
+  /* --- The sets at 390px -------------------------------------------------- */
+
+  /* The poster stacks under the copy, so the follow-spot drops with it. */
+  .premiere::before {
+    background:
+      radial-gradient(ellipse 70% 30% at 50% 76%, rgba(243, 226, 179, 0.3), rgba(243, 226, 179, 0.08) 50%, rgba(243, 226, 179, 0) 76%),
+      radial-gradient(ellipse 80% 34% at 50% 26%, rgba(13, 3, 6, 0.6), rgba(13, 3, 6, 0.34) 50%, rgba(13, 3, 6, 0) 80%),
+      linear-gradient(180deg, rgba(13, 3, 6, 0.62) 0, rgba(13, 3, 6, 0) 12%, rgba(13, 3, 6, 0) 80%, var(--night) 97%),
+      var(--vignette-dark),
+      linear-gradient(var(--velvet-lit), var(--velvet-deep)),
+      var(--plate-curtain) 50% 10% / cover no-repeat;
+    background-blend-mode: screen, normal, normal, normal, color, normal;
+  }
+
+  .premiere-copy::before {
+    inset: -3rem -2rem;
+  }
+
+  /* A portrait crop of the hub, the spokes and the hanging strip of film,
+     so the reel is still a reel on a phone (cover would blow the landscape
+     plate up 3x into a blur). */
+  .scene-menu::before {
+    background:
+      var(--halation),
+      radial-gradient(ellipse 60% 30% at 80% 6%, rgba(243, 226, 179, 0.26), rgba(243, 226, 179, 0) 100%),
+      var(--vignette-dark),
+      linear-gradient(rgba(13, 3, 6, 0.5), rgba(13, 3, 6, 0.5)),
+      linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
+      var(--plate-reel-sm) 50% 40% / cover no-repeat;
+    background-blend-mode: screen, screen, normal, normal, color, normal;
+  }
+
+  .scene-list li {
+    -webkit-backdrop-filter: blur(3px) saturate(1.1);
+    backdrop-filter: blur(3px) saturate(1.1);
+  }
+
+  .scene-menu-head::before {
+    inset: -3rem -2rem;
+  }
+
+  .prologue-text::before {
+    inset: -2rem -1.5rem;
+  }
+
+  /* On a phone the lotus is printed larger than the column, so the flowers
+     still read, and the red-ink corners shrink to three-quarter size. */
+  .prologue-text::after {
+    left: -24%;
+    width: 150%;
+  }
+
+  .letter-florals {
+    --fs: 0.75;
+  }
+
+  .chapter-people::before {
+    background-size: 360px auto;
+    /* A wider, softer clearing behind the heading on a phone, where the
+       kicker runs nearly the full width. */
+    -webkit-mask-image: radial-gradient(ellipse 95% 260px at 50% 150px, rgba(0, 0, 0, 0.25), #000 100%);
+    mask-image: radial-gradient(ellipse 95% 260px at 50% 150px, rgba(0, 0, 0, 0.25), #000 100%);
+  }
+
+  .chapter-people::after {
+    top: -1%;
+    right: -60%;
+    width: 190%;
+    -webkit-mask-image: linear-gradient(200deg, #000 20%, transparent 55%);
+    mask-image: linear-gradient(200deg, #000 20%, transparent 55%);
+  }
+
+  .chapter-people .chapter-head::before,
+  .chapter-money .chapter-head::before,
+  .chapter-closet .chapter-head::before {
+    inset: -2.5rem -1.5rem;
+  }
+
+  .stat-band::before {
+    background-position: 0 0, 0 0, 50% 85%, 0 0;
+    animation: none;
+  }
+
+  .stat-band::after {
+    background-position: 50% 85%;
+    animation: catchlight 8s var(--ease) infinite;
+  }
+
+  /* Deeper and brighter on a phone: the kicker can enter from the bottom of
+     the screen, where the pinned dome's ironwork is busiest. */
+  .chapter-money::after {
+    background: radial-gradient(ellipse 130% 460px at 50% 0, rgba(251, 245, 234, 0.97), rgba(251, 245, 234, 0.86) 55%, rgba(251, 245, 234, 0) 86%);
+  }
+
+  /* Portrait: the right-hand tower and its pylons fill the frame. */
+  .chapter-power::before {
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 58% 35%;
+  }
+
+  .chapter-power .chapter-head::before {
+    inset: -2.5rem -1.5rem;
+  }
+
+  .chain li::after {
+    inset: -1rem -1.1rem -1.2rem;
+  }
+
+  /* The wrapped script's swash capital clears the "y" above it. */
+  .chapter-power .section-title {
+    line-height: 1.32;
+  }
+
+  /* The paper set: room is made at the top for a cloud, the moon and one
+     flower; the rest of the cut-outs rest. */
+  .chapter-house {
+    padding-top: 9.5rem;
+  }
+
+  .cut-sun,
+  .cut-cloud-sm,
+  .cut-flower-1,
+  .cut-lily {
+    display: none;
+  }
+
+  .cut-cloud    { --w: 150px; --string: 22px; left: -3%; }
+  .cut-moon     { --w: 86px;  --string: 26px; right: 5%; --sx: -10px; }
+  .cut-flower-2 { --w: 40px;  --string: 70px; right: 36%; }
+
+  .chapter-house .chapter-head::before { left: 10%; }
+  .chapter-house .chapter-head::after  { right: 10%; }
+
+  .chapter-house .house-grid {
+    gap: 1.4rem 1.1rem;
+  }
+
+  .chapter-house .house-frame {
+    box-shadow: 0 0 0 5px #fff, 6px 12px 16px rgba(6, 12, 50, 0.45);
+  }
+
+  .chapter-house .house-caption {
+    margin-top: 5px;
+  }
+
+  .chapter-house .house-tile:first-child::after,
+  .chapter-house .house-tile-here::after {
+    width: 100px;
+  }
+
+  .chapter-house .house-tile:first-child::after {
+    top: -38px;
+    left: -24px;
+  }
+
+  /* On the corner, cropped to the central cluster so no stray dot lands in
+     the "newest wing" label or the caption above. */
+  .chapter-house .house-tile-here::after {
+    top: -36px;
+    right: -12px;
+    width: 96px;
+    background-size: 140% auto;
+    background-position: 44% 48%;
+  }
+
+  /* Portrait: the ball's lit side crowns the heading and the Out list
+     (which keeps its pool of night), then the light falls away under the
+     press print and the All in list. */
+  .chapter-community::before {
+    background-size: auto, auto, auto 760px, auto;
+    background-position: 0 0, 0 0, calc(50vw - 720px) 0, 0 0;
+    -webkit-mask-image: linear-gradient(180deg, #000 0 30%, rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 0.1) 62%);
+    mask-image: linear-gradient(180deg, #000 0 30%, rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 0.1) 62%);
+  }
+
+  .chapter-community::after {
+    -webkit-mask-image: linear-gradient(180deg, #000 0 24%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0) 50%);
+    mask-image: linear-gradient(180deg, #000 0 24%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0) 50%);
+  }
+
+  .chapter-community .soundbite::before {
+    inset: -1.25rem -1.25rem;
+  }
+
+  /* Portrait: the backlit right-hand folds of the curtain, the blind light
+     across the middle, and Minh's lace as a band at the top of the
+     screen only, where the file still holds together. */
+  .chapter-closet::before {
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 40% 50%, 78% 50%;
+  }
+
+  .chapter-closet::after {
+    background-size: auto 60vh;
+    background-position: 50% 0;
+    -webkit-mask-image: linear-gradient(180deg, #000 0 30vh, rgba(0, 0, 0, 0) 60vh);
+    mask-image: linear-gradient(180deg, #000 0 30vh, rgba(0, 0, 0, 0) 60vh);
+  }
+
+  .closet-text {
+    padding: 1.25rem;
+  }
+
+  /* On a phone the hall is PINNED (fixed layer + clip-path), so it stands
+     behind the whole band instead of ending after one screen. It covers the
+     viewport, so the photo is --img-w wide, and the dolly's centre is
+     placed with the same cover arithmetic. */
+  .epilogue {
+    --img-w: max(100vw, 100dvh * 1600 / 1148);
+    position: relative;
+    clip-path: inset(0);
+  }
+
+  .epilogue::before {
+    position: fixed;
+    inset: 0;
+    width: auto;
+    aspect-ratio: auto;
+    transform-origin: calc(50vw + 0.0156 * var(--img-w)) calc(50dvh - 0.0494 * var(--img-w));
+    -webkit-mask-image: none;
+    mask-image: none;
+    background:
+      var(--grain) 0 0 / 180px 180px,
+      var(--halation),
+      var(--vignette-dark),
+      radial-gradient(ellipse 90% 30% at 50% 22%, rgba(28, 6, 14, 0.5), rgba(28, 6, 14, 0) 82%),
+      linear-gradient(180deg, rgba(28, 6, 14, 0.6), rgba(28, 6, 14, 0.66) 50%, rgba(28, 6, 14, 0.82)),
+      linear-gradient(rgba(164, 86, 114, 0.62), rgba(51, 16, 31, 0.66)),
+      var(--plate-runway) 50% 50% / cover no-repeat;
+    background-blend-mode: overlay, screen, normal, normal, normal, color, normal;
+  }
+
+  /* The hall's lit back-stage screen sits right behind the lede when the
+     band opens, so on a phone the heading's pool is deeper and runs the
+     full width. */
+  .epilogue .chapter-head::before {
+    inset: -2.5rem -1.25rem;
+    background: radial-gradient(ellipse 80% 62% at 50% 60%, rgba(28, 6, 14, 0.84), rgba(28, 6, 14, 0.62) 60%, rgba(28, 6, 14, 0));
+    filter: blur(22px);
+  }
+
+  /* The glitter falls in the gutters only, and the flashes rest. */
+  .glitter span:nth-child(odd) {
+    left: calc(var(--x) * 0.08);
+  }
+
+  .glitter span:nth-child(even) {
+    left: calc(92% + var(--x) * 0.08);
+  }
+
+  .epilogue .glints {
+    display: none;
+  }
+
+  .teaser {
+    -webkit-backdrop-filter: blur(4px) saturate(1.15);
+    backdrop-filter: blur(4px) saturate(1.15);
+  }
+
+  /* On a phone the strip is shown near its own size, so it stays sharp. */
+  .bring-list {
+    --cell-gap: 12px;
+    --reel-blur: 0.3px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   18. Reduced motion. style.css already runs every animation once for
+       0.01ms; ambient loops carry no fill-mode, so each plate settles on its
+       composed base frame. The runway footage becomes a single still.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  /* style.css shortens durations but keeps delays, and these entrances
+     fill backwards, so the hero would sit behind closed curtains with no
+     poster or copy for over a second. Here they simply rest in place. */
+  .curtain,
+  .poster,
+  .premiere-copy > *,
+  .premiere-script {
+    animation: none !important;
+  }
+
+  .bring-list::before {
+    background-image: var(--runway-still);
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   The keepsake: Minh and their mom, the one real family photo on the page.
+   Framed as a treasured print under the window still, tilted a touch the
+   other way from the prologue's polaroid, and straightened when you reach
+   for it.
+   -------------------------------------------------------------------------- */
+.mom-photo {
+  margin: 0;
+  padding: 10px 10px 0;
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow-lift);
+  transform: rotate(1.2deg);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.mom-photo:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: var(--shadow-lift), var(--glare-crimson);
+}
+
+.mom-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.mom-photo figcaption {
+  padding: 0.55rem 0 0.75rem;
+  font-family: var(--font-script);
+  font-size: 1.8rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--crimson);
+}
+
+@media only screen and (max-width: 640px) {
+  .mom-photo {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Channels: one per lane — LinkedIn for finance, GitHub for AI and tech,
+   Instagram for fashion and modeling — as gilt-edged cards in the credits.
+   -------------------------------------------------------------------------- */
+.channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.channels li {
+  flex: 1 1 140px;
+}
+
+.channel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 1rem 1.1rem 1.05rem;
+  border: 1px solid rgba(212, 175, 106, 0.55);
+  background: rgba(13, 3, 6, 0.45);
+  color: #fff;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease),
+    border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.channel i {
+  font-size: 1.15rem;
+  color: var(--gold);
+}
+
+.channel-name {
+  font: 600 0.7rem/1.3 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.channel-handle {
+  display: block;
+  margin-top: 0.15rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--gold-light);
+}
+
+.channel-for {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.channel:hover,
+.channel:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  background: rgba(212, 175, 106, 0.12);
+  box-shadow: var(--glare-light);
+}
+
+@media only screen and (max-width: 640px) {
+  .channels li {
+    flex-basis: 100%;
+  }
+
+  .channel {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* On a phone the premiere's eyebrow wraps to two centred lines, so the film
+   icon rides inline with the words instead of sitting apart at the left. */
+@media only screen and (max-width: 640px) {
+  .premiere .eyebrow {
+    display: block;
+    text-align: center;
+  }
+
+  .premiere .eyebrow i {
+    margin-right: 0.5rem;
+  }
+}
