@@ -98,12 +98,12 @@ This is a plain HTML/CSS site with no build step and no dependencies to install 
 
 ## Deployment
 
-Deployed with GitHub Pages from the `main` branch of this repository:
+Deployed with GitHub Pages from the `main` branch of this repository, on the custom domain in [`CNAME`](CNAME):
 
-- **https://minh-nguyen-2005.github.io/** — the landing page
-- **https://minh-nguyen-2005.github.io/about.html** — the About page
+- **https://emilyng.me/** — the landing page
+- **https://emilyng.me/about.html** — the About page
 
-[`CNAME`](CNAME) names the custom domain, `emilyng.me`. Once that domain is attached to this repository in GitHub's Pages settings, the site is served at https://emilyng.me/ and the github.io addresses redirect there. The original CS 52 lab version was deployed at https://dartmouth-cs52.github.io/lab1-landing-page-Minh-Nguyen-2005/.
+https://minh-nguyen-2005.github.io/ redirects to the custom domain. The original CS 52 lab version was deployed at https://dartmouth-cs52.github.io/lab1-landing-page-Minh-Nguyen-2005/.
 
 ## Acknowledgments
 
