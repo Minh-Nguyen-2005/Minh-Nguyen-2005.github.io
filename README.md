@@ -58,7 +58,7 @@ The page is a documentary in six chapters. Every chapter sits on a real, softly 
 | Chapter One — Built for people | Signtegrate, Dartmouth patient-access research, FPT Software | A faded encaustic cement-tile (gạch bông) floor and 35mm negatives |
 | By the numbers | Four figures in Bodoni numerals that count up as they scroll in | Red sequins |
 | Chapter Two — Follow the money | Tuck Business Bridge (AECOM valuation), Magnetar Capital | A pinned Gilded-Age banking hall |
-| Chapter Three — I'm watching the power | My research notes on AI, power and nuclear | Cooling towers at dusk |
+| Chapter Three — Beauty pays the bills | My notes on fashion and beauty M&A and credit | A pinned old perfumery counter, shot on film, with the notes framed as deal tombstones |
 | Chapter Four — The house I'm building | MyFashionSpace | A pop-art paper set on cobalt |
 | Chapter Five — Out, and all in | Community and leadership | A mirror ball |
 | Chapter Six — The closet she opened for me | My mom | Pinned lace, window light and louvered shutters |
@@ -133,7 +133,7 @@ https://minh-nguyen-2005.github.io/ redirects to the custom domain. The original
     | `bg/negatives.jpg` | Ron Lach | [Pexels](https://www.pexels.com/photo/camera-film-on-light-table-10276039/) |
     | `bg/sequins.jpg` | Tim Mossholder | [Unsplash](https://unsplash.com/photos/a-close-up-of-a-red-and-gold-sequin-fabric-QhMklrq-f30) |
     | `bg/banking-hall.jpg` | Historic American Buildings Survey (public domain) | [Library of Congress](https://www.loc.gov/resource/hhh.in0057.photos/?sp=11) |
-    | `bg/towers.jpg` | Kyle Miller | [Pexels](https://www.pexels.com/photo/view-of-a-nuclear-power-plant-18335700/) |
+    | `bg/perfumery.jpg`, `bg/perfumery-sm.jpg` | T (@tanyabarrow) | [Unsplash](https://unsplash.com/photos/perfume-bottles-displayed-on-shelves-in-a-shop-aBKl12oF5sI) |
     | `bg/cobalt.jpg` | Engin Akyurt | [Pexels](https://www.pexels.com/photo/a-bright-blue-textured-background-15429340/) |
     | `bg/mirrorball.jpg` | Paul Zoetemeijer | [Unsplash](https://unsplash.com/photos/closeup-photography-of-mirror-ball-ruujnFOHS30) |
     | `bg/lace-sheer.jpg` | Tolga deniz Aran | [Pexels](https://www.pexels.com/photo/dramatic-sunlight-hitting-the-curtains-15408607/) |

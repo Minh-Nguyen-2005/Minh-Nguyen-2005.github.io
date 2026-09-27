@@ -71,7 +71,8 @@
   --plate-negatives: url(img/about/bg/negatives.jpg);
   --plate-sequins: url(img/about/bg/sequins.jpg);
   --plate-bank: url(img/about/bg/banking-hall.jpg);
-  --power-photo: url(img/about/bg/towers.jpg);
+  --market-photo: url(img/about/bg/perfumery.jpg);
+  --market-photo-sm: url(img/about/bg/perfumery-sm.jpg);
   --plate-cobalt: url(img/about/bg/cobalt.jpg);
   --plate-ball: url(img/about/bg/mirrorball.jpg);
   --plate-lace: url(img/about/lace.jpg);
@@ -348,7 +349,8 @@
 /* On the dark bands the script accent is set in gold leaf. The padding
    gives the swashes room, since the foil only paints inside the box; it is
    cloned onto every line, so a script accent that wraps (as on a phone)
-   keeps its descenders ("power.", not "hower."). */
+   keeps its descenders: no "p" or "y" in "Beauty pays the bills." is cut
+   off. */
 .on-dark .section-title em {
   padding: 0 0.14em 0.36em 0.24em;
   -webkit-box-decoration-break: clone;
@@ -413,7 +415,7 @@
 /* Film grain on the dark, cinematic bands. */
 .premiere::after,
 .scene-menu::after,
-.chapter-power::after,
+.chapter-market::after,
 .credits::after {
   content: "";
   position: absolute;
@@ -2235,15 +2237,18 @@ abbr[title] {
 }
 
 /* --------------------------------------------------------------------------
-   9. Chapter three — the power, on black
+   9. Chapter three — the market notes, on black
    -------------------------------------------------------------------------- */
-/* The towers at dusk, printed like a night newsreel onto the credits' film
-   stock: steam gone rose, pylons plum-black, the sky night. PINNED like the
-   credits' cinema and the closet's lace (fixed layer + clip-path), so the
-   plant stands behind every note, all the way down, while the research
-   scrolls over it. Never add transform, filter, contain, will-change or
-   .reveal to the section itself: the fixed layer would be trapped. */
-.chapter-power {
+/* An old perfumery's counter, shot on film (glass cabinets lit from within,
+   and a wooden counter of gilt-capped tester bottles and porcelain funnels),
+   printed like a night newsreel onto the credits' film stock in the
+   crimson/night dye: the lit shelves glow rose and the bottle caps catch
+   the light like jewels. PINNED like the credits' cinema and the closet's lace (fixed layer
+   + clip-path), so the still stands behind every note, all the way down,
+   while the research scrolls over it. Never add transform, filter, contain,
+   will-change or .reveal to the section itself: the fixed layer would be
+   trapped. */
+.chapter-market {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -2253,7 +2258,7 @@ abbr[title] {
   color: #fff;
 }
 
-.chapter-power::before {
+.chapter-market::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -2262,56 +2267,58 @@ abbr[title] {
     var(--halation),
     var(--vignette-dark),
     radial-gradient(ellipse 50% 32% at 50% 24%, rgba(13, 3, 6, 0.5), rgba(13, 3, 6, 0) 72%),
-    linear-gradient(180deg, rgba(13, 3, 6, 0.46), rgba(13, 3, 6, 0.72) 48%, rgba(13, 3, 6, 0.84)),
+    linear-gradient(180deg, rgba(13, 3, 6, 0.58), rgba(13, 3, 6, 0.72) 48%, rgba(13, 3, 6, 0.84)),
     linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
-    var(--power-photo, none) 50% 35% / cover no-repeat;
+    var(--market-photo, none) 50% 42% / cover no-repeat;
   background-blend-mode: screen, normal, normal, normal, color, normal;
   pointer-events: none;
   animation: kenburns 60s ease-in-out infinite;
 }
 
-.chapter-power > * {
+.chapter-market > * {
   position: relative;
   z-index: 1;
 }
 
-/* Night pools: the heading, every note and the closing box carry their own
-   feathered shade, so no pylon wire or lit plume ever crosses the copy. */
-.chapter-power .chapter-head::before,
-.chain li::after {
+/* Night pools: the heading carries its own feathered shade, and every note
+   and the closing box sit on night glass, so no bright highlight in the
+   still ever crosses the copy. */
+.chapter-market .chapter-head::before {
   content: "";
   position: absolute;
   z-index: -1;
+  inset: -3rem -8rem;
+  background: radial-gradient(ellipse 65% 62% at 50% 40%, rgba(13, 3, 6, 0.8), rgba(13, 3, 6, 0.56) 55%, rgba(13, 3, 6, 0));
+  filter: blur(40px);
   pointer-events: none;
 }
 
-.chapter-power .chapter-head::before {
-  inset: -3rem -8rem;
-  background: radial-gradient(ellipse 55% 58% at 50% 42%, rgba(13, 3, 6, 0.62), rgba(13, 3, 6, 0.4) 55%, rgba(13, 3, 6, 0));
-  filter: blur(40px);
-}
-
-.chain li::after {
-  inset: -1.2rem -1.6rem -1.4rem;
-  background: radial-gradient(closest-side, rgba(13, 3, 6, 0.55), rgba(13, 3, 6, 0.38) 70%, rgba(13, 3, 6, 0));
-  filter: blur(18px);
+/* The heading breaks into even lines, so "bills." never sits alone. */
+.chapter-market .section-title {
+  text-wrap: balance;
 }
 
 .research-meta {
   font: 600 0.6rem/1.7 var(--font-body);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* A news lower-third for the one dated fact. */
+/* The wire, printed on ticker tape: an ivory strip between two gilt rules,
+   punched along both edges, with the date on a crimson tag. */
 .chyron {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
   max-width: 980px;
-  background: #fff;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  background:
+    radial-gradient(circle, rgba(122, 90, 31, 0.3) 0 1.5px, rgba(122, 90, 31, 0) 2px) 0 4px / 11px 5px repeat-x,
+    radial-gradient(circle, rgba(122, 90, 31, 0.3) 0 1.5px, rgba(122, 90, 31, 0) 2px) 0 calc(100% - 4px) / 11px 5px repeat-x,
+    var(--ivory);
   color: var(--ink);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
 }
@@ -2339,7 +2346,7 @@ abbr[title] {
 
 .chyron-text {
   flex: 1 1 320px;
-  padding: 0.8rem 1.2rem;
+  padding: 0.95rem 1.2rem;
   font-family: var(--font-display);
   font-size: 1.2rem;
   line-height: 1.3;
@@ -2351,7 +2358,7 @@ abbr[title] {
   font: 600 0.6rem/1.2 var(--font-body);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--crimson);
+  color: var(--crimson-dark);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -2360,89 +2367,161 @@ abbr[title] {
   outline-color: var(--crimson);
 }
 
+/* The notes, as a wall of deal tombstones: three across, then two, then
+   one. Rows stretch, so the notices in a row always end on one line. */
 .chain {
   display: flex;
   flex-wrap: wrap;
-  gap: 2.6rem 2rem;
+  gap: 2.9rem 1.75rem;
   width: 100%;
   max-width: var(--shell);
   margin: 0;
-  padding: 0;
+  padding: 0.9rem 0 0;
   list-style: none;
 }
 
-/* Each step is a dot on one line: a square crimson node, a hairline rule. */
+/* Each note is a tombstone, the notice a bank prints when a deal closes:
+   night glass inside a double gold rule (the border, and an outline drawn
+   6px inside it), square-cornered. */
 .chain li {
+  --pt: 1.75rem;
   position: relative;
   flex: 1 1 300px;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  gap: 0.7rem;
+  padding: var(--pt) 1.6rem 1.4rem;
+  border: 1px solid rgba(212, 175, 106, 0.55);
+  outline: 1px solid rgba(212, 175, 106, 0.24);
+  outline-offset: -7px;
+  background: linear-gradient(180deg, rgba(36, 7, 18, 0.84), rgba(13, 3, 6, 0.9));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
-.chain li::before {
+/* The tombstone's foot: a gilt hairline with a jewel at its centre, set at
+   the bottom of the card, so the notices in a row close on one line. */
+.chain li::after {
   content: "";
-  position: absolute;
-  top: -5px;
-  left: 0;
-  width: 9px;
-  height: 9px;
-  background: var(--crimson);
-  box-shadow: 0 0 12px rgba(200, 16, 46, 0.8);
+  flex: 0 0 auto;
+  height: 7px;
+  margin-top: auto;
+  background:
+    radial-gradient(circle, var(--gold) 0 2.5px, rgba(212, 175, 106, 0) 3px) 50% 50% / 14px 7px no-repeat,
+    linear-gradient(90deg, rgba(212, 175, 106, 0), rgba(212, 175, 106, 0.45) 30%, rgba(212, 175, 106, 0.45) 70%, rgba(212, 175, 106, 0)) 50% 50% / 100% 1px no-repeat;
 }
 
+.chain li:hover {
+  border-color: var(--gold);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.46), 0 0 26px rgba(212, 175, 106, 0.16);
+}
+
+/* The number is a gilt swing tag, like the one tied to a bottle's neck:
+   notched at one end, punched with an eyelet, and clipped over the
+   tombstone's top rule. On hover it sways on its eyelet. */
 .step-num {
+  align-self: flex-start;
+  margin: calc(-1 * var(--pt) - 1.1rem - 1px) 0 0.2rem -0.35rem;
+  padding: 0.5rem 0.85rem 0.45rem 1.55rem;
+  background:
+    radial-gradient(circle at 0.75rem 50%, var(--night) 0 2.5px, rgba(13, 3, 6, 0) 3px),
+    var(--foil) 0 0 / 220% 100%;
+  clip-path: polygon(0.6rem 0, 100% 0, 100% 100%, 0.6rem 100%, 0 50%);
   font-family: var(--font-didone);
   font-style: italic;
   font-weight: 400;
-  font-size: 2.4rem;
+  font-size: 1.35rem;
   line-height: 1;
-  color: var(--gold);
+  color: var(--night);
+  transform-origin: 0.75rem 50%;
+  animation: foil 9s ease-in-out infinite;
+}
+
+.chain li:hover .step-num {
+  animation: foil 9s ease-in-out infinite, sway 2.2s ease-in-out infinite alternate;
 }
 
 .step-title {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.3);
   font: 600 0.72rem/1.3 var(--font-body);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--gold-light);
 }
 
 .step-text {
   font-size: 0.97rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.88);
 }
 
-/* The payoff step is inverted: the bottleneck Minh found. */
+.step-text abbr[title] {
+  text-decoration-color: rgba(212, 175, 106, 0.7);
+}
+
+/* The payoff note is inverted: the IPO Minh is watching, printed on ivory
+   inside a crimson double rule, like a preliminary prospectus. */
 .chain .payoff {
-  padding: 1.4rem 1.5rem 1.6rem;
-  border-top: 3px solid var(--crimson);
-  background: #fff;
+  border-color: var(--crimson);
+  outline-color: rgba(200, 16, 46, 0.4);
+  background: var(--grain-fine) 0 0 / 180px 180px, var(--ivory);
+  background-blend-mode: multiply, normal;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
 }
 
-.chain .payoff::before {
-  display: none;
+.chain .payoff:hover {
+  border-color: var(--crimson);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), 0 0 26px rgba(200, 16, 46, 0.22);
 }
 
-.payoff .step-num { color: var(--crimson); }
-.payoff .step-title { color: var(--ink); }
+.payoff .step-num {
+  background:
+    radial-gradient(circle at 0.75rem 50%, var(--ivory) 0 2.5px, rgba(251, 245, 234, 0) 3px),
+    linear-gradient(100deg, var(--crimson-dark), var(--crimson) 50%, var(--crimson-dark));
+  color: #fff;
+  animation: none;
+}
+
+.chain .payoff:hover .step-num {
+  animation: sway 2.2s ease-in-out infinite alternate;
+}
+
+.payoff .step-title {
+  border-color: rgba(200, 16, 46, 0.3);
+  color: var(--crimson-dark);
+}
+
+.chain .payoff::after {
+  background:
+    radial-gradient(circle, var(--crimson) 0 2.5px, rgba(200, 16, 46, 0) 3px) 50% 50% / 14px 7px no-repeat,
+    linear-gradient(90deg, rgba(200, 16, 46, 0), rgba(200, 16, 46, 0.35) 30%, rgba(200, 16, 46, 0.35) 70%, rgba(200, 16, 46, 0)) 50% 50% / 100% 1px no-repeat;
+}
+
 .payoff .step-text { color: var(--ink-soft); }
 
+.payoff .step-text abbr[title] {
+  text-decoration-color: rgba(200, 16, 46, 0.6);
+}
+
+/* My view and what would change it, as a term sheet under the notes: the
+   same double gold rule, each clause opening on its own letterspaced label. */
 .mind-changer {
   display: flex;
   gap: 1.1rem;
   width: 100%;
   max-width: 980px;
-  padding: 1.35rem 1.6rem;
-  border: 1px solid rgba(255, 227, 237, 0.4);
-  background: rgba(13, 3, 6, 0.5);
+  padding: 1.5rem 1.7rem 1.6rem;
+  border: 1px solid rgba(212, 175, 106, 0.55);
+  outline: 1px solid rgba(212, 175, 106, 0.24);
+  outline-offset: -7px;
+  background: linear-gradient(180deg, rgba(36, 7, 18, 0.86), rgba(13, 3, 6, 0.92));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
 }
 
 .mind-changer i {
   margin-top: 0.3rem;
-  color: var(--blush);
+  color: var(--gold);
 }
 
 .mind-changer p {
@@ -2452,22 +2531,35 @@ abbr[title] {
 }
 
 .mind-changer strong {
-  font-weight: 400;
-  color: #fff;
+  margin-right: 0.2em;
+  font: 600 0.68rem/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+/* The second clause starts on a new line: a styling break, not a new
+   paragraph, so the view and its test stay one thought. */
+.mind-changer strong ~ strong::before {
+  content: "";
+  display: block;
+  height: 0.85rem;
 }
 
 .sources {
-  font: 600 0.6rem/2 var(--font-body);
+  max-width: 980px;
+  font: 600 0.6rem/2.1 var(--font-body);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-align: center;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .sources a {
   color: var(--blush);
   text-decoration: underline;
   text-underline-offset: 4px;
+  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
@@ -4320,21 +4412,48 @@ abbr[title] {
     background: radial-gradient(ellipse 130% 460px at 50% 0, rgba(251, 245, 234, 0.97), rgba(251, 245, 234, 0.86) 55%, rgba(251, 245, 234, 0) 86%);
   }
 
-  /* Portrait: the right-hand tower and its pylons fill the frame. */
-  .chapter-power::before {
-    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 58% 35%;
+  /* Portrait: the still's focal point fills the frame. A portrait crop of
+     the same counter, so the lit cabinets and the gilt bottles both stay
+     in shot (cover would blow the landscape plate up into a blur). */
+  .chapter-market::before {
+    background:
+      var(--halation),
+      var(--vignette-dark),
+      radial-gradient(ellipse 70% 32% at 50% 24%, rgba(13, 3, 6, 0.56), rgba(13, 3, 6, 0) 72%),
+      linear-gradient(180deg, rgba(13, 3, 6, 0.68), rgba(13, 3, 6, 0.76) 48%, rgba(13, 3, 6, 0.86)),
+      linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
+      var(--market-photo-sm, none) 62% 50% / cover no-repeat;
+    background-blend-mode: screen, normal, normal, normal, color, normal;
   }
 
-  .chapter-power .chapter-head::before {
+  .chapter-market .chapter-head::before {
     inset: -2.5rem -1.5rem;
   }
 
-  .chain li::after {
-    inset: -1rem -1.1rem -1.2rem;
+  /* The kicker wraps to two centred lines on a phone, so the clapperboard
+     rides inline with the words instead of sitting apart at the left. */
+  .chapter-market .kicker {
+    display: block;
+    text-align: center;
+  }
+
+  .chapter-market .kicker i {
+    margin-right: 0.5rem;
+  }
+
+  /* Narrower tombstones: a little less padding, the swing tag still
+     clipped over the top rule. */
+  .chain {
+    row-gap: 2.4rem;
+  }
+
+  .chain li {
+    --pt: 1.6rem;
+    padding: var(--pt) 1.2rem 1.2rem;
   }
 
   /* The wrapped script's swash capital clears the "y" above it. */
-  .chapter-power .section-title {
+  .chapter-market .section-title {
     line-height: 1.32;
   }
 
