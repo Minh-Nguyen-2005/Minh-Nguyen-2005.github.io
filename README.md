@@ -58,7 +58,7 @@ The page is a documentary in six chapters. Every chapter sits on a real, softly 
 | Chapter One — Built for people | Signtegrate, Dartmouth patient-access research, FPT Software | A faded encaustic cement-tile (gạch bông) floor and 35mm negatives |
 | By the numbers | Four figures in Bodoni numerals that count up as they scroll in | Red sequins |
 | Chapter Two — Follow the money | Tuck Business Bridge (AECOM valuation), Magnetar Capital | A pinned Gilded-Age banking hall |
-| Chapter Three — Beauty pays the bills | My notes on fashion and beauty M&A and credit | A pinned old perfumery counter, shot on film, with the notes framed as deal tombstones |
+| Chapter Three — Beauty pays the bills | My notes on fashion and beauty M&A and credit | A pinned "Girl Over Flowers" print, an original ink drawing of a girl in a garden (in the spirit of IVY moda's 2017 collection) on textured paper, with the notes framed as white deal tombstones |
 | Chapter Four — The house I'm building | MyFashionSpace | A pop-art paper set on cobalt |
 | Chapter Five — Out, and all in | Community and leadership | A mirror ball |
 | Chapter Six — The closet she opened for me | My mom | Pinned lace, window light and louvered shutters |
@@ -70,7 +70,7 @@ The page is a documentary in six chapters. Every chapter sits on a real, softly 
 - `about.html` — the page. It reuses the landing page's header and footer, pointed back at `index.html#…`.
 - `about.css` — loaded after `style.css`, which it leaves untouched. Colors, type and controls come from the landing page's tokens.
 - `img/about/` — web-sized copies of my photos (rotation baked in, all camera metadata such as GPS stripped), plus two background plates, `lace.jpg` and `seats.jpg`.
-- `img/about/bg/` — the background plates, the hand-drawn SVG cut-outs and doodles, and the runway footage as a sprite sheet.
+- `img/about/bg/` — the background plates, the hand-drawn SVG cut-outs, doodles and Chapter Three print, and the runway footage as a sprite sheet.
 
 The full-resolution originals of my photos stay out of the repository (see `.gitignore`).
 
@@ -116,7 +116,7 @@ https://minh-nguyen-2005.github.io/ redirects to the custom domain. The original
 - **Marquee numerals (About page):** [Bodoni Moda](https://fonts.google.com/specimen/Bodoni+Moda) from Google Fonts.
 - **Icons:** [Font Awesome 6 Free](https://fontawesome.com/) via the cdnjs CSS build (the CSS build, not the JS one, so the site stays JavaScript-free).
 - **Techniques referenced:** the [CSS-Tricks guide to flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) for layout properties, and the CSS "checkbox hack" pattern (a hidden `input type="checkbox"` plus a `label`, with `:checked ~ sibling` selectors) for the hamburger overlay and the expanding footer headings — as described in [this CSS-only hamburger menu write-up](https://unused-css.com/blog/css-only-hamburger-menu/). Both were read for the technique; the rules in `style.css` are written from scratch.
-- **Images:** every image in the final design is photography, credited below, except the About page's hand-drawn cut-outs and doodles (`img/about/bg/*.svg`), which were drawn for it. Earlier drafts of the landing page used original SVG artwork of mine, which the photographs replaced.
+- **Images:** every image in the final design is photography, credited below, except the About page's hand-drawn cut-outs, doodles and Chapter Three print (`img/about/bg/*.svg`), which were drawn for it. Earlier drafts of the landing page used original SVG artwork of mine, which the photographs replaced.
 - **Photography — landing page:** the `editorial*` files in [`img/`](img/) are supplied fashion-editorial photographs, not my own work. `editorial0.png` is the hero backdrop, `editorial8.jpg` sits behind the platform section, and `editorial11.png`, `editorial10.png`, `editorial12.png` and `editorial13.jpg` are on the four feature cards. `editorial14.png` is behind the coverage strip, `editorial9.jpeg` behind the modeling spotlight, `editorial2.jpeg` behind both the editorial preview and the closing band, and `editorial6.jpeg` behind the personalize band.
 - **Photography — About page:**
   - Photos of me, my Magnetar team, O4U Digital 2025 and my mom are my own (`img/about/magnetar_minh.jpg`, `magnetar_team.jpg`, `minh1.jpg`, `minh2.jpg`, `o4u.jpg`, `mom_me.jpg`).
@@ -133,7 +133,7 @@ https://minh-nguyen-2005.github.io/ redirects to the custom domain. The original
     | `bg/negatives.jpg` | Ron Lach | [Pexels](https://www.pexels.com/photo/camera-film-on-light-table-10276039/) |
     | `bg/sequins.jpg` | Tim Mossholder | [Unsplash](https://unsplash.com/photos/a-close-up-of-a-red-and-gold-sequin-fabric-QhMklrq-f30) |
     | `bg/banking-hall.jpg` | Historic American Buildings Survey (public domain) | [Library of Congress](https://www.loc.gov/resource/hhh.in0057.photos/?sp=11) |
-    | `bg/perfumery.jpg`, `bg/perfumery-sm.jpg` | T (@tanyabarrow) | [Unsplash](https://unsplash.com/photos/perfume-bottles-displayed-on-shelves-in-a-shop-aBKl12oF5sI) |
+    | `bg/print-paper.jpg` | Eva Bronzini | [Pexels](https://www.pexels.com/photo/a-texture-of-a-white-paper-7598248/) |
     | `bg/cobalt.jpg` | Engin Akyurt | [Pexels](https://www.pexels.com/photo/a-bright-blue-textured-background-15429340/) |
     | `bg/mirrorball.jpg` | Paul Zoetemeijer | [Unsplash](https://unsplash.com/photos/closeup-photography-of-mirror-ball-ruujnFOHS30) |
     | `bg/lace-sheer.jpg` | Tolga deniz Aran | [Pexels](https://www.pexels.com/photo/dramatic-sunlight-hitting-the-curtains-15408607/) |

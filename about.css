@@ -71,8 +71,6 @@
   --plate-negatives: url(img/about/bg/negatives.jpg);
   --plate-sequins: url(img/about/bg/sequins.jpg);
   --plate-bank: url(img/about/bg/banking-hall.jpg);
-  --market-photo: url(img/about/bg/perfumery.jpg);
-  --market-photo-sm: url(img/about/bg/perfumery-sm.jpg);
   --plate-cobalt: url(img/about/bg/cobalt.jpg);
   --plate-ball: url(img/about/bg/mirrorball.jpg);
   --plate-lace: url(img/about/lace.jpg);
@@ -82,6 +80,22 @@
   --plate-runway: url(img/about/bg/runway.jpg);
   --runway-sprite: url(img/about/bg/runway-sprite.jpg);
   --runway-still: url(img/about/bg/runway-still.jpg);
+
+  /* Chapter Three's print: the "Girl Over Flowers" drawing (original SVGs
+     made for this page) on a photographed sheet of textured paper, in black
+     ink and the shoot's highlight inks, used sparingly (section 9). */
+  --print-ink: #15131a;
+  --print-paper: #f5f4ef;
+  --hl-coral: #ef7b56;
+  --hl-pink: #ff6fa3;
+  --hl-jade: #2f9a8a;
+  --plate-print-paper: url(img/about/bg/print-paper.jpg);
+  /* The same paper tooth, printed lighter, so the sheet stays white. */
+  --grain-print: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  --gof-girl: url(img/about/bg/gof-girl.svg);
+  --gof-garden: url(img/about/bg/gof-garden.svg);
+  --gof-scatter: url(img/about/bg/gof-scatter.svg);
+  --gof-frame: url(img/about/bg/gof-frame.svg);
 
   /* The shared print: one vignette for the projected (dark) plates, one
      warm edge-burn for the printed (light) ones, and a monochrome paper
@@ -205,6 +219,7 @@
 .prologue .kicker,
 .chapter-people .kicker,
 .chapter-money .kicker,
+.chapter-market .kicker,
 .chapter-closet .kicker {
   color: var(--crimson-dark);
 }
@@ -348,9 +363,8 @@
 
 /* On the dark bands the script accent is set in gold leaf. The padding
    gives the swashes room, since the foil only paints inside the box; it is
-   cloned onto every line, so a script accent that wraps (as on a phone)
-   keeps its descenders: no "p" or "y" in "Beauty pays the bills." is cut
-   off. */
+   cloned onto every line, so no descender of a wrapped script accent (as on
+   a phone) is cut off. */
 .on-dark .section-title em {
   padding: 0 0.14em 0.36em 0.24em;
   -webkit-box-decoration-break: clone;
@@ -415,7 +429,6 @@
 /* Film grain on the dark, cinematic bands. */
 .premiere::after,
 .scene-menu::after,
-.chapter-market::after,
 .credits::after {
   content: "";
   position: absolute;
@@ -2237,42 +2250,139 @@ abbr[title] {
 }
 
 /* --------------------------------------------------------------------------
-   9. Chapter three — the market notes, on black
+   9. Chapter three — the market notes, on the Girl Over Flowers print
    -------------------------------------------------------------------------- */
-/* An old perfumery's counter, shot on film (glass cabinets lit from within,
-   and a wooden counter of gilt-capped tester bottles and porcelain funnels),
-   printed like a night newsreel onto the credits' film stock in the
-   crimson/night dye: the lit shelves glow rose and the bottle caps catch
-   the light like jewels. PINNED like the credits' cinema and the closet's lace (fixed layer
-   + clip-path), so the still stands behind every note, all the way down,
-   while the research scrolls over it. Never add transform, filter, contain,
+/* The Girl Over Flowers print: an original ink drawing on paper, in the
+   spirit of IVY moda's 2017 "Girl Over Flowers" collection and its VNTM All
+   Stars shoot, where the models wore a black-and-white pop-art print and only
+   their stockings and heels were in colour. Here too the world is black ink
+   on a real sheet of textured paper, and only the shoot's few highlights
+   pop: the girl's coral tights, her rouge caged heels and lips, a few pink
+   blossom centres, a few jade leaves. She stands in a garden to the right
+   of the notes, turned toward them, one hand offered with a songbird on it;
+   the notes are white cards pinned over the paper.
+
+   The plate is drawn in layers over the paper (tokens in section 1): her
+   vignette (the girl with her sun, birds, butterflies and framing plants,
+   standing in a flower bed whose foot frays into loose leaves, so the
+   drawing never ends on a line), a garden border that repeats along the
+   foot of the screen, a light toss
+   of ink leaves over the notes' side and, on wide screens only, the
+   garden's right-hand edge. Nearly all the colour is in her vignette, and
+   she stands clear of the notes column at every width, so no colour ever
+   sits under the copy.
+
+   PINNED like the banking hall above (fixed layer + clip-path): she stays
+   put while the notes scroll past her, and as the section rises she is
+   revealed from the garden up, heels first. The plate is static: scaling
+   fine hairlines would shimmer. Never add transform, filter, contain,
    will-change or .reveal to the section itself: the fixed layer would be
    trapped. */
 .chapter-market {
+  /* Two compositions, switched without a breakpoint (the 9999 steps, as
+     --look-s uses): --portrait is 1px on a portrait screen (taller than 5:4,
+     such as a tablet held upright) and 0px otherwise, and each value below
+     keeps its landscape or portrait half with min(x, flag * 99999).
+
+     Landscape, an editorial spread: the notes are one column on the shell's
+     left edge and the girl owns the zone to its right, anchored to the
+     foot of the screen. --col-r is where that column ends, in viewport
+     units, for the plate. Her height is capped three ways: under the sticky
+     header, at 1000px, and so that her offered hand (at x 150 of her
+     620-wide box) stays 40px clear of the column. On a wide screen she
+     steps in toward the notes, to 16px from them; on a short one, where her
+     height is capped by the screen, she stands in the middle of her zone.
+     Only where the margin beyond her is wider than 150px does the garden's
+     right edge (a flowering bough, swirl trees) come in; anywhere narrower,
+     and in portrait, it is lifted out of frame.
+
+     Portrait, a magazine cover, as on a phone: the section opens on a cover
+     space as tall as the girl, centred under the header, and the notes run
+     full width below and scroll over her; the heading becomes a white card.
+     Here she always fills the screen's height under the header, as on a
+     phone, capped only by its width (150vw, so she never overflows it);
+     where the width caps her, on a tall portrait monitor, the garden border
+     grows to meet her flower bed (see the plate). */
+  --portrait: clamp(0px, (100vh - 125vw) * 9999, 1px);
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --col: min(100%, var(--shell), max(58vw, var(--portrait) * 99999), max(780px, var(--portrait) * 99999));
+  --col-r: calc(var(--pad) + max(0px, (100vw - 2 * var(--pad) - var(--shell)) / 2) + min(58vw, 780px));
+  /* Her head clears the sticky header, which wraps to two rows below about
+     1250px and to three below about 850px (measured with the nav's five
+     links; re-measure if the nav changes). Each step keeps a 20px margin. */
+  --girl-top: calc(9rem + clamp(0px, (1270px - 100vw) * 9999, 3rem) + clamp(0px, (875px - 100vw) * 9999, 2.75rem));
+  --girl-r0: max(1.5rem, (100vw - var(--shell)) / 2 - 2vw);
+  --girl-hl: min(100vh - var(--girl-top), 1000px, (100vw - var(--girl-r0) - var(--col-r) - 40px) * 2.128);
+  --girl-hp: min(100vh - var(--girl-top) - 2rem, 150vw);
+  --girl-h: max(min(var(--girl-hl), (1px - var(--portrait)) * 99999), min(var(--girl-hp), var(--portrait) * 99999));
+  --girl-rl: max(1.5rem, min(var(--girl-r0), 100vw - var(--col-r) - var(--girl-h) * 0.62 - 16px), (100vw - var(--col-r) - var(--girl-h) * 0.62) / 2);
+  --girl-r: max(min(var(--girl-rl), (1px - var(--portrait)) * 99999), min((100vw - var(--girl-h) * 0.62) / 2, var(--portrait) * 99999));
+  /* In landscape she stands on the foot of the plate itself (100%), so a
+     phone's toolbars can never crop her heels. */
+  --girl-y: max(min(100%, (1px - var(--portrait)) * 99999), min(var(--girl-top), var(--portrait) * 99999));
+  /* The graded sheet's own colour, for the heading's patch. */
+  --patch: rgba(246, 245, 241, 0.97);
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  clip-path: inset(0);
-  background: var(--night);
-  border-top: var(--frame-line);
-  color: #fff;
+  /* The top pixel row is left to the page's white, so the fixed drawing can
+     never bleed through the selvedge's anti-aliased top edge. */
+  clip-path: inset(1px 0 0);
+  /* Room for the selvedge at the top (or, in portrait, the cover space).
+     The hem is drawn at the top of Chapter Four. */
+  padding-top: max(7rem, min(var(--girl-top) + var(--girl-h) * 0.975 + 0.75rem, var(--portrait) * 99999));
+  padding-bottom: 104px;
+  background: var(--print-paper);
+  color: var(--print-ink);
 }
 
+/* Her height is capped by the small viewport where a phone's toolbars come
+   and go, so she always fits between the header and the toolbars. */
+@supports (height: 100svh) {
+  .chapter-market {
+    --girl-hl: min(100svh - var(--girl-top), 1000px, (100vw - var(--girl-r0) - var(--col-r) - 40px) * 2.128);
+    --girl-hp: min(100svh - var(--girl-top) - 2rem, 150vw);
+  }
+}
+
+/* An anchor to the chapter lands on the cover in portrait: the section's
+   top, with its selvedge, tucks under the header and she is seen whole. In
+   landscape it lands below the header, like every other anchor. */
+.about .chapter-market[id] {
+  scroll-margin-top: min(8.5rem, (1px - var(--portrait)) * 99999);
+}
+
+/* The paper is graded in CSS like every other plate: a veil of paper white
+   over the photographed sheet (a monochrome crop, its light fall-off
+   flattened), so only the fibre's tooth is left. The drawings lie on it at
+   full strength, and a lighter print of the page's paper grain is
+   multiplied over everything, so the ink and the paper share one tooth. */
 .chapter-market::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   background:
-    var(--halation),
-    var(--vignette-dark),
-    radial-gradient(ellipse 50% 32% at 50% 24%, rgba(13, 3, 6, 0.5), rgba(13, 3, 6, 0) 72%),
-    linear-gradient(180deg, rgba(13, 3, 6, 0.58), rgba(13, 3, 6, 0.72) 48%, rgba(13, 3, 6, 0.84)),
-    linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
-    var(--market-photo, none) 50% 42% / cover no-repeat;
-  background-blend-mode: screen, normal, normal, normal, color, normal;
+    var(--grain-print) 0 0 / 180px 180px,
+    var(--gof-girl) right var(--girl-r) top var(--girl-y) / auto var(--girl-h) no-repeat,
+    var(--gof-frame) right min(0px, var(--girl-r) - 30vh + 40px) top min(0px, (var(--girl-r) - 150px) * 9999, var(--portrait) * -99999) / auto 100vh no-repeat,
+    /* The border's tile has a bare 4-unit strip under its ground line, so
+       its dense foot never ghosts along the tile's top edge; the layer is
+       set down by the strip's height (1/96 of its own, at least 3px), so the
+       strip sits just below the screen. In portrait, where the screen's
+       width caps her height, it grows until its dense band, which starts
+       about 36% of the tile's height up from its foot, rises into her flower
+       bed; between a quarter and nearly half her height, so its motifs stay
+       near her own scale. The set-down reads the screen in vh, as a % in a
+       position means the box less the layer; where a tablet's toolbars make
+       vh the taller, it only tucks a hair more ink under the screen. */
+    var(--gof-garden) 0 calc(100% + max(3px, min(clamp(var(--girl-h) * 0.25, (100vh - var(--girl-top) - var(--girl-h) * 0.9375) * 2.75, var(--girl-h) * 0.46), var(--portrait) * 99999) / 96)) / auto max(min(30%, 300px), min(clamp(var(--girl-h) * 0.25, (100% - var(--girl-top) - var(--girl-h) * 0.9375) * 2.75, var(--girl-h) * 0.46), var(--portrait) * 99999)) repeat-x,
+    var(--gof-scatter) 0 0 / min(64vw, 900px) auto repeat-y,
+    linear-gradient(rgba(250, 249, 245, 0.9), rgba(250, 249, 245, 0.9)),
+    var(--plate-print-paper) 50% 50% / cover no-repeat,
+    var(--print-paper);
+  background-blend-mode: multiply, normal, normal, normal, normal, normal, normal;
   pointer-events: none;
-  animation: kenburns 60s ease-in-out infinite;
 }
 
 .chapter-market > * {
@@ -2280,32 +2390,114 @@ abbr[title] {
   z-index: 1;
 }
 
-/* Night pools: the heading carries its own feathered shade, and every note
-   and the closing box sit on night glass, so no bright highlight in the
-   still ever crosses the copy. */
+/* The fabric's top edge, a selvedge: the finished white edge of a printed
+   length, with the printer's marks on it, a registration target and a
+   colour bar of the print's five inks (its ink and its four highlights), so
+   the crisp white reads as a new cloth after the hall's warm ivory. (Its
+   foot, a turned hem, is drawn at the top of Chapter Four.)
+   Every mark is drawn in a 15px box except the vertical hairline, a plain
+   1px rule (a hard-edged band inside a wider box would snap to one side of
+   a half pixel). In a background position 100% means the box's width less
+   the layer's own, so each mark's position adds its own width back: the
+   marks stay in register and the target lines up with the notes' left
+   edge. */
+.chapter-market::after {
+  --dot-x: max(var(--pad), (100% - var(--shell) + 15px) / 2);
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(21, 19, 26, 0) 7px, rgba(21, 19, 26, 0.8) 7px 8px, rgba(21, 19, 26, 0) 8px) calc(var(--dot-x) - 2px) 5px / 15px 15px no-repeat,
+    linear-gradient(rgba(21, 19, 26, 0.8), rgba(21, 19, 26, 0.8)) calc(max(var(--pad), (100% - var(--shell) + 1px) / 2) + 5px) 5px / 1px 15px no-repeat,
+    radial-gradient(circle, rgba(21, 19, 26, 0) 0 3.4px, rgba(21, 19, 26, 0.8) 3.7px 4.5px, rgba(21, 19, 26, 0) 4.8px) calc(var(--dot-x) - 2px) 5px / 15px 15px no-repeat,
+    radial-gradient(circle, var(--print-ink) 0 2.8px, rgba(21, 19, 26, 0) 3.3px) calc(var(--dot-x) + 18px) 5px / 15px 15px no-repeat,
+    radial-gradient(circle, var(--crimson) 0 2.8px, rgba(200, 16, 46, 0) 3.3px) calc(var(--dot-x) + 34px) 5px / 15px 15px no-repeat,
+    radial-gradient(circle, var(--hl-coral) 0 2.8px, rgba(239, 123, 86, 0) 3.3px) calc(var(--dot-x) + 50px) 5px / 15px 15px no-repeat,
+    radial-gradient(circle, var(--hl-pink) 0 2.8px, rgba(255, 111, 163, 0) 3.3px) calc(var(--dot-x) + 66px) 5px / 15px 15px no-repeat,
+    radial-gradient(circle, var(--hl-jade) 0 2.8px, rgba(47, 154, 138, 0) 3.3px) calc(var(--dot-x) + 82px) 5px / 15px 15px no-repeat,
+    linear-gradient(rgba(21, 19, 26, 0.55), rgba(21, 19, 26, 0.55)) 0 26px / 100% 1px no-repeat,
+    linear-gradient(#fff, #fff) 0 0 / 100% 26px no-repeat;
+  pointer-events: none;
+}
+
+/* One column on the shell's left edge at every width above the phone (full
+   width in portrait). */
+.chapter-market > .chapter-head,
+.chapter-market > .chyron,
+.chapter-market > .chain,
+.chapter-market > .mind-changer,
+.chapter-market > .sources {
+  width: var(--col);
+  max-width: none;
+  align-self: flex-start;
+  margin-left: max(0px, (100% - var(--shell)) / 2);
+}
+
+.chapter-market .chapter-head {
+  align-items: flex-start;
+  /* In portrait the heading is a white title card (every length here is
+     zero in landscape). */
+  padding: calc(var(--portrait) * 28) calc(var(--portrait) * 28) calc(var(--portrait) * 32);
+  background: linear-gradient(#fff calc(var(--portrait) * 99999), rgba(255, 255, 255, 0) 0);
+  outline: calc(var(--portrait) * 1.5) solid var(--print-ink);
+  outline-offset: -9px;
+  text-align: left;
+  box-shadow: 0 calc(var(--portrait) * 12) calc(var(--portrait) * 26) rgba(21, 19, 26, 0.16);
+}
+
+/* The heading's own patch of paper: the sheet's colour and grain at 0.97,
+   full strength over the whole heading box, with a short feather (a mask,
+   not a blur, so the tooth carries on) so it never leaves a half-erased
+   band of garden around the copy. Whatever part of the garden or the toss
+   of leaves the heading passes over as it scrolls, no ink crosses the copy.
+   It stops just past the column, so it never veils the girl. */
 .chapter-market .chapter-head::before {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -3rem -8rem;
-  background: radial-gradient(ellipse 65% 62% at 50% 40%, rgba(13, 3, 6, 0.8), rgba(13, 3, 6, 0.56) 55%, rgba(13, 3, 6, 0));
-  filter: blur(40px);
+  inset: calc(var(--portrait) * 48 - 3rem) calc(var(--portrait) * 24 - 1.5rem) calc(var(--portrait) * 48 - 3rem) calc(var(--portrait) * 56 - 3.5rem);
+  background: var(--grain-print) 0 0 / 180px 180px, var(--patch);
+  background-blend-mode: multiply, normal;
+  /* The first mask layer hides the patch in portrait, where the heading is
+     a white card. */
+  -webkit-mask:
+    linear-gradient(#000 calc((1px - var(--portrait)) * 99999), rgba(0, 0, 0, 0) 0),
+    linear-gradient(90deg, rgba(0, 0, 0, 0), #000 1.5rem, #000 calc(100% - 0.75rem), rgba(0, 0, 0, 0)),
+    linear-gradient(rgba(0, 0, 0, 0), #000 1.25rem, #000 calc(100% - 1.25rem), rgba(0, 0, 0, 0));
+  -webkit-mask-composite: source-in, source-in;
+  mask:
+    linear-gradient(#000 calc((1px - var(--portrait)) * 99999), rgba(0, 0, 0, 0) 0),
+    linear-gradient(90deg, rgba(0, 0, 0, 0), #000 1.5rem, #000 calc(100% - 0.75rem), rgba(0, 0, 0, 0)),
+    linear-gradient(rgba(0, 0, 0, 0), #000 1.25rem, #000 calc(100% - 1.25rem), rgba(0, 0, 0, 0));
+  mask-composite: intersect, intersect;
   pointer-events: none;
 }
 
-/* The heading breaks into even lines, so "bills." never sits alone. */
+/* The heading breaks into even lines, so "bills." never sits alone. It is
+   set in the print's ink, and its script in the girl's lipstick. */
 .chapter-market .section-title {
+  color: var(--print-ink);
   text-wrap: balance;
+}
+
+/* The padding gives the swashes room; it is cloned onto every line, so a
+   script accent that wraps (as on a phone) keeps its descenders. */
+.chapter-market .section-title em {
+  padding: 0 0.14em 0.36em 0.24em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  color: var(--crimson);
 }
 
 .research-meta {
   font: 600 0.6rem/1.7 var(--font-body);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: #5a5760;
 }
 
-/* The wire, printed on ticker tape: an ivory strip between two gilt rules,
+/* The wire, printed on ticker tape: a white strip between two ink rules,
    punched along both edges, with the date on a crimson tag. */
 .chyron {
   display: flex;
@@ -2313,14 +2505,14 @@ abbr[title] {
   align-items: stretch;
   width: 100%;
   max-width: 980px;
-  border-top: 1px solid var(--gold);
-  border-bottom: 1px solid var(--gold);
+  border-top: 1.5px solid var(--print-ink);
+  border-bottom: 1.5px solid var(--print-ink);
   background:
-    radial-gradient(circle, rgba(122, 90, 31, 0.3) 0 1.5px, rgba(122, 90, 31, 0) 2px) 0 4px / 11px 5px repeat-x,
-    radial-gradient(circle, rgba(122, 90, 31, 0.3) 0 1.5px, rgba(122, 90, 31, 0) 2px) 0 calc(100% - 4px) / 11px 5px repeat-x,
-    var(--ivory);
-  color: var(--ink);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+    radial-gradient(circle, rgba(21, 19, 26, 0.2) 0 1.5px, rgba(21, 19, 26, 0) 2px) 0 4px / 11px 5px repeat-x,
+    radial-gradient(circle, rgba(21, 19, 26, 0.2) 0 1.5px, rgba(21, 19, 26, 0) 2px) 0 calc(100% - 4px) / 11px 5px repeat-x,
+    #fff;
+  color: var(--print-ink);
+  box-shadow: 0 12px 28px rgba(21, 19, 26, 0.16);
 }
 
 .chyron-tag {
@@ -2363,11 +2555,18 @@ abbr[title] {
   text-underline-offset: 4px;
 }
 
-.chyron-src:focus-visible {
-  outline-color: var(--crimson);
+.chyron-src:hover,
+.sources a:hover {
+  color: var(--crimson);
+  text-decoration-thickness: 2px;
 }
 
-/* The notes, as a wall of deal tombstones: three across, then two, then
+/* The focus ring is drawn just inside the link, so it stays on the tape. */
+.chyron-src:focus-visible {
+  outline-offset: -4px;
+}
+
+/* The notes, as a wall of deal tombstones: two across in the column, then
    one. Rows stretch, so the notices in a row always end on one line. */
 .chain {
   display: flex;
@@ -2381,8 +2580,8 @@ abbr[title] {
 }
 
 /* Each note is a tombstone, the notice a bank prints when a deal closes:
-   night glass inside a double gold rule (the border, and an outline drawn
-   6px inside it), square-cornered. */
+   white card stock inside a double ink rule (the border, and an outline
+   drawn 6px inside it), square-cornered, pinned over the print. */
 .chain li {
   --pt: 1.75rem;
   position: relative;
@@ -2391,15 +2590,15 @@ abbr[title] {
   flex-direction: column;
   gap: 0.7rem;
   padding: var(--pt) 1.6rem 1.4rem;
-  border: 1px solid rgba(212, 175, 106, 0.55);
-  outline: 1px solid rgba(212, 175, 106, 0.24);
+  border: 1.5px solid var(--print-ink);
+  outline: 1px solid rgba(21, 19, 26, 0.35);
   outline-offset: -7px;
-  background: linear-gradient(180deg, rgba(36, 7, 18, 0.84), rgba(13, 3, 6, 0.9));
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
-  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(21, 19, 26, 0.14);
+  transition: box-shadow 0.4s var(--ease);
 }
 
-/* The tombstone's foot: a gilt hairline with a jewel at its centre, set at
+/* The tombstone's foot: an ink hairline with a jewel at its centre, set at
    the bottom of the card, so the notices in a row close on one line. */
 .chain li::after {
   content: "";
@@ -2407,127 +2606,133 @@ abbr[title] {
   height: 7px;
   margin-top: auto;
   background:
-    radial-gradient(circle, var(--gold) 0 2.5px, rgba(212, 175, 106, 0) 3px) 50% 50% / 14px 7px no-repeat,
-    linear-gradient(90deg, rgba(212, 175, 106, 0), rgba(212, 175, 106, 0.45) 30%, rgba(212, 175, 106, 0.45) 70%, rgba(212, 175, 106, 0)) 50% 50% / 100% 1px no-repeat;
+    radial-gradient(circle, var(--print-ink) 0 2.5px, rgba(21, 19, 26, 0) 3px) 50% 50% / 14px 7px no-repeat,
+    linear-gradient(90deg, rgba(21, 19, 26, 0), rgba(21, 19, 26, 0.35) 30%, rgba(21, 19, 26, 0.35) 70%, rgba(21, 19, 26, 0)) 50% 50% / 100% 1px no-repeat;
 }
 
 .chain li:hover {
-  border-color: var(--gold);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.46), 0 0 26px rgba(212, 175, 106, 0.16);
+  box-shadow: 0 20px 40px rgba(21, 19, 26, 0.2);
 }
 
-/* The number is a gilt swing tag, like the one tied to a bottle's neck:
-   notched at one end, punched with an eyelet, and clipped over the
-   tombstone's top rule. On hover it sways on its eyelet. */
+/* The number is an ink swing tag, like the one tied to a garment: notched
+   at one end, punched with a white eyelet, and clipped over the tombstone's
+   top rule. On hover it sways on its eyelet. */
 .step-num {
   align-self: flex-start;
-  margin: calc(-1 * var(--pt) - 1.1rem - 1px) 0 0.2rem -0.35rem;
+  margin: calc(-1 * var(--pt) - 1.1rem - 1.5px) 0 0.2rem -0.35rem;
   padding: 0.5rem 0.85rem 0.45rem 1.55rem;
   background:
-    radial-gradient(circle at 0.75rem 50%, var(--night) 0 2.5px, rgba(13, 3, 6, 0) 3px),
-    var(--foil) 0 0 / 220% 100%;
+    radial-gradient(circle at 0.75rem 50%, #fff 0 2.5px, rgba(255, 255, 255, 0) 3px),
+    var(--print-ink);
   clip-path: polygon(0.6rem 0, 100% 0, 100% 100%, 0.6rem 100%, 0 50%);
   font-family: var(--font-didone);
   font-style: italic;
   font-weight: 400;
   font-size: 1.35rem;
   line-height: 1;
-  color: var(--night);
+  color: #fff;
   transform-origin: 0.75rem 50%;
-  animation: foil 9s ease-in-out infinite;
 }
 
 .chain li:hover .step-num {
-  animation: foil 9s ease-in-out infinite, sway 2.2s ease-in-out infinite alternate;
+  animation: sway 2.2s ease-in-out infinite alternate;
 }
 
 .step-title {
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(212, 175, 106, 0.3);
+  border-bottom: 1px solid rgba(21, 19, 26, 0.22);
   font: 600 0.72rem/1.3 var(--font-body);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold-light);
+  color: var(--print-ink);
 }
 
 .step-text {
   font-size: 0.97rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--ink-soft);
 }
 
 .step-text abbr[title] {
-  text-decoration-color: rgba(212, 175, 106, 0.7);
+  text-decoration-color: rgba(200, 16, 46, 0.6);
 }
 
-/* The payoff note is inverted: the IPO Minh is watching, printed on ivory
-   inside a crimson double rule, like a preliminary prospectus. */
+/* The payoff note is inverted: the IPO Minh is watching, printed in reverse
+   on the print's ink inside a crimson double rule, with its title in the
+   print's pink and one paper flower pinned to its corner like a corsage (the
+   cut-out flower from Chapter Four). */
 .chain .payoff {
   border-color: var(--crimson);
-  outline-color: rgba(200, 16, 46, 0.4);
-  background: var(--grain-fine) 0 0 / 180px 180px, var(--ivory);
-  background-blend-mode: multiply, normal;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+  outline-color: rgba(200, 16, 46, 0.5);
+  background: var(--print-ink);
+  box-shadow: 0 18px 40px rgba(21, 19, 26, 0.3);
 }
 
 .chain .payoff:hover {
-  border-color: var(--crimson);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), 0 0 26px rgba(200, 16, 46, 0.22);
+  box-shadow: 0 22px 48px rgba(21, 19, 26, 0.36), 0 0 26px rgba(200, 16, 46, 0.22);
+}
+
+.chain .payoff::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  background: url(img/about/bg/cutout-flower.svg) 0 0 / 100% 100% no-repeat;
+  filter: drop-shadow(0 3px 3px rgba(21, 19, 26, 0.35));
+  rotate: -12deg;
+  pointer-events: none;
 }
 
 .payoff .step-num {
   background:
-    radial-gradient(circle at 0.75rem 50%, var(--ivory) 0 2.5px, rgba(251, 245, 234, 0) 3px),
+    radial-gradient(circle at 0.75rem 50%, var(--print-ink) 0 2.5px, rgba(21, 19, 26, 0) 3px),
     linear-gradient(100deg, var(--crimson-dark), var(--crimson) 50%, var(--crimson-dark));
   color: #fff;
-  animation: none;
-}
-
-.chain .payoff:hover .step-num {
-  animation: sway 2.2s ease-in-out infinite alternate;
 }
 
 .payoff .step-title {
-  border-color: rgba(200, 16, 46, 0.3);
-  color: var(--crimson-dark);
+  border-color: rgba(244, 143, 184, 0.35);
+  color: #f48fb8;
 }
 
 .chain .payoff::after {
   background:
-    radial-gradient(circle, var(--crimson) 0 2.5px, rgba(200, 16, 46, 0) 3px) 50% 50% / 14px 7px no-repeat,
-    linear-gradient(90deg, rgba(200, 16, 46, 0), rgba(200, 16, 46, 0.35) 30%, rgba(200, 16, 46, 0.35) 70%, rgba(200, 16, 46, 0)) 50% 50% / 100% 1px no-repeat;
+    radial-gradient(circle, var(--hl-pink) 0 2.5px, rgba(255, 111, 163, 0) 3px) 50% 50% / 14px 7px no-repeat,
+    linear-gradient(90deg, rgba(244, 143, 184, 0), rgba(244, 143, 184, 0.35) 30%, rgba(244, 143, 184, 0.35) 70%, rgba(244, 143, 184, 0)) 50% 50% / 100% 1px no-repeat;
 }
 
-.payoff .step-text { color: var(--ink-soft); }
+.payoff .step-text { color: rgba(255, 255, 255, 0.88); }
 
 .payoff .step-text abbr[title] {
-  text-decoration-color: rgba(200, 16, 46, 0.6);
+  text-decoration-color: rgba(244, 143, 184, 0.75);
 }
 
 /* My view and what would change it, as a term sheet under the notes: the
-   same double gold rule, each clause opening on its own letterspaced label. */
+   same double ink rule, each clause opening on its own letterspaced label. */
 .mind-changer {
   display: flex;
   gap: 1.1rem;
   width: 100%;
   max-width: 980px;
   padding: 1.5rem 1.7rem 1.6rem;
-  border: 1px solid rgba(212, 175, 106, 0.55);
-  outline: 1px solid rgba(212, 175, 106, 0.24);
+  border: 1.5px solid var(--print-ink);
+  outline: 1px solid rgba(21, 19, 26, 0.35);
   outline-offset: -7px;
-  background: linear-gradient(180deg, rgba(36, 7, 18, 0.86), rgba(13, 3, 6, 0.92));
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(21, 19, 26, 0.14);
 }
 
 .mind-changer i {
   margin-top: 0.3rem;
-  color: var(--gold);
+  color: var(--crimson);
 }
 
 .mind-changer p {
   font-size: 1rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink-soft);
 }
 
 .mind-changer strong {
@@ -2535,7 +2740,7 @@ abbr[title] {
   font: 600 0.68rem/1 var(--font-body);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold-light);
+  color: var(--print-ink);
 }
 
 /* The second clause starts on a new line: a styling break, not a new
@@ -2546,17 +2751,24 @@ abbr[title] {
   height: 0.85rem;
 }
 
+/* The sources, on a sewn-in care label: a white strip in a fine ink rule,
+   with a stitch run just inside it. */
 .sources {
   max-width: 980px;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid var(--print-ink);
+  outline: 1px dashed rgba(21, 19, 26, 0.45);
+  outline-offset: -5px;
+  background: #fff;
   font: 600 0.6rem/2.1 var(--font-body);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.72);
+  text-align: left;
+  color: #5a5760;
 }
 
 .sources a {
-  color: var(--blush);
+  color: var(--crimson-dark);
   text-decoration: underline;
   text-underline-offset: 4px;
   white-space: nowrap;
@@ -2594,6 +2806,31 @@ abbr[title] {
 .chapter-house > *:not(.paper-set) {
   position: relative;
   z-index: 1;
+}
+
+/* Chapter Three's print ends in a turned hem, cut with pinking shears and
+   hung on the set: the drawing runs at full strength to the fold, then the
+   turned-up band of plain paper with its line of stitching, and the paper's
+   teeth along the top of the cobalt, each throwing a little shadow onto it.
+   It is drawn here, at the top of this chapter, so the fold always lands
+   exactly on the seam between the two, and it hangs over the set, so every
+   string seems to come from under the hem. */
+.chapter-house::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 41px;
+  background:
+    linear-gradient(rgba(21, 19, 26, 0.55), rgba(21, 19, 26, 0.55)) 0 0 / 100% 1px no-repeat,
+    linear-gradient(rgba(21, 19, 26, 0.08), rgba(21, 19, 26, 0)) 0 1px / 100% 4px no-repeat,
+    repeating-linear-gradient(90deg, rgba(21, 19, 26, 0.5) 0 7px, rgba(21, 19, 26, 0) 7px 12px) 0 20px / 100% 1px no-repeat,
+    linear-gradient(#f5f4f0, #f5f4f0) 0 0 / 100% 32px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='9'%3E%3Cpath d='M0 0h12L6 9z' fill='%23f5f4f0'/%3E%3C/svg%3E") 0 100% / 12px 9px repeat-x;
+  filter: drop-shadow(0 3px 2px rgba(6, 12, 50, 0.4));
+  pointer-events: none;
 }
 
 .chapter-house :focus-visible {
@@ -4241,8 +4478,19 @@ abbr[title] {
     width: 100%;
   }
 
+  /* On a phone the source takes the tape's last line, so the tape keeps a
+     little padding of its own under it: the source's focus ring (drawn
+     inside the link) then frames the label alone, clear of its capitals and
+     of the punched holes, and its margin keeps the ring off the date tag
+     where the tape wraps to two rows. */
+  .chyron {
+    padding-bottom: 0.6rem;
+  }
+
   .chyron-src {
-    padding-top: 0;
+    margin-top: 0.2rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.6rem;
   }
 
   .house-tile {
@@ -4412,22 +4660,81 @@ abbr[title] {
     background: radial-gradient(ellipse 130% 460px at 50% 0, rgba(251, 245, 234, 0.97), rgba(251, 245, 234, 0.86) 55%, rgba(251, 245, 234, 0) 86%);
   }
 
-  /* Portrait: the still's focal point fills the frame. A portrait crop of
-     the same counter, so the lit cabinets and the gilt bottles both stay
-     in shot (cover would blow the landscape plate up into a blur). */
+  /* The print on a phone: a magazine cover, then the notes. There is no
+     free side zone here, so the section opens on a cover space exactly as
+     tall as the girl, who is anchored from the top (just under the header,
+     so on a short phone her head and the sun stay in view) and seen whole
+     on arrival, down to the flower bed she stands in, whose frayed foot
+     runs into the garden border. Then the title card rises over her
+     from the heels up while she stays pinned, and she shows in the gutters
+     and in the gaps between the cards. Her height is set in small-viewport
+     units, so the cover space and the drawing always agree. The cover
+     starts just under the header, which grows by a line where the top
+     bar's "Now showing" wraps (below about 364px wide; re-measure if that
+     line changes), and the scatter of flowers and butterflies drops with
+     her, so it keeps its places around her. */
+  .chapter-market {
+    --col: 100%;
+    --cover-top: calc(7.25rem + clamp(0px, (370px - 100vw) * 9999, 1.1rem));
+    --girl-h: min(150vw, 100vh - 2.25rem - var(--cover-top));
+    padding-top: calc(var(--cover-top) + var(--girl-h) * 0.975 + 0.75rem);
+  }
+
+  @supports (height: 100svh) {
+    .chapter-market {
+      --girl-h: min(150vw, 100svh - 2.25rem - var(--cover-top));
+    }
+  }
+
+  /* An anchor lands on the cover: the section's top tucks under the header
+     and she is seen whole, the title card just under her heels. */
+  .about .chapter-market[id] {
+    scroll-margin-top: 0;
+  }
+
+  /* The garden border rises to meet her: its top is set level with her
+     calves, so its tallest flowers reach the flower bed she stands in and
+     the bed runs straight into it. Its height is in vh (the large viewport
+     on a phone), so as the toolbars come and go it slides with the foot of
+     the screen and never rescales. */
   .chapter-market::before {
     background:
-      var(--halation),
-      var(--vignette-dark),
-      radial-gradient(ellipse 70% 32% at 50% 24%, rgba(13, 3, 6, 0.56), rgba(13, 3, 6, 0) 72%),
-      linear-gradient(180deg, rgba(13, 3, 6, 0.68), rgba(13, 3, 6, 0.76) 48%, rgba(13, 3, 6, 0.86)),
-      linear-gradient(rgba(142, 20, 50, 0.6), rgba(43, 5, 16, 0.62)),
-      var(--market-photo-sm, none) 62% 50% / cover no-repeat;
-    background-blend-mode: screen, normal, normal, normal, color, normal;
+      var(--grain-print) 0 0 / 180px 180px,
+      var(--gof-girl) 50% var(--cover-top) / auto var(--girl-h) no-repeat,
+      var(--gof-garden) 0 calc(100% + 2px) / auto max(22vh, 100vh - var(--cover-top) - var(--girl-h) * 0.82) repeat-x,
+      var(--gof-scatter) 0 calc(var(--cover-top) - 7.25rem) / 150% auto repeat-y,
+      linear-gradient(rgba(250, 249, 245, 0.9), rgba(250, 249, 245, 0.9)),
+      var(--plate-print-paper) 50% 50% / cover no-repeat,
+      var(--print-paper);
+    background-blend-mode: multiply, normal, normal, normal, normal, normal;
+  }
+
+  .chapter-market > .chapter-head,
+  .chapter-market > .chyron,
+  .chapter-market > .chain,
+  .chapter-market > .mind-changer,
+  .chapter-market > .sources {
+    margin-left: 0;
+  }
+
+  /* The heading becomes a white title card, like Chapter Four's, with an
+     ink rule drawn inside its edge. */
+  .chapter-market .chapter-head {
+    align-items: center;
+    padding: 1.6rem 1.2rem 1.8rem;
+    background: #fff;
+    outline: 1.5px solid var(--print-ink);
+    outline-offset: -9px;
+    text-align: center;
+    box-shadow: 0 12px 26px rgba(21, 19, 26, 0.16);
   }
 
   .chapter-market .chapter-head::before {
-    inset: -2.5rem -1.5rem;
+    display: none;
+  }
+
+  .chapter-market .sources {
+    text-align: center;
   }
 
   /* The kicker wraps to two centred lines on a phone, so the clapperboard
@@ -4457,6 +4764,14 @@ abbr[title] {
     line-height: 1.32;
   }
 
+  /* On the cover card the two sentences take a line pair each, so "dream."
+     never sits alone beside the script, and the script's own two lines get
+     a script's leading (its inline 0.8 would knot them together). */
+  .chapter-market .section-title em {
+    display: block;
+    line-height: 1.02;
+  }
+
   /* The paper set: room is made at the top for a cloud, the moon and one
      flower; the rest of the cut-outs rest. */
   .chapter-house {
@@ -4470,8 +4785,9 @@ abbr[title] {
     display: none;
   }
 
-  .cut-cloud    { --w: 150px; --string: 22px; left: -3%; }
-  .cut-moon     { --w: 86px;  --string: 26px; right: 5%; --sx: -10px; }
+  /* The cloud and the moon hang just below Chapter Three's hem. */
+  .cut-cloud    { --w: 150px; --string: 46px; left: -3%; }
+  .cut-moon     { --w: 86px;  --string: 50px; right: 5%; --sx: -10px; }
   .cut-flower-2 { --w: 40px;  --string: 70px; right: 36%; }
 
   .chapter-house .chapter-head::before { left: 10%; }
