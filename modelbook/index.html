@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Angel Off Duty</title>
+<meta name="description" content="Angel Off Duty: the model book of Minh Nguyen, with a runway concept for Fashion Etc.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pinyon+Script&display=swap">
+
+<script>
+/* ==========================================================================
+   ANGEL OFF DUTY · THE MODEL BOOK OF MINH NGUYEN
+   Everything Minh edits lives in this block.
+
+   PHOTOS: only photos of Minh, in ./photos/. Never the site's editorial*
+   images (other models), and no stock, web or AI images.
+     id     the slot name the pages use (data-slot)
+     src    the photo's path inside ./photos/, e.g. 'photos/lake.jpg'
+     pos    focal point, as CSS object-position ('50% 30%' = centre, upper third)
+     zoom   1 = fit; 1.5 = crop in 50% around pos
+     alt    description for screen readers
+
+   The galaxy (cover and back cover), the glitter runway (03), the stage light
+   (08) and the glints are the Fandemonium stage, painted live by fx.js.
+   ========================================================================== */
+const BOOK = {
+  kappaDelta: false,    // true prints 'I joined Kappa Delta this fall' instead of 'rushing a sorority'
+  email: '',            // hidden unless filled (the page is public)
+  instagram: '@minh.ngxx',
+  credit: ''            // photography credit, hidden unless filled
+};
+
+const STATS = { height: '', hair: '', eyes: '', shoe: '', dress: '' }; // each one prints only if filled
+
+const PHOTOS = [
+  { id: 'cover',        src: 'photos/cover-portrait.jpg',         pos: '50% 50%', zoom: 1,    alt: 'Minh Nguyen, close-up against a sunlit brick wall, glossy lips, short dark hair, a pearl pendant' },
+  { id: 'hello',        src: 'photos/portrait-brick.jpg',         pos: '50% 45%', zoom: 1,    alt: 'Minh Nguyen, close-up with one hand in their hair, against a brick wall' },
+  { id: 'walk',         src: 'photos/fulllength-soho.jpg',        pos: '47% 108%', zoom: 1.4, alt: 'Minh Nguyen, full length in a pink strapless top and flared jeans on a cobblestone street' },
+  { id: 'comp-head',    src: 'photos/portrait-brick.jpg',         pos: '50% 38%', zoom: 1,    alt: 'Minh Nguyen, headshot against a brick wall' },
+  { id: 'comp-full',    src: 'photos/fulllength-soho-2.jpg',      pos: '51% 97%', zoom: 1.5,  alt: 'Minh Nguyen, full length in a pink top and flared jeans, eyes down' },
+  { id: 'comp-profile', src: 'photos/portrait-sheer.jpg',         pos: '55% 32%', zoom: 1,    alt: 'Minh Nguyen, close-up in a sheer black top' },
+  { id: 'comp-detail',  src: 'photos/fulllength-street-pose.jpg', pos: '52% 28%', zoom: 2,    alt: 'Minh Nguyen, a hand in their hair, on a city street' },
+  { id: 'beauty',       src: 'photos/cover-portrait.jpg',         pos: '46% 44%', zoom: 1.16, alt: 'Minh Nguyen, beauty close-up, glossy lips' },
+  { id: 'second',       src: 'photos/portrait-sheer.jpg',         pos: '55% 40%', zoom: 1,    alt: 'Minh Nguyen, bare-faced close-up in a sheer top' },
+  { id: 'night',        src: 'photos/night-beach.jpg',            pos: '50% 50%', zoom: 1,    alt: 'Minh Nguyen at night on a foggy beach, white strapless top and flared jeans, a hand in their hair' },
+  { id: 'candid',       src: 'photos/mirror-floral.jpg',          pos: '48% 42%', zoom: 1,    alt: 'Minh Nguyen, mirror selfie in a floral blouse and a white pleated skirt' },
+  { id: 'stage',        src: 'photos/fulllength-soho-2.jpg',      pos: '51% 100%', zoom: 1.45, alt: 'Minh Nguyen, full length in a pink top and flared jeans, eyes down, against a dark storefront' },
+  { id: 'closing',      src: 'photos/lake.jpg',                   pos: '50% 50%', zoom: 1,    alt: 'Minh Nguyen smiling by a river, in a pale blue tee' }
+];
+</script>
+
+<style>
+/* ==========================================================================
+   1. Tokens (Minh's VS storefront system: blush, rose, mauve, crimson,
+      plum-black, champagne; square corners)
+   ========================================================================== */
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-plum: #2A1E2C;
+  --blush: #ffe3ed;
+  --blush-pale: #fff0f5;
+  --rose: #e25b8c;
+  --mauve: #a45672;
+  --crimson: #c8102e;
+  --crimson-dark: #9d0c23;
+  --night: #120a14;
+  --plum-black: #0d0306;
+  --champagne: #F7D9A8;
+  --gold: #D9B26F;
+  --gold-deep: #8E6A2E;
+  --pearl: #FFF8F4;
+
+  --font-display: Cormorant, "Cormorant Garamond", Georgia, serif;
+  --font-script: "Pinyon Script", "Snell Roundhand", cursive;
+  --font-didone: "Bodoni Moda", Didot, "Bodoni 72", serif;
+  --font-copy: "Cormorant Garamond", Cormorant, Garamond, Georgia, serif;
+
+  /* Satin: broad soft highlights and falls of shadow, as charmeuse catches a window. */
+  --satin:
+    radial-gradient(90% 55% at 18% 12%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(70% 40% at 82% 78%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(116deg, #f6cddc 0%, #fde8f0 11%, #fff8fb 19%, #fbe2eb 27%, #f2c2d4 36%, #fbdfe9 46%, #fffafc 54%, #f8d6e3 63%, #efbccf 72%, #fbe4ed 82%, #fff5f9 90%, #f6cfdd 100%);
+  --thinfilm: conic-gradient(from 200deg, #ffb6dc, #ffdcab 16%, #fff3e2 28%, #b0e8ff 46%, #b8a6ff 64%, #ff9fd5 82%, #ffb6dc);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+  --print-shadow: 0 1px 1px rgba(42, 30, 44, .10), 0 4px 8px rgba(42, 30, 44, .08), 0 18px 36px -10px rgba(42, 30, 44, .30), 0 40px 70px -30px rgba(42, 30, 44, .35);
+}
+
+/* ==========================================================================
+   2. Base, the desk and the sheets
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: clip; }
+html { background: #efe5ea; }
+body {
+  background: #efe5ea;
+  color: var(--ink);
+  font-family: var(--font-copy);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+p, h1, h2, h3, figure, ol, ul, dl, dd { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+a { color: inherit; }
+
+/* The site bar: back to MyFashionSpace. Screen only. */
+.sitebar {
+  position: sticky; top: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  height: 44px; padding: 0 max(16px, calc((100vw - 900px) / 2));
+  background: linear-gradient(180deg, rgba(13, 3, 6, .92), rgba(13, 3, 6, .82));
+  -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid rgba(247, 217, 168, .16);
+}
+.sitebar a { text-decoration: none; }
+.sitebar .home { font: 400 24px/1 var(--font-script); color: #fff; text-shadow: 0 0 14px rgba(255, 182, 220, .45); white-space: nowrap; }
+.sitebar nav { display: flex; gap: 22px; }
+.sitebar nav a { font: 600 11px/1 var(--font-copy); letter-spacing: .24em; text-transform: uppercase; color: rgba(255, 255, 255, .78); padding: 6px 0; }
+.sitebar nav a:hover, .sitebar nav a:focus-visible { color: #fff; }
+.sitebar nav a[aria-current="page"] { color: var(--champagne); box-shadow: inset 0 -1px 0 rgba(247, 217, 168, .7); }
+
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  padding: 48px 0 96px;
+}
+.spread { display: contents; }
+
+.page {
+  position: relative;
+  width: min(900px, calc(100vw - 32px));
+  aspect-ratio: 3 / 4;
+  container-type: inline-size;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .12);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+/* 1 book inch = 1/9 of the page width, on screen and in print, so the two match. */
+.sheet {
+  --u: calc(100cqw / 9);
+  --pt: calc(var(--u) / 72);
+  position: absolute;
+  inset: 0;
+}
+.abs {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+}
+
+/* ==========================================================================
+   3. Type
+   ========================================================================== */
+.kicker, .label {
+  font-family: var(--font-copy);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .24em;
+  font-size: calc(var(--pt) * 8.5);
+  line-height: 1.4;
+  color: var(--crimson);
+}
+.label { font-size: calc(var(--pt) * 7.5); letter-spacing: .22em; }
+.hl {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: .95;
+  letter-spacing: -.01em;
+  font-size: calc(var(--pt) * 58);
+  color: var(--ink);
+}
+.hl em {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.15em;
+  line-height: .8;
+  letter-spacing: 0;
+  padding-left: .04em;
+  position: relative;
+  top: .07em;
+  white-space: nowrap;
+  color: var(--crimson);
+}
+.body {
+  font-family: var(--font-copy);
+  font-weight: 500;
+  font-size: calc(var(--pt) * 12.5);
+  line-height: 1.5;
+  color: var(--ink-plum);
+  text-wrap: pretty;
+}
+.body p + p { margin-top: .62em; }
+.dc::first-letter {
+  -webkit-initial-letter: 3;
+  initial-letter: 3;
+  font-family: var(--font-didone);
+  font-weight: 500;
+  color: var(--crimson);
+  margin-right: .1em;
+}
+.ghost {
+  position: absolute;
+  font-family: var(--font-didone);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: calc(var(--pt) * 220);
+  line-height: .8;
+  letter-spacing: -.02em;
+  pointer-events: none;
+  font-variant-numeric: lining-nums;
+}
+.center { text-align: center; }
+
+/* Night pages */
+.night { background: var(--night); color: #fff; }
+.night .kicker, .night .label { color: var(--champagne); }
+.night .hl { color: #fff; }
+.night .hl em { color: var(--blush); }
+.night .body { color: rgba(255, 255, 255, .92); }
+.glow-type { text-shadow: 0 0 calc(.2 * var(--u)) rgba(255, 182, 220, .35), 0 1px 2px rgba(0, 0, 0, .5); }
+.grain { position: absolute; inset: 0; background-image: var(--grain); background-size: calc(1.8 * var(--u)); opacity: .07; pointer-events: none; mix-blend-mode: multiply; }
+.night .grain { mix-blend-mode: soft-light; opacity: .22; }
+.kd-on { display: none; }
+.kd .kd-on { display: inline; }
+.kd .kd-off { display: none; }
+
+/* Folio: words, a hairline, the page number. */
+.folio {
+  position: absolute;
+  bottom: calc(.4 * var(--u));
+  left: calc(.55 * var(--u));
+  right: calc(.55 * var(--u));
+  display: flex;
+  align-items: center;
+  gap: calc(.14 * var(--u));
+  font: 600 calc(var(--pt) * 7) / 1 var(--font-copy);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink-plum);
+  z-index: 5;
+}
+.folio .rule { flex: 1; height: 1px; background: currentColor; opacity: .28; }
+.folio .n { font-family: var(--font-didone); letter-spacing: .12em; font-variant-numeric: lining-nums; }
+.night .folio { color: var(--champagne); }
+.night .folio span { text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
+
+/* Champagne hairline, brightest in the middle */
+.hair { height: 1px; background: linear-gradient(90deg, rgba(247, 217, 168, 0), var(--champagne) 30%, var(--champagne) 70%, rgba(247, 217, 168, 0)); }
+
+/* ==========================================================================
+   4. Photos, prints and glass
+   ========================================================================== */
+.ph { position: relative; overflow: hidden; background: #2a1a24; }
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.r23 { aspect-ratio: 2 / 3; } .r34 { aspect-ratio: 3 / 4; } .r45 { aspect-ratio: 4 / 5; } .r11 { aspect-ratio: 1 / 1; }
+/* A print lying on the page: no outline, just the weight of paper. */
+.print { box-shadow: var(--print-shadow); }
+/* A window on a dark page: a hairline of thin-film color, like a flake of the glitter. */
+.film-edge { position: relative; box-shadow: 0 calc(.3 * var(--u)) calc(.6 * var(--u)) calc(-.16 * var(--u)) rgba(0, 0, 0, .7), 0 0 calc(.5 * var(--u)) rgba(255, 140, 200, .12); }
+.film-edge::after {
+  content: ""; position: absolute; inset: 0; padding: 1px; z-index: 7; pointer-events: none;
+  background: var(--thinfilm);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: .7;
+}
+/* A photo that dissolves into the night around it: no frame, the edges fall away into the sky. */
+.fade-edge {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--ft, 4%), #000 var(--fb, 76%), transparent 100%), linear-gradient(90deg, transparent 0, #000 var(--fs, 7%), #000 calc(100% - var(--fs, 7%)), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg, transparent 0, #000 var(--ft, 4%), #000 var(--fb, 76%), transparent 100%), linear-gradient(90deg, transparent 0, #000 var(--fs, 7%), #000 calc(100% - var(--fs, 7%)), transparent 100%);
+  mask-composite: intersect;
+  background: transparent;
+}
+/* Violet rim light behind a galaxy window, as the planet's limb lights it. */
+.halo { position: relative; }
+.p10 .halo::before { top: 16%; }
+.halo::before { content: ""; position: absolute; left: 4%; right: 4%; top: 2%; bottom: 30%; z-index: -1; pointer-events: none; box-shadow: 0 0 calc(.6 * var(--u)) calc(.06 * var(--u)) rgba(180, 140, 255, .35), 0 0 calc(1.4 * var(--u)) rgba(255, 150, 220, .14); }
+/* Smoked glass edged in champagne, the front page's cards. */
+.glass {
+  position: relative;
+  border: 1px solid rgba(232, 203, 142, .24);
+  background: linear-gradient(180deg, rgba(15, 10, 17, .78), rgba(9, 6, 11, .7));
+  box-shadow: 0 calc(.2 * var(--u)) calc(.5 * var(--u)) rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .07);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15); backdrop-filter: blur(14px) saturate(1.15);
+}
+.glass::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 236, 246, .4), transparent); pointer-events: none; }
+
+/* ==========================================================================
+   5. The stages fx.js paints (Fandemonium's galaxy, runway and wings)
+   ========================================================================== */
+.fx-galaxy, .fx-runway, .fx-wings { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fx-galaxy { background: radial-gradient(150% 75% at 58% 115%, #3b1045 0%, #140c3c 36%, #06071d 68%, #02030e 100%); }
+.fx-galaxy[data-mirror] { transform: scaleX(-1); }
+.p01 .fx-galaxy, .p10 .fx-galaxy { filter: brightness(1.1) contrast(1.04); }
+.fx-galaxy > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fx-galaxy canvas { opacity: 0; transition: opacity .9s ease-out; }
+.fx-galaxy canvas[data-shown] { opacity: 1; }
+.fx-galaxy .veil, .fx-galaxy .glitter, .fx-galaxy .glints { mix-blend-mode: screen; }
+.fx-galaxy .veil { inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); will-change: transform; }
+.fx-galaxy .grain { opacity: .24; mix-blend-mode: soft-light; background-size: 160px; }
+.fx-runway { background: #000; }
+.fx-runway canvas, .fx-runway .layer { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; }
+.fx-runway .lit { isolation: isolate; background: #000; }
+.fx-runway .haze-wrap { mix-blend-mode: screen; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.fx-runway .haze { top: -40px; left: -80px; width: calc(100% + 160px); height: calc(100% + 80px); opacity: .6; will-change: transform; }
+.fx-runway .light-gel { background: rgb(255 96 196); mix-blend-mode: multiply; }
+.fx-runway .own, .fx-runway .twinkle { mix-blend-mode: screen; }
+.fx-runway .vignette { background: linear-gradient(to bottom, rgb(0 0 0 / .5), rgb(0 0 0 / .18) 18%, transparent 30%), radial-gradient(ellipse 92% 86% at 50% 54%, transparent 52%, rgb(0 0 0 / .58) 100%); }
+.fx-runway .grain { background-size: 160px; opacity: .26; mix-blend-mode: soft-light; }
+.fx-wings { background: #050307; }
+.fx-wings > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fx-wings .reflection { filter: blur(1.2px); mix-blend-mode: screen; }
+.fx-wings .wings-far { opacity: .92; filter: blur(1.1px); mix-blend-mode: screen; }
+.fx-wings .wings-near { filter: blur(.55px) drop-shadow(0 0 10px color-mix(in srgb, var(--light) 40%, transparent)); mix-blend-mode: screen; }
+.fx-wings .fog { opacity: .9; filter: blur(10px); mix-blend-mode: screen; }
+.fx-wings .bokeh { filter: blur(.7px); mix-blend-mode: screen; }
+.fx-wings .sparkle { mix-blend-mode: screen; }
+.fx-wings .vignette { background: radial-gradient(ellipse 78% 70% at 50% 40%, transparent 52%, rgb(0 0 0 / .62) 100%); }
+.fx-wings .grain { opacity: .3; mix-blend-mode: soft-light; background-size: 160px; }
+@media (min-resolution: 2dppx) { .fx-galaxy .grain, .fx-runway .grain, .fx-wings .grain { background-size: 80px; } }
+/* A camera starburst (tools.ts), where real light catches: a pearl, an earring, a far light. */
+[data-fx="glint"] { position: absolute; width: 0; height: 0; pointer-events: none; z-index: 6; }
+[data-fx="glint"] img { position: absolute; left: calc(var(--box) / -2); top: calc(var(--box) / -2); width: var(--box); height: var(--box); max-width: none; mix-blend-mode: screen; }
+/* The still image fx.js composites from the layers, for print. */
+.fx-flat { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+
+/* ==========================================================================
+   6. Pages
+   ========================================================================== */
+
+/* ---- 01 · Cover (galaxy) --------------------------------------------- */
+.p01 { background: #06071d; }
+.p01 .masthead { position: absolute; left: calc(.55 * var(--u)); top: calc(.62 * var(--u)); width: calc(7.9 * var(--u)); height: auto; overflow: visible; z-index: 3; filter: drop-shadow(0 0 calc(.18 * var(--u)) rgba(212, 184, 255, .35)); }
+.p01 .masthead text { font-family: var(--font-didone); font-weight: 500; fill: #fff; }
+.p01 .cover-top { position: absolute; left: 0; right: 0; top: calc(1.66 * var(--u)); text-align: center; z-index: 3; }
+.p01 .cover-window { position: absolute; left: calc(2.25 * var(--u)); top: calc(2.06 * var(--u)); width: calc(4.5 * var(--u)); z-index: 2; }
+.p01 .cover-script {
+  position: absolute; left: 0; right: 0; top: calc(7.86 * var(--u)); z-index: 5;
+  text-align: center;
+  font-family: var(--font-script); font-size: calc(var(--pt) * 88); line-height: 1;
+  color: var(--blush);
+  transform: rotate(-2deg);
+  text-shadow: 0 0 calc(.3 * var(--u)) rgba(255, 140, 200, .55), 0 0 calc(.08 * var(--u)) rgba(255, 255, 255, .4);
+}
+.p01 .cover-foot { position: absolute; left: calc(.55 * var(--u)); right: calc(.55 * var(--u)); bottom: calc(.5 * var(--u)); z-index: 5; }
+.p01 .cover-foot .row { display: flex; justify-content: space-between; gap: calc(.3 * var(--u)); margin-top: calc(.16 * var(--u)); }
+.p01 .cover-foot .label { font-size: calc(var(--pt) * 8); letter-spacing: .24em; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .8); }
+.p01 .cover-foot .l { color: var(--champagne); }
+.p01 .cover-foot .r { text-align: right; }
+
+/* ---- 02 · Hello ------------------------------------------------------- */
+.p02 { background: var(--pearl); }
+.p02 .satin-panel { position: absolute; top: 0; bottom: 0; left: calc(3.24 * var(--u)); right: 0; background: var(--satin); }
+.p02 .ghost { right: calc(.42 * var(--u)); top: calc(.32 * var(--u)); color: var(--crimson); opacity: .07; }
+.p02 .hl { font-size: calc(var(--pt) * 60); margin-top: calc(.1 * var(--u)); }
+.callsheet { border-top: 1px solid var(--crimson); }
+.callsheet .row { display: grid; grid-template-columns: calc(1.25 * var(--u)) 1fr; align-items: baseline; gap: calc(.12 * var(--u)); padding: calc(.07 * var(--u)) 0; border-bottom: .5px solid rgba(142, 106, 46, .4); }
+.callsheet dt { font: 600 calc(var(--pt) * 7.5) / 1.3 var(--font-copy); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-deep); }
+.callsheet dd { font: 500 calc(var(--pt) * 11.5) / 1.3 var(--font-copy); color: var(--ink-plum); }
+.callsheet .cs-title { font: 600 calc(var(--pt) * 7.5) / 1 var(--font-copy); letter-spacing: .24em; text-transform: uppercase; color: var(--crimson); padding: calc(.1 * var(--u)) 0 calc(.04 * var(--u)); }
+.letter .sig { font-family: var(--font-script); color: var(--crimson); font-size: calc(var(--pt) * 46); line-height: 1; margin-top: calc(.14 * var(--u)); }
+.letter .sig-sub { margin-top: calc(.04 * var(--u)); color: var(--gold-deep); }
+
+/* ---- 03 · The walk (runway) ------------------------------------------ */
+.p03 { background: #000; }
+.p03 .hl { font-size: calc(var(--pt) * 44); white-space: nowrap; }
+.p03 .walk-frame { z-index: 2; }
+/* The street falls away under the feet, so Minh stands on the glitter. */
+.p03 .walk-frame .ph { --ft: 9%; --fb: 88%; --fs: 12%; }
+.p03 .walk-frame .ph img { filter: brightness(.92) contrast(1.06) saturate(.94); }
+.p03 .walk-frame .ph::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 52% at 50% 56%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .55) 100%); }
+.p03 .walk-frame::before { content: ""; position: absolute; left: -22%; right: -22%; top: -6%; bottom: 4%; background: radial-gradient(closest-side, rgba(255, 244, 236, .13), rgba(255, 244, 236, 0)); pointer-events: none; }
+/* The gel thinned, so the white and champagne light reads through, as on the front page. */
+.p03 .light-gel { opacity: .5; }
+/* A little dark under the folio, so the front bokeh sits behind it. */
+.p03 .folio::before { content: ""; position: absolute; z-index: -1; left: calc(-.6 * var(--u)); right: calc(-.6 * var(--u)); bottom: calc(-.4 * var(--u)); height: calc(1.1 * var(--u)); background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .55)); pointer-events: none; }
+
+/* ---- 04 · Comp card --------------------------------------------------- */
+.p04 .toprow { display: flex; justify-content: space-between; }
+.p04 .cc-grid {
+  position: absolute; left: calc(.55 * var(--u)); top: calc(.9 * var(--u)); width: calc(7.9 * var(--u)); height: calc(7.68 * var(--u));
+  display: grid; gap: calc(.12 * var(--u));
+  grid-template-columns: 3.05fr 2.305fr 2.305fr; grid-template-rows: 5.25fr 2.31fr;
+  grid-template-areas: "full head head" "full prof det";
+}
+.p04 .cc-grid .ph { width: 100%; height: 100%; }
+.p04 .a-full { grid-area: full; } .p04 .a-head { grid-area: head; } .p04 .a-prof { grid-area: prof; } .p04 .a-det { grid-area: det; }
+.p04 .cc-name { text-align: center; white-space: nowrap; }
+.p04 .cc-name .nm { font-family: var(--font-didone); font-weight: 600; font-size: calc(var(--pt) * 42); letter-spacing: .12em; line-height: 1; text-transform: uppercase; }
+.p04 .cc-name em { font-family: var(--font-script); font-style: normal; color: var(--crimson); font-size: calc(var(--pt) * 46); line-height: .8; margin-left: .1em; position: relative; top: .08em; }
+.stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 calc(.42 * var(--u)); padding: calc(.12 * var(--u)) 0; border-top: 1px solid var(--crimson); border-bottom: 1px solid var(--crimson); }
+.stats .st { text-align: center; }
+.stats .st b { display: block; font: 600 calc(var(--pt) * 7) / 1.3 var(--font-copy); letter-spacing: .22em; text-transform: uppercase; color: var(--crimson); }
+.stats .st span { font-family: var(--font-didone); font-size: calc(var(--pt) * 14); font-variant-numeric: lining-nums tabular-nums; }
+.stats .fallback { font: italic 500 calc(var(--pt) * 13) / 1.3 var(--font-copy); color: var(--ink-plum); }
+.p04 .inforow, .p04 .contactrow { text-align: center; color: var(--ink-plum); }
+.p04 .inforow span, .p04 .contactrow span, .p10 .contactrow span, .p10 .lockup span { white-space: nowrap; }
+.p04 .inforow span + span::before, .p04 .contactrow span + span::before, .p10 .contactrow span + span::before, .p10 .lockup span + span::before { content: "\00b7\00a0"; }
+
+/* ---- 05 · Up close ---------------------------------------------------- */
+.p05 { background: var(--satin); }
+.p05 .beauty { position: absolute; left: 0; top: 0; width: calc(6.3 * var(--u)); }
+.p05 .second { position: relative; z-index: 2; box-shadow: 0 0 0 1px rgba(217, 178, 111, .55), 0 calc(.1 * var(--u)) calc(.3 * var(--u)) rgba(120, 40, 70, .18), 0 calc(.4 * var(--u)) calc(.7 * var(--u)) calc(-.2 * var(--u)) rgba(42, 30, 44, .3); }
+.p05 .aside { font: 300 calc(var(--pt) * 26) / 1.05 var(--font-display); color: var(--ink); margin-top: calc(.14 * var(--u)); }
+.p05 .aside em { display: block; font-family: var(--font-script); font-style: normal; color: var(--crimson); font-size: 1.3em; line-height: 1; margin-top: calc(.06 * var(--u)); }
+.p05 .hl { font-size: calc(var(--pt) * 66); }
+
+/* ---- 06 · After dark (full-bleed night photo) ------------------------- */
+.p06 { background: #1a1614; }
+.p06 .ph.full { position: absolute; inset: 0; }
+.p06 .scrim { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(180deg, rgba(13, 3, 8, .9) 0%, rgba(22, 8, 20, .72) 20%, rgba(28, 10, 26, .4) 36%, rgba(28, 10, 26, 0) 49%), linear-gradient(0deg, rgba(13, 3, 8, .55) 0%, rgba(13, 3, 8, 0) 16%); }
+.p06 .ph.full img { filter: contrast(1.06) saturate(.92); }
+.p06 .grain { z-index: 2; opacity: .3; }
+.p06 .hl { font-size: calc(var(--pt) * 78); }
+.p06 .line { font: italic 400 calc(var(--pt) * 17) / 1.3 var(--font-display); color: rgba(255, 255, 255, .92); }
+.p06 header, .p06 .line { z-index: 3; }
+
+/* ---- 07 · The closet she opened -------------------------------------- */
+.p07 { background: var(--satin); }
+.p07 .hl { font-size: calc(var(--pt) * 66); }
+.p07 .photo-print { box-shadow: 0 0 0 1px rgba(217, 178, 111, .55), 0 calc(.1 * var(--u)) calc(.3 * var(--u)) rgba(120, 40, 70, .18), 0 calc(.4 * var(--u)) calc(.7 * var(--u)) calc(-.2 * var(--u)) rgba(42, 30, 44, .3); }
+.textcard { position: relative; background: #fff; padding: calc(.36 * var(--u)) calc(.34 * var(--u)) calc(.34 * var(--u)); border-top: 2px solid var(--crimson); box-shadow: 0 calc(.1 * var(--u)) calc(.3 * var(--u)) rgba(42, 30, 44, .1); }
+.textcard .pull { margin-top: calc(.22 * var(--u)); padding-top: calc(.16 * var(--u)); border-top: .5px solid rgba(142, 106, 46, .45); font: italic 400 calc(var(--pt) * 18) / 1.2 var(--font-display); color: var(--ink-plum); }
+.textcard .pull em { font-family: var(--font-script); font-style: normal; color: var(--crimson); font-size: 1.35em; white-space: nowrap; }
+
+/* ---- 08 · Borrowed Wings (the board's stage) -------------------------- */
+.p08 { background: var(--night); }
+.p08 .wings-wrap { position: absolute; left: 0; right: 0; top: 0; height: calc(5.4 * var(--u));
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%); }
+.p08 .wings-space { display: none; }
+.p08 .stage-frame { z-index: 2; }
+.p08 .stage-frame .ph { --ft: 10%; --fb: 80%; --fs: 18%; }
+.p08 .stage-frame .ph img { filter: brightness(.86) contrast(1.1) saturate(.92); }
+/* The flash photo falls off into the stage dark at its edges, as the follow spot does. */
+.p08 .stage-frame .ph::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(42% 56% at 52% 50%, rgba(18, 10, 20, 0) 30%, rgba(18, 10, 20, .55) 72%, rgba(18, 10, 20, .85) 100%), linear-gradient(180deg, rgba(18, 10, 20, .35), rgba(18, 10, 20, 0) 30%); }
+.p08 .show-title { font-family: var(--font-display); font-weight: 300; color: #fff; font-size: calc(var(--pt) * 72); line-height: 1; letter-spacing: -.01em; text-align: center; white-space: nowrap; }
+.p08 .show-title em { font-family: var(--font-script); font-style: normal; color: var(--blush); font-size: 1.16em; position: relative; top: .06em; }
+.p08 .tagline { color: var(--champagne); letter-spacing: .3em; }
+.p08 .p08-kicker { text-shadow: 0 1px 3px rgba(0, 0, 0, .8); }
+.p08 .story { text-align: center; font-size: calc(var(--pt) * 11.75); }
+.acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: calc(.15 * var(--u)); }
+.act { padding: calc(.16 * var(--u)) calc(.14 * var(--u)); display: flex; flex-direction: column; gap: calc(.1 * var(--u)); }
+.act.glass { border: 0; background: linear-gradient(180deg, rgba(15, 10, 17, .62), rgba(9, 6, 11, .3)); }
+.act.glass::after { display: none; }
+.act h3 { font: 600 calc(var(--pt) * 8.5) / 1.25 var(--font-didone); letter-spacing: .14em; text-transform: uppercase; color: #fff; }
+.act h3 small { display: block; font-size: calc(var(--pt) * 6.5); color: var(--champagne); letter-spacing: .26em; margin-bottom: calc(.03 * var(--u)); }
+/* Fabric swatches: satin catching the light, not flat chips. */
+.act .swatch { height: calc(.44 * var(--u)); background: radial-gradient(55% 160% at 28% -10%, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 62%), linear-gradient(100deg, var(--c2) 0%, var(--c1) 17%, color-mix(in srgb, var(--c1), #fff 48%) 29%, var(--c1) 39%, var(--c2) 57%, var(--c1) 72%, color-mix(in srgb, var(--c1), #fff 26%) 83%, var(--c2) 100%); box-shadow: inset 0 calc(-.04 * var(--u)) calc(.07 * var(--u)) rgba(0, 0, 0, .38), inset 0 1px 0 rgba(255, 255, 255, .28); outline: .5px solid rgba(255, 255, 255, .14); outline-offset: -.5px; }
+.act p { font: 500 calc(var(--pt) * 10.5) / 1.35 var(--font-copy); color: rgba(255, 255, 255, .92); }
+.act .cue { font: 600 calc(var(--pt) * 6.5) / 1.4 var(--font-copy); letter-spacing: .2em; text-transform: uppercase; color: var(--champagne); margin-top: auto; text-wrap: balance; }
+.act .cue .nc { text-transform: none; }
+.p08 .staging { text-align: center; }
+.timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid rgba(247, 217, 168, .45); }
+.timeline li { position: relative; text-align: center; padding-top: calc(.14 * var(--u)); }
+.timeline li + li { border-left: .5px solid rgba(247, 217, 168, .25); }
+.timeline b { display: block; font: 600 calc(var(--pt) * 7) / 1.3 var(--font-didone); letter-spacing: .16em; color: var(--champagne); text-transform: uppercase; }
+.timeline span { display: block; font: 500 calc(var(--pt) * 10) / 1.3 var(--font-copy); color: rgba(255, 255, 255, .9); margin-top: calc(.03 * var(--u)); }
+
+/* ---- 09 · The plan ---------------------------------------------------- */
+.p09 { background: var(--pearl); }
+.p09 .gframe { position: absolute; inset: calc(.3 * var(--u)); border: .75px solid var(--gold); pointer-events: none; }
+.p09 .hl { font-size: calc(var(--pt) * 50); }
+.ros .act-h { font: 600 calc(var(--pt) * 7.5) / 1.3 var(--font-copy); letter-spacing: .24em; text-transform: uppercase; color: var(--crimson); padding-bottom: calc(.05 * var(--u)); border-bottom: .5px solid rgba(200, 16, 46, .4); margin-bottom: calc(.05 * var(--u)); }
+.ros .grp + .grp { margin-top: calc(.17 * var(--u)); }
+.ros li { display: grid; grid-template-columns: calc(.34 * var(--u)) 1fr; align-items: baseline; font: 500 calc(var(--pt) * 10.5) / 1.38 var(--font-copy); color: var(--ink-plum); }
+.ros li b { font: 500 calc(var(--pt) * 10.5) / 1 var(--font-didone); color: var(--gold-deep); font-variant-numeric: lining-nums tabular-nums; }
+.closet-card { position: relative; background: #fff; border: .5px solid rgba(142, 106, 46, .5); border-top: 2px solid var(--crimson); padding: calc(.2 * var(--u)) calc(.24 * var(--u)); margin-top: calc(.34 * var(--u)); box-shadow: 0 calc(.06 * var(--u)) calc(.18 * var(--u)) rgba(42, 30, 44, .07); }
+.closet-card .cc-t { font: 600 calc(var(--pt) * 7) / 1.3 var(--font-copy); letter-spacing: .24em; text-transform: uppercase; color: var(--crimson); }
+.closet-card .cc-look { font: 500 calc(var(--pt) * 16) / 1.1 var(--font-didone); letter-spacing: .14em; margin: calc(.06 * var(--u)) 0 calc(.04 * var(--u)); }
+.closet-card .ln { font: 500 calc(var(--pt) * 10) / 1.75 var(--font-copy); color: var(--ink-plum); }
+.closet-card .ln u { text-decoration: none; display: inline-block; width: calc(1.1 * var(--u)); border-bottom: .5px solid var(--ink-plum); }
+.closet-card .ln u.s { width: calc(.5 * var(--u)); }
+.lender { margin-top: calc(.16 * var(--u)); font: italic 500 calc(var(--pt) * 10) / 1.45 var(--font-copy); color: var(--ink-plum); }
+.lender b { font-style: normal; font: 600 calc(var(--pt) * 7) / 1 var(--font-copy); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-deep); margin-right: .4em; }
+.budget { background: #fff; border-top: 2px solid var(--crimson); padding: calc(.2 * var(--u)) calc(.22 * var(--u)) calc(.22 * var(--u)); box-shadow: 0 calc(.06 * var(--u)) calc(.2 * var(--u)) rgba(42, 30, 44, .07); }
+.budget .bt { font: 400 calc(var(--pt) * 22) / 1 var(--font-display); color: var(--ink); margin: calc(.06 * var(--u)) 0 calc(.12 * var(--u)); }
+.btab { width: 100%; border-collapse: collapse; font-variant-numeric: lining-nums tabular-nums; }
+.btab th { font: 600 calc(var(--pt) * 6.5) / 1.2 var(--font-copy); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-deep); text-align: right; padding: 0 0 calc(.05 * var(--u)); border-bottom: .5px solid var(--ink-plum); }
+.btab th:first-child { text-align: left; }
+.btab td { font: 500 calc(var(--pt) * 9.5) / 1.2 var(--font-copy); color: var(--ink-plum); padding: calc(.04 * var(--u)) 0; vertical-align: baseline; white-space: nowrap; }
+.btab tbody tr + tr td { border-top: .5px solid rgba(42, 30, 44, .1); }
+.btab td.v { font-family: var(--font-didone); font-size: calc(var(--pt) * 9); text-align: right; white-space: nowrap; width: calc(.5 * var(--u)); color: var(--ink); }
+.btab td.v.lean { color: var(--mauve); }
+.btab td.b { width: calc(.6 * var(--u)); padding-left: calc(.1 * var(--u)); vertical-align: middle; }
+.btab .bar { display: none; }
+.btab td.b { width: 0; padding: 0; }
+.btab tr.sub td { border-top: .5px solid var(--ink-plum); padding-top: calc(.06 * var(--u)); }
+.btab tr.tot td { border-top: 1px solid var(--crimson); font-weight: 700; color: var(--ink); padding-top: calc(.06 * var(--u)); }
+.btab tr.tot td.v { font-weight: 700; font-size: calc(var(--pt) * 10); }
+.btab tr.tot td.v.lean { color: var(--crimson-dark); }
+.btab.src { margin-top: calc(.18 * var(--u)); }
+.budget .flex { margin-top: calc(.16 * var(--u)); padding: calc(.1 * var(--u)) 0 0; border-top: .5px solid rgba(142, 106, 46, .5); font: italic 500 calc(var(--pt) * 10) / 1.4 var(--font-copy); color: var(--ink-plum); }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: calc(.14 * var(--u)); border-top: .5px solid rgba(142, 106, 46, .5); }
+.kpi { padding: calc(.1 * var(--u)) calc(.06 * var(--u)) 0 0; }
+.kpi b { display: block; font: 500 calc(var(--pt) * 15) / 1 var(--font-didone); color: var(--ink); font-variant-numeric: lining-nums; }
+.kpi span { display: block; margin-top: calc(.04 * var(--u)); font: 600 calc(var(--pt) * 6) / 1.3 var(--font-copy); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-plum); }
+.budget .fine { margin-top: calc(.1 * var(--u)); font: italic 500 calc(var(--pt) * 8) / 1.35 var(--font-copy); color: var(--mauve); }
+.p09 .roleline { text-align: center; font: 300 calc(var(--pt) * 24) / 1.1 var(--font-display); color: var(--ink); }
+.p09 .roleline em { font-family: var(--font-script); font-style: normal; color: var(--crimson); font-size: 1.3em; line-height: .8; position: relative; top: .06em; }
+
+/* ---- 10 · Curtain call (galaxy, mirrored) ----------------------------- */
+.p10 { background: #06071d; color: #fff; }
+.p10 .stack { position: absolute; left: calc(.55 * var(--u)); right: calc(.55 * var(--u)); top: calc(.75 * var(--u)); display: flex; flex-direction: column; align-items: center; text-align: center; gap: calc(.2 * var(--u)); z-index: 3; }
+.p10 .closing-window { width: calc(3.3 * var(--u)); margin-bottom: calc(-.3 * var(--u)); }
+.p10 .hl { color: #fff; font-size: calc(var(--pt) * 72); }
+.p10 .line { font: 400 calc(var(--pt) * 16) / 1.4 var(--font-display); color: rgba(255, 255, 255, .95); }
+.p10 .wink { font: 400 calc(var(--pt) * 30) / 1 var(--font-script); color: var(--blush); margin-top: calc(-.04 * var(--u)); text-shadow: 0 0 calc(.2 * var(--u)) rgba(255, 140, 200, .45); }
+.p10 .contactrow { color: #fff; }
+.p10 .lockup { font: 600 calc(var(--pt) * 12) / 1.2 var(--font-didone); letter-spacing: .16em; text-transform: uppercase; }
+.p10 .colophon { position: absolute; left: calc(1.2 * var(--u)); right: calc(1.2 * var(--u)); bottom: calc(.55 * var(--u)); text-align: center; font: italic 500 calc(var(--pt) * 8.5) / 1.45 var(--font-copy); color: rgba(255, 255, 255, .86); z-index: 3; text-shadow: 0 1px 3px rgba(0, 0, 0, .8); }
+
+/* ==========================================================================
+   7. Screen extras: motion, the 08|09 spread
+   ========================================================================== */
+@media screen and (min-width: 1500px) {
+  .spread { display: flex; gap: 0; justify-content: center; }
+  .spread .page { width: min(900px, calc((100vw - 96px) / 2)); }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  [data-fx="glint"] img { animation: catch var(--dur, 6s) ease-in-out var(--del, 0s) infinite; }
+  .rise { transition: opacity .9s cubic-bezier(.22, .61, .36, 1), transform .9s cubic-bezier(.22, .61, .36, 1); }
+  .rise.pre { opacity: 0; transform: translateY(20px); }
+}
+/* A glint catching: it swells as the light lines up, then lets go. */
+@keyframes catch {
+  0%, 100% { opacity: .35; transform: scale(.62); }
+  9% { opacity: 1; transform: scale(1.06); }
+  16% { opacity: .85; transform: scale(.94); }
+  34% { opacity: .4; transform: scale(.66); }
+}
+
+/* Pin export: ?page=N shows one page at 1200 x 1600 (add &still for no motion). */
+body.single .book { padding: 0; gap: 0; }
+body.single .page { display: none; }
+body.single .page.target { display: block; width: 1200px; box-shadow: none; }
+body.single .sitebar { display: none; }
+
+/* ==========================================================================
+   8. Phone (under 640px): full-width sections, one column, 16px gutters
+   ========================================================================== */
+@media screen and (max-width: 639.98px) {
+  .sitebar { height: 42px; }
+  .sitebar .home { font-size: 21px; }
+  .sitebar nav { gap: 14px; }
+  .sitebar nav a { font-size: 10px; letter-spacing: .18em; }
+  .book { gap: 0; padding: 0; }
+  .page { width: 100%; box-shadow: none; }
+  .page:not(.keep) { aspect-ratio: auto; }
+  .page:not(.keep) > .sheet { position: relative; inset: auto; display: flex; flex-direction: column; gap: 22px; padding: 56px 16px 64px; }
+  .page:not(.keep) .abs { position: relative; left: auto; top: auto; width: auto; }
+  .page:not(.keep) .folio { position: relative; left: auto; right: auto; bottom: auto; margin-top: 8px; font-size: 10px; }
+  .hl, .p02 .hl, .p05 .hl, .p07 .hl, .p09 .hl, .p10 .hl { font-size: clamp(40px, 12vw, 72px); }
+  .kicker { font-size: 11px; }
+  .label { font-size: 10.5px; }
+  .body { font-size: 16px; }
+  .ghost { font-size: 44vw; }
+
+  /* 01 and 06 keep their 3:4 frame: photographs with type on them. */
+  .p01 .cover-foot .row { flex-direction: column; gap: 4px; }
+  .p01 .cover-foot .r { text-align: left; }
+  .p01 .cover-foot .label { font-size: 8.5px; letter-spacing: .16em; }
+  .p01 .cover-top { font-size: 8px; letter-spacing: .2em; top: calc(1.74 * var(--u)); }
+  .p06 .kicker { font-size: 9.5px; }
+  .p06 .hl { font-size: 46px; }
+  .p06 .line { font-size: 15px; }
+  .p06 .folio { font-size: 8px; letter-spacing: .16em; }
+
+  /* 02 */
+  .p02 .satin-panel { display: none; }
+  .p02 .letter { background: var(--satin); margin: 0 -16px; padding: 28px 16px; position: relative; }
+  .callsheet dt { font-size: 10px; }
+  .callsheet dd { font-size: 16px; }
+  .callsheet .row { grid-template-columns: 112px 1fr; padding: 7px 0; }
+  .callsheet .cs-title { font-size: 10.5px; }
+  .letter .sig { font-size: 48px; }
+
+  /* 03 */
+  .p03 .hl { font-size: clamp(30px, 9.4vw, 48px); white-space: normal; }
+  .page.p03 .abs.walk-frame { width: 84%; margin: 26px auto 120px; }
+
+  /* 04 */
+  .p04 .cc-grid { position: relative; left: auto; top: auto; width: auto; height: auto; grid-template-columns: 1fr 1fr; grid-template-rows: auto; grid-template-areas: "head head" "full full" "prof det"; gap: 8px; }
+  .p04 .a-head { aspect-ratio: 4 / 5; } .p04 .a-full { aspect-ratio: 2 / 3; } .p04 .a-prof, .p04 .a-det { aspect-ratio: 1 / 1; }
+  .p04 .cc-name { white-space: normal; }
+  .p04 .cc-name .nm { font-size: 30px; }
+  .p04 .cc-name em { font-size: 34px; }
+  .stats .st b { font-size: 10px; } .stats .st span { font-size: 18px; } .stats .fallback { font-size: 17px; }
+  .stats { padding: 12px 0; gap: 4px 24px; }
+  .p04 .inforow, .p04 .contactrow { font-size: 10.5px; line-height: 1.8; }
+  .p04 .inforow span:last-child, .p10 .lockup span:last-child { display: block; }
+  .p04 .inforow span:last-child::before, .p10 .lockup span:last-child::before { content: none; }
+
+  /* 05 */
+  .p05 .beauty { position: relative; width: auto; margin: -56px -16px 0; }
+  .page.p05 .abs.second-wrap { width: 62%; margin: 2px 0 0 auto; }
+  .p05 .aside { font-size: 26px; }
+
+  /* 07 */
+  .p07 .photo-print { width: 92%; }
+  .textcard { padding: 26px 18px 22px; margin-top: 10px; }
+  .textcard .pull { font-size: 21px; }
+
+  /* 08 */
+  .p08 .wings-wrap { height: 420px; }
+  .page.p08 .abs.stage-frame { width: 72%; margin: -16px auto 0; }
+  .p08 .show-title { font-size: clamp(44px, 13.5vw, 72px); }
+  .p08 .tagline { font-size: 10px; letter-spacing: .2em; }
+  .p08 .story { font-size: 16px; }
+  .acts { grid-template-columns: 1fr; gap: 12px; }
+  .act { padding: 16px; gap: 8px; }
+  .act h3 { font-size: 14px; } .act h3 small { font-size: 10px; }
+  .act .swatch { height: 22px; }
+  .act p { font-size: 16px; } .act .cue { font-size: 10px; }
+  .p08 .staging { font-size: 16px !important; }
+  .timeline { grid-template-columns: 1fr; gap: 0; border-top: 0; border-left: 1px solid rgba(247, 217, 168, .45); }
+  .timeline li { text-align: left; padding: 6px 0 6px 18px; }
+  .timeline li + li { border-left: 0; border-top: .5px solid rgba(247, 217, 168, .2); }
+  .timeline b { font-size: 10px; } .timeline span { font-size: 16px; }
+
+  /* 09 */
+  .p09 .gframe { inset: 8px; }
+  .ros .act-h { font-size: 10.5px; }
+  .ros li, .ros li b { font-size: 16px; }
+  .ros li { grid-template-columns: 34px 1fr; }
+  .closet-card .cc-t { font-size: 10px; } .closet-card .cc-look { font-size: 20px; }
+  .closet-card .ln, .lender { font-size: 15px; }
+  .closet-card .ln u { width: 90px; } .closet-card .ln u.s { width: 40px; }
+  .lender b { font-size: 10px; }
+  .budget { padding: 18px 14px; }
+  .budget .bt { font-size: 28px; }
+  .btab th { font-size: 9.5px; }
+  .btab td { font-size: 14px; } .btab td.v { font-size: 13px; width: 52px; } .btab tr.tot td.v { font-size: 14px; }
+  .budget .flex { font-size: 15px; }
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .kpi b { font-size: 24px; } .kpi span { font-size: 9.5px; }
+  .btab td { white-space: normal; }
+  .budget .fine { font-size: 13px; }
+  .p09 .roleline { font-size: 28px; }
+
+  /* 10 */
+  .p10 .stack { position: relative; inset: auto; padding: 8px 0 0; }
+  .p10 .closing-window { width: 70%; }
+  .p10 .line { font-size: 19px; }
+  .p10 .wink { font-size: 34px; }
+  .p10 .lockup { font-size: 13px; }
+  .p10 .contactrow { font-size: 10.5px; }
+  .p10 .colophon { position: relative; left: auto; right: auto; bottom: auto; font-size: 13px; margin-top: 150px; }
+}
+
+/* ==========================================================================
+   9. Print: ten 9 x 12 in pages, each stage as one fully painted still
+   ========================================================================== */
+@page { size: 9in 12in; margin: 0; }
+@media print {
+  html, body { background: #fff; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; animation: none !important; transition: none !important; }
+  .sitebar { display: none !important; }
+  .book { display: block; padding: 0; gap: 0; }
+  .spread { display: contents; }
+  .page { width: 9in; height: 12in; aspect-ratio: auto; margin: 0; box-shadow: none; break-after: page; page-break-after: always; break-inside: avoid; }
+  .page.last { break-after: auto; page-break-after: auto; }
+  .sheet { --u: 1in; }
+  .rise.pre { opacity: 1 !important; transform: none !important; }
+  .fx-galaxy canvas { opacity: 1 !important; }
+  /* Print what the screen shows, without what PDF renderers get wrong: soft shadows, blends,
+     masks, backdrop blur. Each stage prints as the still image fx.js composited. */
+  .page *, .page *::before, .page *::after { box-shadow: none !important; text-shadow: none !important; }
+  .p01 .masthead { filter: none; }
+  .grain { display: none !important; }
+  .film-edge::after { background: none; -webkit-mask: none; mask: none; padding: 0; border: 1px solid rgba(247, 217, 168, .55); }
+  /* PDF renderers drop or tile CSS masks, so in print the soft-edged photos are clean prints
+     edged in a champagne hairline, sized to clear the type around them. */
+  .fade-edge { -webkit-mask-image: none !important; mask-image: none !important; outline: .75pt solid rgba(247, 217, 168, .55); }
+  .p01 .cover-window { left: 2.4in; width: 4.2in; }
+  .p08 .stage-frame { --x: 3.375 !important; --w: 2.25 !important; }
+  .p10 .closing-window { margin-bottom: .16in; }
+  .fx-galaxy.has-flat > :not(.fx-flat), .fx-runway.has-flat > :not(.fx-flat), .fx-wings.has-flat > :not(.fx-flat) { display: none !important; }
+  .has-flat > .fx-flat { display: block !important; }
+  .p08 .wings-wrap:has(.has-flat) { -webkit-mask-image: none; mask-image: none; }
+  [data-fx="glint"] img { mix-blend-mode: normal; }
+  .print, .textcard, .budget, .closet-card { outline: .5pt solid rgba(142, 106, 46, .3); }
+  .p05 .second, .p07 .photo-print { outline: .75pt solid rgba(217, 178, 111, .7); }
+  .glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: #0d080f; border-color: rgba(232, 203, 142, .3); }
+}
+</style>
+</head>
+<body>
+<header class="sitebar">
+  <a class="home" href="../index.html">MyFashionSpace</a>
+  <nav aria-label="Site">
+    <a href="../about.html">About</a>
+    <a href="./" aria-current="page">Model Book</a>
+  </nav>
+</header>
+
+<main class="book" id="book">
+
+<!-- =====================================================================
+     01 · COVER (the galaxy, Fandemonium's name page)
+     ===================================================================== -->
+<section class="page p01 keep night" id="p01" aria-label="Cover">
+  <div class="sheet">
+    <div data-fx="galaxy"></div>
+    <svg class="masthead" data-fx-keep viewBox="0 0 790 92" aria-label="Minh Nguyen" role="img">
+      <text x="395" y="80" text-anchor="middle" font-size="86" textLength="790" lengthAdjust="spacing">MINH NGUYEN</text>
+    </svg>
+    <p class="cover-top label" data-fx-keep>The Model Book · Fall 2026</p>
+    <div class="cover-window halo" style="--ft:7%;--fs:8%">
+      <figure class="ph r34 fade-edge" data-slot="cover">
+        <i data-fx="glint" data-size="18" data-tint="#fff0d8" style="left:50.2%;top:83.2%;--dur:5.2s;--del:.4s"></i>
+        <i data-fx="glint" data-size="11" data-tint="#ffe6f2" style="left:70.6%;top:41.4%;--dur:7.4s;--del:2.6s"></i>
+      </figure>
+    </div>
+    <p class="cover-script" data-fx-keep>Angel off duty</p>
+    <div class="cover-foot" data-fx-keep>
+      <div class="hair"></div>
+      <div class="row">
+        <span class="label l">Model · Dartmouth ’27 · They / Them</span>
+        <span class="label r">For Fashion Etc.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     02 · HELLO (pearl and blush satin)
+     ===================================================================== -->
+<section class="page p02" id="p02" aria-label="Hello">
+  <div class="sheet">
+    <div class="satin-panel"></div>
+    <div class="grain"></div>
+    <div class="ghost" aria-hidden="true">02</div>
+
+    <header class="abs rise" style="--x:.55;--y:.74;--w:7.4">
+      <p class="kicker">Hello</p>
+      <h2 class="hl">Hi, I’m <em>Minh.</em></h2>
+    </header>
+
+    <div class="abs rise" style="--x:.55;--y:2.3;--w:4.53">
+      <figure class="ph r45 print" data-slot="hello"></figure>
+    </div>
+
+    <div class="abs letter rise" style="--x:5.36;--y:3.2;--w:3.09">
+      <div class="body">
+        <p class="dc">From Hanoi to Hanover. I’m a senior at Dartmouth, studying math and computer science. I work with models of every kind. This book is the runway kind.</p>
+        <p>Off the clock, I do photoshoots, runway walks, and castings. This year has been my start in womanhood. <span class="kd-off">Rushing a sorority for the first time this fall was a big step for me,</span><span class="kd-on">I joined Kappa Delta this fall, my first time rushing a sorority,</span> and it’s made me more comfortable walking into rooms where I’m new.</p>
+        <p>I want to walk for Fashion Etc., and help build the show around the walk.</p>
+      </div>
+      <p class="sig">Minh</p>
+      <p class="label sig-sub">Minh Nguyen · they / them</p>
+    </div>
+
+    <dl class="abs callsheet rise" style="--x:.55;--y:8.62;--w:4.53">
+      <div class="cs-title">Call sheet</div>
+      <div class="row"><dt>Talent</dt><dd>Minh Nguyen</dd></div>
+      <div class="row"><dt>Pronouns</dt><dd>they / them</dd></div>
+      <div class="row"><dt>From</dt><dd>Hanoi, Vietnam</dd></div>
+      <div class="row"><dt>Based</dt><dd>Hanover, New Hampshire</dd></div>
+      <div class="row"><dt>Available for</dt><dd>Runway · Editorial · Campus shoots</dd></div>
+    </dl>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">02 / 10</span></footer>
+  </div>
+</section>
+
+<!-- =====================================================================
+     03 · THE WALK (the glitter runway, Fandemonium's front page)
+     ===================================================================== -->
+<section class="page p03 night" id="p03" aria-label="The walk">
+  <div class="sheet">
+    <div data-fx="runway"></div>
+
+    <header class="abs center" style="--x:.55;--y:.6;--w:7.9" data-fx-header>
+      <p class="kicker">The walk</p>
+      <h2 class="hl glow-type" style="margin-top:calc(.14 * var(--u))">Shoulders back. <em>Eyes up.</em></h2>
+    </header>
+    <div class="abs walk-frame rise" style="--x:2.3;--y:2.3;--w:4.4">
+      <figure class="ph r23 fade-edge" data-slot="walk" data-fx-card></figure>
+    </div>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">03 / 10</span></footer>
+  </div>
+</section>
+
+<!-- =====================================================================
+     04 · COMP CARD (white)
+     ===================================================================== -->
+<section class="page p04" id="p04" aria-label="Comp card">
+  <div class="sheet">
+    <div class="abs toprow" style="--x:.55;--y:.5;--w:7.9"><span class="kicker">Comp card</span><span class="kicker">Fall 2026</span></div>
+
+    <div class="cc-grid rise">
+      <figure class="ph a-full" data-slot="comp-full"></figure>
+      <figure class="ph a-head" data-slot="comp-head"></figure>
+      <figure class="ph a-prof" data-slot="comp-profile"></figure>
+      <figure class="ph a-det" data-slot="comp-detail"></figure>
+    </div>
+
+    <div class="abs cc-name rise" style="--x:.55;--y:8.84;--w:7.9"><span class="nm">Minh Nguyen</span><em>model</em></div>
+    <div class="abs rise" style="--x:.55;--y:9.62;--w:7.9"><div class="stats" id="stats"></div></div>
+    <p class="abs label inforow" style="--x:.55;--y:10.36;--w:7.9"><span>They / them</span> <span>Hanover, NH</span> <span>From Hanoi, Vietnam</span></p>
+    <p class="abs label contactrow" style="--x:.55;--y:10.62;--w:7.9"><span data-contact="instagram"></span> <span data-contact="email"></span></p>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">04 / 10</span></footer>
+  </div>
+</section>
+
+<!-- =====================================================================
+     05 · UP CLOSE (blush satin)
+     ===================================================================== -->
+<section class="page p05" id="p05" aria-label="Up close">
+  <div class="sheet">
+    <div class="grain"></div>
+    <figure class="ph r34 beauty" data-slot="beauty"></figure>
+
+    <div class="abs rise" style="--x:6.62;--y:1.9;--w:1.95">
+      <p class="kicker">The face</p>
+      <p class="aside">Gloss on, <em>eyes on you.</em></p>
+    </div>
+
+    <div class="abs second-wrap rise" style="--x:5.2;--y:5.7;--w:3.0">
+      <div class="second"><figure class="ph r34" data-slot="second"></figure></div>
+    </div>
+
+    <div class="abs rise" style="--x:.55;--y:8.95;--w:4.5">
+      <p class="kicker">Come closer</p>
+      <h2 class="hl" style="margin-top:calc(.12 * var(--u))">Up <em>close.</em></h2>
+    </div>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">05 / 10</span></footer>
+  </div>
+</section>
+
+<!-- =====================================================================
+     06 · AFTER DARK (full-bleed night photograph)
+     ===================================================================== -->
+<section class="page p06 keep night" id="p06" aria-label="After dark">
+  <div class="sheet">
+    <figure class="ph full" data-slot="night">
+      <i data-fx="glint" data-size="28" data-tint="#ffd2a8" style="left:3.9%;top:54.4%;--dur:6.4s;--del:.8s"></i>
+      <i data-fx="glint" data-size="12" data-tint="#dfe8ff" style="left:66.4%;top:53.2%;--dur:8.2s;--del:3.1s"></i>
+    </figure>
+    <div class="scrim"></div>
+    <div class="grain"></div>
+
+    <header class="abs" style="--x:.62;--y:.7;--w:7.8">
+      <p class="kicker">Off duty</p>
+      <h2 class="hl glow-type" style="margin-top:calc(.12 * var(--u))">After <em>dark.</em></h2>
+    </header>
+    <p class="abs line" style="--x:.66;--y:2.5;--w:5">My best angles come out at night.</p>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">06 / 10</span></footer>
+  </div>
+</section>
+
+<!-- =====================================================================
+     07 · THE CLOSET SHE OPENED (blush satin)
+     ===================================================================== -->
+<section class="page p07" id="p07" aria-label="The closet she opened for me">
+  <div class="sheet">
+    <div class="grain"></div>
+
+    <div class="abs rise" style="--x:.62;--y:.72;--w:4.9">
+      <div class="photo-print"><figure class="ph r34" data-slot="candid"></figure></div>
+    </div>
+
+    <header class="abs rise p07-head" style="--x:.55;--y:7.98;--w:7.9">
+      <p class="kicker">Off duty</p>
+      <h2 class="hl" style="margin-top:calc(.12 * var(--u))">The closet she<br><em>opened for me.</em></h2>
+    </header>
+
+    <div class="abs rise p07-text" style="--x:5.8;--y:1.3;--w:2.68">
+      <div class="textcard">
+        <div class="body">
+          <p class="dc">The day before my flight back to college, my mom took me to a closet she had kept for decades. It was full of her clothes from her own college years, in the 2000s. She had great fashion sense. She told me to pick whatever I wanted.</p>
+          <p>I know I’ll always have her beside me, and I know how much she has sacrificed for me to be who I am today. That’s what drives me, on the runway and off it.</p>
+        </div>
+        <p class="pull">My motivation is <em>my mom.</em></p>
+      </div>
+    </div>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">07 / 10</span></footer>
+  </div>
+</section>
+
+<div class="spread">
+<!-- =====================================================================
+     08 · BORROWED WINGS, left page of the show spread (the board's stage)
+     ===================================================================== -->
+<section class="page p08 night" id="p08" aria-label="Borrowed Wings, a runway concept">
+  <div class="sheet">
+    <div class="wings-wrap"><div data-fx="wings" data-no-wings data-light="#ff4fa6" data-accent="#ffb3da" data-fade="#120a14"></div></div>
+    <div class="grain"></div>
+
+    <div class="wings-space" aria-hidden="true"></div>
+    <div class="abs stage-frame rise" style="--x:3.2;--y:.36;--w:2.6">
+      <figure class="ph r34 fade-edge" data-slot="stage"></figure>
+    </div>
+    <p class="abs kicker center p08-kicker" style="--x:.55;--y:3.5;--w:7.9">A runway concept for Fashion Etc.</p>
+    <h2 class="abs show-title glow-type" style="--x:.55;--y:3.86;--w:7.9">Borrowed <em>Wings.</em></h2>
+    <p class="abs label tagline center" style="--x:.55;--y:5.06;--w:7.9">Walk it · Direct it · Run the numbers</p>
+
+    <div class="abs body story rise" style="--x:1.9;--y:5.42;--w:5.2">
+      <p>Every look starts in someone else’s closet. A mom’s, a sister’s, a roommate’s. My mom opened hers to me. This show opens everyone’s.</p>
+      <p>Each model walks in something borrowed from a person who shaped them, styled up to full runway glamour, with wings we make by hand. The lenders sit in the front row. In the finale, the wings come off.</p>
+    </div>
+
+    <div class="abs hair" style="--x:2.4;--y:7.06;--w:4.2"></div>
+
+    <div class="abs acts rise" style="--x:.55;--y:7.26;--w:7.9">
+      <div class="act glass"><h3><small>Act I</small>Blush</h3><div class="swatch" style="--c1:#ffe3ed;--c2:#f3c2d4"></div><p>Soft. Satin, knits, pearls, small wings.</p><p class="cue">Blush wash · slow R&amp;B</p></div>
+      <div class="act glass"><h3><small>Act II</small>Crimson</h3><div class="swatch" style="--c1:#c8102e;--c2:#7d0a1c"></div><p>Power. 2000s tailoring from our parents’ closets, red lip.</p><p class="cue">Crimson side light · house, one V-pop remix</p></div>
+      <div class="act glass"><h3><small>Act III</small>Midnight</h3><div class="swatch" style="--c1:#2a1e2c;--c2:#0d0306"></div><p>Night. Black lace, sequins, gold, the biggest wings.</p><p class="cue">One white follow spot · <span class="nc">2000s</span> pop remix</p></div>
+      <div class="act glass"><h3><small>Finale</small>Off duty</h3><div class="swatch" style="--c1:#ffffff;--c2:#e9dcd6"></div><p>Everyone in their own white tee and jeans, wings in hand.</p><p class="cue">House lights up · one song</p></div>
+    </div>
+
+    <p class="abs body staging rise" style="--x:1.2;--y:9.46;--w:6.6;font-size:calc(var(--pt) * 11)">One straight white runway, audience on both sides, a photo pit at the end. A floor mirror marks the turn: each model stops, holds a flash beat, and turns. Cast for a range of bodies, genders and walks. About 20 minutes.</p>
+
+    <ol class="abs timeline rise" style="--x:.8;--y:10.4;--w:7.4">
+      <li><b>Wk 1–2</b><span>Casting and closet call</span></li>
+      <li><b>Wk 3</b><span>Wings workshop</span></li>
+      <li><b>Wk 4</b><span>Fittings</span></li>
+      <li><b>Wk 5</b><span>Tech and rehearsal</span></li>
+      <li><b>Wk 6</b><span>Show</span></li>
+    </ol>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">08 / 10</span></footer>
+  </div>
+</section>
+
+<!-- =====================================================================
+     09 · THE PLAN, right page of the show spread (pearl)
+     ===================================================================== -->
+<section class="page p09" id="p09" aria-label="Borrowed Wings, the plan">
+  <div class="sheet">
+    <div class="gframe"></div>
+
+    <header class="abs rise" style="--x:.55;--y:.62;--w:7.9">
+      <p class="kicker">Borrowed Wings · The plan</p>
+      <h2 class="hl" style="margin-top:calc(.1 * var(--u))">Run of <em>show.</em></h2>
+    </header>
+
+    <div class="abs rise" style="--x:.55;--y:2.0;--w:3.95">
+      <div class="ros">
+        <div class="grp"><p class="act-h">Act I · Blush</p><ol>
+          <li><b>01</b>Satin slip, borrowed cardigan, small wings</li>
+          <li><b>02</b>Pink knit set, pearls</li>
+          <li><b>03</b>Sheer blouse over a cami, ribbon in the hair</li>
+          <li><b>04</b>Pale-pink tailoring, satin cami</li></ol></div>
+        <div class="grp"><p class="act-h">Act II · Crimson</p><ol>
+          <li><b>05</b>A red 2000s power suit from a mom’s closet</li>
+          <li><b>06</b>Crimson slip dress, black blazer on the shoulders</li>
+          <li><b>07</b>Red knit, wide trousers, red lip</li>
+          <li><b>08</b>A dad’s oversized shirt, belted as a dress</li></ol></div>
+        <div class="grp"><p class="act-h">Act III · Midnight</p><ol>
+          <li><b>09</b>Black lace top, satin skirt</li>
+          <li><b>10</b>Sequin dress, gold glints</li>
+          <li><b>11</b>Velvet blazer, sheer black tights</li>
+          <li><b>12</b>Black gown, the biggest wings, closing look</li></ol></div>
+        <div class="grp"><p class="act-h">Finale · Off duty</p><ol>
+          <li><b>All</b>White tee and jeans, wings in hand</li></ol></div>
+      </div>
+
+      <div class="closet-card">
+        <p class="cc-t">The closet card · one per look, in the program</p>
+        <p class="cc-look">LOOK 05</p>
+        <p class="ln">Lent by <u></u></p>
+        <p class="ln">First worn <u class="s"></u> for <u></u></p>
+        <p class="ln">Styled with <u></u></p>
+      </div>
+      <p class="lender"><b>Lender rules</b>A log for every piece: owner, condition photo, return date. Steam, clip and pin only. Everything goes back within 48 hours.</p>
+    </div>
+
+    <div class="abs rise" style="--x:4.72;--y:1.86;--w:3.73">
+      <div class="budget">
+        <p class="label" style="color:var(--crimson)">Concept plan · illustrative estimates, not quotes</p>
+        <p class="bt">Budget snapshot</p>
+        <table class="btab" id="uses">
+          <thead><tr><th>Uses</th><th></th><th>Base</th><th>Lean</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <table class="btab src" id="sources">
+          <thead><tr><th>Sources, to confirm with the club</th><th>Base</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p class="flex">Looks and wings get funded first. If the budget shrinks, lights and set flex; the looks don’t. The lean plan saves <span id="saves"></span>.</p>
+        <div class="kpis">
+          <div class="kpi"><b>12</b><span>Looks</span></div>
+          <div class="kpi"><b id="perLook"></b><span>Per look, all in</span></div>
+          <div class="kpi"><b>10%</b><span>Contingency</span></div>
+          <div class="kpi"><b>$0</b><span>Clothes, all borrowed</span></div>
+        </div>
+        <p class="fine">Per look includes contingency. Biggest line: lighting and sound, about <span id="lightShare"></span> of the total. Venue assumed to be campus space; venue, music rights and the door donation to confirm.</p>
+      </div>
+    </div>
+
+    <p class="abs roleline rise" style="--x:.55;--y:10.38;--w:7.9">I want to walk it, help direct it, and run its <em>numbers.</em></p>
+
+    <footer class="folio"><span>Minh Nguyen · Model Book</span><i class="rule"></i><span class="n">09 / 10</span></footer>
+  </div>
+</section>
+</div>
+
+<!-- =====================================================================
+     10 · CURTAIN CALL (back cover, the galaxy mirrored)
+     ===================================================================== -->
+<section class="page p10 night last" id="p10" aria-label="Curtain call">
+  <div class="sheet">
+    <div data-fx="galaxy" data-mirror></div>
+
+    <div class="stack">
+      <div class="closing-window halo" style="--ft:20%;--fs:11%"><figure class="ph r34 fade-edge" data-slot="closing"></figure></div>
+      <p class="kicker" data-fx-keep>Curtain call</p>
+      <h2 class="hl glow-type" data-fx-keep>Thank <em>you.</em></h2>
+      <p class="line" data-fx-keep>I’d love to walk for Fashion Etc. Your move.</p>
+      <p class="wink" data-fx-keep>See you on the runway.</p>
+      <p class="label contactrow" data-fx-keep><span data-contact="instagram"></span> <span data-contact="email"></span></p>
+      <p class="lockup" data-fx-keep><span>Minh Nguyen</span> <span>They / Them</span> <span>Dartmouth ’27</span></p>
+    </div>
+
+    <p class="colophon" data-fx-keep>Every photograph in this book is of Minh Nguyen.<span id="creditLine"></span> The galaxy, the runway and the light are painted in code.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const params = new URLSearchParams(location.search);
+  const singlePage = params.get('page');
+  const root = document.documentElement;
+  if (BOOK.kappaDelta) root.classList.add('kd');
+
+  /* ---------- photo slots ---------- */
+  const byId = Object.fromEntries(PHOTOS.map(p => [p.id, p]));
+  $$('.ph[data-slot]').forEach(fig => {
+    const p = byId[fig.dataset.slot];
+    if (!p || !p.src) { fig.style.display = 'none'; console.warn('[modelbook] no photo for slot', fig.dataset.slot); return; }
+    const img = new Image();
+    img.src = p.src;
+    img.alt = p.alt || 'Minh Nguyen';
+    img.decoding = 'async';
+    const pos = p.pos || '50% 50%';
+    img.style.objectPosition = pos;
+    if (p.zoom && p.zoom !== 1) { img.style.transform = `scale(${p.zoom})`; img.style.transformOrigin = pos; }
+    fig.insertBefore(img, fig.firstChild);
+  });
+
+  /* ---------- stats, contact, credit ---------- */
+  const statLabels = { height: 'Height', hair: 'Hair', eyes: 'Eyes', shoe: 'Shoe', dress: 'Dress' };
+  const filled = Object.keys(statLabels).filter(k => String(STATS[k] || '').trim());
+  $('#stats').innerHTML = filled.length
+    ? filled.map(k => `<div class="st"><b>${statLabels[k]}</b><span>${STATS[k]}</span></div>`).join('')
+    : '<p class="fallback">Open to runway, editorial, and campus shoots.</p>';
+
+  $$('[data-contact]').forEach(el => {
+    const k = el.dataset.contact, v = String(BOOK[k] || '').trim();
+    if (!v) { el.remove(); return; }
+    el.textContent = (k === 'instagram' ? 'Instagram ' : 'Email ') + v;
+  });
+  if (BOOK.credit) $('#creditLine').textContent = ' Photography: ' + BOOK.credit + '.';
+
+  /* ---------- budget (every figure computed, so the sums always tie) ---------- */
+  const USES = [
+    ['Runway and set', 220, 120],
+    ['Lighting and sound', 450, 200],
+    ['Wings workshop, 12 pairs, avg $20', 240, 240],
+    ['Styling kit: rack, steamer, clips', 160, 160],
+    ['Hair and makeup kit', 230, 230],
+    ['Photo and video stipends', 300, 200],
+    ['Print and closet cards', 120, 40],
+    ['Model and crew meals', 180, 120]
+  ];
+  const SOURCES = [
+    ['Club funding request', 1400],
+    ['Door donation, about 150 guests at $3', 450],
+    ['Sponsors and in-kind', 240]
+  ];
+  const money = n => '$' + Math.round(n).toLocaleString('en-US');
+  const sub = USES.reduce((a, r) => a + r[1], 0), subL = USES.reduce((a, r) => a + r[2], 0);
+  const cont = Math.round(sub * .1), contL = Math.round(subL * .1);
+  const tot = sub + cont, totL = subL + contL;
+  const srcTot = SOURCES.reduce((a, r) => a + r[1], 0);
+  if (srcTot !== tot) console.warn('[modelbook] sources do not equal uses', srcTot, tot);
+  $('#uses tbody').innerHTML = USES.map(r =>
+    `<tr title="${r[0]}: ${money(r[1])} base, ${money(r[2])} lean"><td>${r[0]}</td><td class="b"><span class="bar" style="--p:${(r[1] / tot / .25 * 100).toFixed(1)}%"></span></td><td class="v">${money(r[1])}</td><td class="v lean">${money(r[2])}</td></tr>`).join('') +
+    `<tr class="sub"><td>Subtotal</td><td></td><td class="v">${money(sub)}</td><td class="v lean">${money(subL)}</td></tr>` +
+    `<tr><td>Contingency, 10%</td><td></td><td class="v">${money(cont)}</td><td class="v lean">${money(contL)}</td></tr>` +
+    `<tr class="tot"><td>Total</td><td></td><td class="v">${money(tot)}</td><td class="v lean">${money(totL)}</td></tr>`;
+  $('#sources tbody').innerHTML = SOURCES.map(r =>
+    `<tr><td>${r[0]}</td><td class="v">${money(r[1])}</td></tr>`).join('') +
+    `<tr class="tot"><td>Total, equal to uses</td><td class="v">${money(srcTot)}</td></tr>`;
+  $('#saves').textContent = `${money(tot - totL)}, about ${Math.round((tot - totL) / tot * 100)}%`;
+  $('#perLook').textContent = money(tot / 12);
+  $('#lightShare').textContent = Math.round(450 / tot * 100) + '%';
+
+  /* ---------- single page (pin export) ---------- */
+  if (singlePage) {
+    document.body.classList.add('single');
+    const t = $('#p' + String(singlePage).padStart(2, '0'));
+    if (t) t.classList.add('target');
+  }
+
+  /* ---------- rise on scroll: never hides what is already on screen ---------- */
+  const canAnimate = 'IntersectionObserver' in window && !singlePage && !params.has('still') &&
+    window.matchMedia('(prefers-reduced-motion: no-preference)').matches && !window.matchMedia('print').matches;
+  if (canAnimate) {
+    const vh = window.innerHeight;
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    $$('.rise').forEach(el => { if (el.getBoundingClientRect().top > vh) { el.classList.add('pre'); io.observe(el); } });
+    window.addEventListener('beforeprint', () => $$('.rise.pre').forEach(el => el.classList.remove('pre')));
+  }
+
+  /* ---------- layout self-check: ?check=1 writes a report into the page ---------- */
+  if (params.has('check')) {
+    document.fonts.ready.then(() => setTimeout(() => {
+      const out = [];
+      $$('.page').forEach(pg => {
+        const pr = pg.getBoundingClientRect();
+        $$('.abs, .cc-grid, .stack, .colophon', pg).forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.bottom > pr.bottom + 1 || r.right > pr.right + 1) out.push(`${pg.id}: ${el.className.split(' ').slice(0, 3).join('.')} bottom ${Math.round(r.bottom - pr.top)} of ${Math.round(pr.height)}, right ${Math.round(r.right - pr.left)} of ${Math.round(pr.width)}`);
+        });
+        $$('.abs, .stack', pg).forEach(el => {
+          const r = el.getBoundingClientRect();
+          $$('.folio, .colophon', pg).forEach(fo => { if (fo === el) return; const fr = fo.getBoundingClientRect(); if (r.bottom > fr.top + 1 && r.top < fr.bottom && r.right > fr.left && r.left < fr.right) out.push(`${pg.id}: ${el.className.split(' ').slice(0, 3).join('.')} touches ${fo.className}`); });
+        });
+      });
+      out.push('scrollWidth ' + document.documentElement.scrollWidth + ' / innerWidth ' + window.innerWidth);
+      const pre = document.createElement('pre');
+      pre.id = 'check-out';
+      pre.textContent = out.join('\n');
+      document.body.appendChild(pre);
+    }, 300));
+  }
+})();
+</script>
+<script src="fx.js"></script>
+</body>
+</html>
