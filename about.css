@@ -2544,9 +2544,13 @@ abbr[title] {
   line-height: 1.3;
 }
 
+/* Where the tape wraps and the source drops onto a row of its own, its
+   margins keep the focus ring clear of the date tag above it and of the
+   punched holes below; on one row it is centred, so they change nothing. */
 .chyron-src {
   align-self: center;
-  padding: 0.8rem 1.2rem;
+  margin-block: 0.5rem;
+  padding: 0.6rem 1.2rem;
   font: 600 0.6rem/1.2 var(--font-body);
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -4488,7 +4492,7 @@ abbr[title] {
   }
 
   .chyron-src {
-    margin-top: 0.2rem;
+    margin-block: 0.2rem 0;
     padding-top: 0.35rem;
     padding-bottom: 0.6rem;
   }
@@ -4671,8 +4675,9 @@ abbr[title] {
      units, so the cover space and the drawing always agree. The cover
      starts just under the header, which grows by a line where the top
      bar's "Now showing" wraps (below about 364px wide; re-measure if that
-     line changes), and the scatter of flowers and butterflies drops with
-     her, so it keeps its places around her. */
+     line changes). There the scatter of flowers and butterflies rises by
+     as much as she drops: of the offsets tried across phone sizes, that
+     one leaves the fewest motifs touching her outline. */
   .chapter-market {
     --col: 100%;
     --cover-top: calc(7.25rem + clamp(0px, (370px - 100vw) * 9999, 1.1rem));
@@ -4702,7 +4707,7 @@ abbr[title] {
       var(--grain-print) 0 0 / 180px 180px,
       var(--gof-girl) 50% var(--cover-top) / auto var(--girl-h) no-repeat,
       var(--gof-garden) 0 calc(100% + 2px) / auto max(22vh, 100vh - var(--cover-top) - var(--girl-h) * 0.82) repeat-x,
-      var(--gof-scatter) 0 calc(var(--cover-top) - 7.25rem) / 150% auto repeat-y,
+      var(--gof-scatter) 0 calc(7.25rem - var(--cover-top)) / 150% auto repeat-y,
       linear-gradient(rgba(250, 249, 245, 0.9), rgba(250, 249, 245, 0.9)),
       var(--plate-print-paper) 50% 50% / cover no-repeat,
       var(--print-paper);
